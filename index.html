@@ -1,52 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>BioFetch</title>
+<title>BioFetch v2</title>
+
 <style>
+
 body{
 font-family:Arial,sans-serif;
-max-width:900px;
+max-width:1000px;
 margin:auto;
 padding:20px;
-background:#f5f5f5;
+background:#f4f6f8;
 }
 
 h1{
-color:#2c3e50;
 text-align:center;
+color:#2c3e50;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:12px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
 }
 
 input{
 width:100%;
-padding:10px;
+padding:12px;
 font-size:16px;
 margin-bottom:10px;
 }
 
 button{
-padding:10px 20px;
+padding:12px 20px;
 background:#007bff;
 color:white;
 border:none;
+border-radius:6px;
 cursor:pointer;
+}
+
+button:hover{
+background:#0056b3;
 }
 
 #result{
 margin-top:20px;
-background:white;
-padding:15px;
-border-radius:10px;
 }
+
+a{
+display:inline-block;
+margin-top:10px;
+margin-right:10px;
+text-decoration:none;
+}
+
+.linkbtn{
+padding:10px 15px;
+background:#28a745;
+color:white;
+border-radius:6px;
+}
+
+pre{
+white-space:pre-wrap;
+word-wrap:break-word;
+}
+
 </style>
+
 </head>
 
 <body>
 
-<h1>BioFetch</h1>
+<h1>BioFetch v2</h1>
+
+<div class="card">
 
 <p>Enter UniProt Protein ID</p>
 
-<input id="proteinId" placeholder="Example: P69905">
+<input
+id="proteinId"
+placeholder="Example: P69905">
 
 <button onclick="searchProtein()">
 Search
@@ -54,51 +90,99 @@ Search
 
 <div id="result"></div>
 
+</div>
+
 <script>
 
 async function searchProtein(){
 
-let id=document.getElementById("proteinId").value;
+let id =
+document.getElementById("proteinId").value.trim();
 
-let url=
-"https://rest.uniprot.org/uniprotkb/"+id+".json";
+let url =
+"https://rest.uniprot.org/uniprotkb/" + id + ".json";
 
 try{
 
-let response=
-await fetch(url);
+let response = await fetch(url);
 
-let data=
-await response.json();
+let data = await response.json();
 
-document.getElementById("result").innerHTML=
+let protein =
+data.proteinDescription?.recommendedName?.fullName?.value || "N/A";
 
-"<h2>"+data.proteinDescription.recommendedName.fullName.value+"</h2>"
-+
-"<p><b>Organism:</b> "
-+
-data.organism.scientificName
-+
-"</p>"
-+
-"<p><b>Length:</b> "
-+
-data.sequence.length
-+
-"</p>"
-+
-"<p><b>Sequence:</b><br>"
-+
-data.sequence.value
-+
-"</p>";
+let gene =
+data.genes?.[0]?.geneName?.value || "N/A";
+
+let organism =
+data.organism?.scientificName || "N/A";
+
+let length =
+data.sequence?.length || "N/A";
+
+let sequence =
+data.sequence?.value || "N/A";
+
+let functionText =
+"N/A";
+
+if(data.comments){
+
+let func =
+data.comments.find(
+c => c.commentType === "FUNCTION"
+);
+
+if(func){
+functionText =
+func.texts[0].value;
+}
+
+}
+
+let uniprotLink =
+"https://www.uniprot.org/uniprotkb/" + id;
+
+let alphaFoldLink =
+"https://alphafold.ebi.ac.uk/entry/" + id;
+
+document.getElementById("result").innerHTML =
+
+`
+<h2>${protein}</h2>
+
+<p><b>Gene:</b> ${gene}</p>
+
+<p><b>Organism:</b> ${organism}</p>
+
+<p><b>Length:</b> ${length}</p>
+
+<p><b>Function:</b><br>${functionText}</p>
+
+<a class="linkbtn"
+href="${uniprotLink}"
+target="_blank">
+UniProt Record
+</a>
+
+<a class="linkbtn"
+href="${alphaFoldLink}"
+target="_blank">
+AlphaFold Structure
+</a>
+
+<h3>Sequence</h3>
+
+<pre>${sequence}</pre>
+
+`;
 
 }
 
 catch{
 
-document.getElementById("result").innerHTML=
-"Protein not found";
+document.getElementById("result").innerHTML =
+"<h2>Protein not found</h2>";
 
 }
 
