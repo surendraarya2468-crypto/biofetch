@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>BioFetch</title>
+<style>
+body{
+font-family:Arial,sans-serif;
+max-width:900px;
+margin:auto;
+padding:20px;
+background:#f5f5f5;
+}
+
+h1{
+color:#2c3e50;
+text-align:center;
+}
+
+input{
+width:100%;
+padding:10px;
+font-size:16px;
+margin-bottom:10px;
+}
+
+button{
+padding:10px 20px;
+background:#007bff;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+#result{
+margin-top:20px;
+background:white;
+padding:15px;
+border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>BioFetch</h1>
+
+<p>Enter UniProt Protein ID</p>
+
+<input id="proteinId" placeholder="Example: P69905">
+
+<button onclick="searchProtein()">
+Search
+</button>
+
+<div id="result"></div>
+
+<script>
+
+async function searchProtein(){
+
+let id=document.getElementById("proteinId").value;
+
+let url=
+"https://rest.uniprot.org/uniprotkb/"+id+".json";
+
+try{
+
+let response=
+await fetch(url);
+
+let data=
+await response.json();
+
+document.getElementById("result").innerHTML=
+
+"<h2>"+data.proteinDescription.recommendedName.fullName.value+"</h2>"
++
+"<p><b>Organism:</b> "
++
+data.organism.scientificName
++
+"</p>"
++
+"<p><b>Length:</b> "
++
+data.sequence.length
++
+"</p>"
++
+"<p><b>Sequence:</b><br>"
++
+data.sequence.value
++
+"</p>";
+
+}
+
+catch{
+
+document.getElementById("result").innerHTML=
+"Protein not found";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
