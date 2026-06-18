@@ -8,33 +8,39 @@
 <style>
 
 body{
-font-family:Arial;
+font-family:Arial,sans-serif;
 max-width:1000px;
 margin:auto;
 padding:20px;
 background:#f4f6f8;
 }
 
+
 h1{
 text-align:center;
 color:#2c3e50;
 }
+
 
 .card{
 
 background:white;
 padding:20px;
 border-radius:12px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
 
 }
+
 
 input{
 
 width:100%;
 padding:12px;
 font-size:16px;
+margin-top:10px;
 
 }
+
 
 button{
 
@@ -43,7 +49,15 @@ padding:12px 20px;
 background:#007bff;
 color:white;
 border:none;
+border-radius:6px;
 cursor:pointer;
+
+}
+
+
+button:hover{
+
+background:#0056b3;
 
 }
 
@@ -57,21 +71,26 @@ margin-top:20px;
 
 .box{
 
-background:#eee;
-padding:10px;
+background:#eeeeee;
+padding:15px;
 border-radius:8px;
+word-wrap:break-word;
 
 }
 
 
 a{
 
-padding:10px;
+display:inline-block;
+margin:10px 5px 10px 0;
+padding:10px 15px;
 background:#28a745;
 color:white;
 text-decoration:none;
+border-radius:6px;
 
 }
+
 
 </style>
 
@@ -91,18 +110,17 @@ BioFetch v3
 
 
 <p>
-Enter Protein ID OR Gene Name
+Enter UniProt ID OR Gene Name
 </p>
 
 
-<input id="query"
+<input 
+id="query"
 placeholder="Example: P69905 or TP53">
 
 
 <button onclick="searchProtein()">
-
 Search
-
 </button>
 
 
@@ -120,25 +138,42 @@ async function searchProtein(){
 
 
 let query =
-document.getElementById("query").value;
+document.getElementById("query").value.trim();
+
+
+
+if(query==""){
+
+document.getElementById("result").innerHTML =
+"Please enter a value";
+
+return;
+
+}
 
 
 
 let url;
 
 
-// Detect ID or Gene
 
+// UniProt ID detection
 
-if(query.length <= 10 && query.match(/^[A-Z0-9]+$/)){
+if(
+query.match(/^([A-Z][0-9]{5}|[A-Z0-9]{6})$/)
+){
 
 
 url =
 "https://rest.uniprot.org/uniprotkb/"
-+query+".json";
++query+
+".json";
 
 
 }
+
+
+// Gene name search
 
 else{
 
@@ -149,7 +184,6 @@ url =
 "&format=json";
 
 }
-
 
 
 
@@ -170,10 +204,20 @@ let protein;
 
 
 
+// Gene search returns results array
+
 if(data.results){
 
 
-protein=data.results[0];
+if(data.results.length===0){
+
+throw "not found";
+
+}
+
+
+protein =
+data.results[0];
 
 
 }
@@ -183,32 +227,77 @@ else{
 
 protein=data;
 
-
 }
 
 
 
 
 let accession =
-protein.primaryAccession;
+protein.primaryAccession || "N/A";
 
 
 
-let name =
+let proteinName =
 protein.proteinDescription
-.recommendedName
-.fullName
-.value;
+?.recommendedName
+?.fullName
+?.value
+|| "N/A";
 
 
 
 let organism =
-protein.organism.scientificName;
+protein.organism
+?.scientificName
+|| "N/A";
 
 
 
 let length =
-protein.sequence.length;
+protein.sequence
+?.length
+|| "N/A";
+
+
+
+let sequence =
+protein.sequence
+?.value
+|| "N/A";
+
+
+
+let gene =
+protein.genes?.[0]?.geneName?.value
+|| "N/A";
+
+
+
+let functionText =
+"N/A";
+
+
+
+if(protein.comments){
+
+
+let func =
+protein.comments.find(
+c=>c.commentType==="FUNCTION"
+);
+
+
+
+if(func){
+
+functionText =
+func.texts[0].value;
+
+}
+
+}
+
+
 
 
 
@@ -217,54 +306,57 @@ document.getElementById("result").innerHTML =
 
 `
 
-<h2>${name}</h2>
+<h2>${proteinName}</h2>
 
 
 <p>
-<b>Accession:</b>
-${accession}
+<b>Accession:</b> ${accession}
 </p>
 
 
 <p>
-<b>Organism:</b>
-${organism}
+<b>Gene:</b> ${gene}
 </p>
 
 
 <p>
-<b>Length:</b>
-${length}
+<b>Organism:</b> ${organism}
+</p>
+
+
+<p>
+<b>Length:</b> ${length}
+</p>
+
+
+<p>
+<b>Function:</b><br>
+${functionText}
 </p>
 
 
 
 <a target="_blank"
-
 href="https://www.uniprot.org/uniprotkb/${accession}">
-
 UniProt
-
 </a>
 
 
 <a target="_blank"
-
 href="https://alphafold.ebi.ac.uk/entry/${accession}">
-
 AlphaFold
-
 </a>
+
 
 
 <h3>
-Sequence
+Protein Sequence
 </h3>
 
 
 <div class="box">
 
-${protein.sequence.value}
+${sequence}
 
 </div>
 
@@ -279,19 +371,20 @@ ${protein.sequence.value}
 catch{
 
 
-document.getElementById("result").innerHTML=
+document.getElementById("result").innerHTML =
 
-"Not found";
+"Protein or gene not found";
+
+
+}
+
 
 
 }
 
-
-}
 
 
 </script>
-
 
 
 </body>
