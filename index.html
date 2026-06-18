@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>BioFetch v2</title>
+
+<title>BioFetch v3</title>
 
 <style>
 
 body{
-font-family:Arial,sans-serif;
+font-family:Arial;
 max-width:1000px;
 margin:auto;
 padding:20px;
@@ -19,176 +21,279 @@ color:#2c3e50;
 }
 
 .card{
+
 background:white;
 padding:20px;
 border-radius:12px;
-box-shadow:0 2px 8px rgba(0,0,0,0.1);
+
 }
 
 input{
+
 width:100%;
 padding:12px;
 font-size:16px;
-margin-bottom:10px;
+
 }
 
 button{
+
+margin-top:10px;
 padding:12px 20px;
 background:#007bff;
 color:white;
 border:none;
-border-radius:6px;
 cursor:pointer;
+
 }
 
-button:hover{
-background:#0056b3;
-}
 
 #result{
+
 margin-top:20px;
+
 }
+
+
+.box{
+
+background:#eee;
+padding:10px;
+border-radius:8px;
+
+}
+
 
 a{
-display:inline-block;
-margin-top:10px;
-margin-right:10px;
-text-decoration:none;
-}
 
-.linkbtn{
-padding:10px 15px;
+padding:10px;
 background:#28a745;
 color:white;
-border-radius:6px;
-}
+text-decoration:none;
 
-pre{
-white-space:pre-wrap;
-word-wrap:break-word;
 }
 
 </style>
 
+
 </head>
+
 
 <body>
 
-<h1>BioFetch v2</h1>
+
+<h1>
+BioFetch v3
+</h1>
+
 
 <div class="card">
 
-<p>Enter UniProt Protein ID</p>
 
-<input
-id="proteinId"
-placeholder="Example: P69905">
+<p>
+Enter Protein ID OR Gene Name
+</p>
+
+
+<input id="query"
+placeholder="Example: P69905 or TP53">
+
 
 <button onclick="searchProtein()">
+
 Search
+
 </button>
+
 
 <div id="result"></div>
 
+
 </div>
+
+
 
 <script>
 
+
 async function searchProtein(){
 
-let id =
-document.getElementById("proteinId").value.trim();
 
-let url =
-"https://rest.uniprot.org/uniprotkb/" + id + ".json";
+let query =
+document.getElementById("query").value;
+
+
+
+let url;
+
+
+// Detect ID or Gene
+
+
+if(query.length <= 10 && query.match(/^[A-Z0-9]+$/)){
+
+
+url =
+"https://rest.uniprot.org/uniprotkb/"
++query+".json";
+
+
+}
+
+else{
+
+
+url =
+"https://rest.uniprot.org/uniprotkb/search?query=gene:"
++query+
+"&format=json";
+
+}
+
+
+
 
 try{
 
-let response = await fetch(url);
 
-let data = await response.json();
+let response =
+await fetch(url);
 
-let protein =
-data.proteinDescription?.recommendedName?.fullName?.value || "N/A";
 
-let gene =
-data.genes?.[0]?.geneName?.value || "N/A";
+
+let data =
+await response.json();
+
+
+
+let protein;
+
+
+
+if(data.results){
+
+
+protein=data.results[0];
+
+
+}
+
+else{
+
+
+protein=data;
+
+
+}
+
+
+
+
+let accession =
+protein.primaryAccession;
+
+
+
+let name =
+protein.proteinDescription
+.recommendedName
+.fullName
+.value;
+
+
 
 let organism =
-data.organism?.scientificName || "N/A";
+protein.organism.scientificName;
+
+
 
 let length =
-data.sequence?.length || "N/A";
+protein.sequence.length;
 
-let sequence =
-data.sequence?.value || "N/A";
 
-let functionText =
-"N/A";
-
-if(data.comments){
-
-let func =
-data.comments.find(
-c => c.commentType === "FUNCTION"
-);
-
-if(func){
-functionText =
-func.texts[0].value;
-}
-
-}
-
-let uniprotLink =
-"https://www.uniprot.org/uniprotkb/" + id;
-
-let alphaFoldLink =
-"https://alphafold.ebi.ac.uk/entry/" + id;
 
 document.getElementById("result").innerHTML =
 
+
 `
-<h2>${protein}</h2>
 
-<p><b>Gene:</b> ${gene}</p>
+<h2>${name}</h2>
 
-<p><b>Organism:</b> ${organism}</p>
 
-<p><b>Length:</b> ${length}</p>
+<p>
+<b>Accession:</b>
+${accession}
+</p>
 
-<p><b>Function:</b><br>${functionText}</p>
 
-<a class="linkbtn"
-href="${uniprotLink}"
-target="_blank">
-UniProt Record
+<p>
+<b>Organism:</b>
+${organism}
+</p>
+
+
+<p>
+<b>Length:</b>
+${length}
+</p>
+
+
+
+<a target="_blank"
+
+href="https://www.uniprot.org/uniprotkb/${accession}">
+
+UniProt
+
 </a>
 
-<a class="linkbtn"
-href="${alphaFoldLink}"
-target="_blank">
-AlphaFold Structure
+
+<a target="_blank"
+
+href="https://alphafold.ebi.ac.uk/entry/${accession}">
+
+AlphaFold
+
 </a>
 
-<h3>Sequence</h3>
 
-<pre>${sequence}</pre>
+<h3>
+Sequence
+</h3>
+
+
+<div class="box">
+
+${protein.sequence.value}
+
+</div>
+
 
 `;
 
+
+
 }
+
 
 catch{
 
-document.getElementById("result").innerHTML =
-"<h2>Protein not found</h2>";
+
+document.getElementById("result").innerHTML=
+
+"Not found";
+
 
 }
 
+
 }
+
 
 </script>
 
+
+
 </body>
+
 </html>
