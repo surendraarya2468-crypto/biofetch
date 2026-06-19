@@ -3,7 +3,21 @@
 
 <head>
 
-<title>BioFetch</title>
+<title>BioFetch | Developed by Surendra Dutt Arya</title>
+
+<meta charset="UTF-8">
+
+<meta name="description"
+content="BioFetch is a bioinformatics research platform developed by Surendra Dutt Arya for protein, gene, structure and environmental bioinformatics analysis.">
+
+<meta name="keywords"
+content="bioinformatics, protein search, gene search, environmental biotechnology, UniProt, AlphaFold, Surendra Dutt Arya, BioFetch">
+
+<meta name="author"
+content="Surendra Dutt Arya">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <style>
 
@@ -24,6 +38,7 @@ color:white;
 text-decoration:none;
 margin:20px;
 font-weight:bold;
+font-size:18px;
 }
 
 .hero{
@@ -31,28 +46,39 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 padding:60px;
+flex-wrap:wrap;
 }
 
 .hero-text{
 width:50%;
+min-width:300px;
 }
 
 .hero-text h1{
-font-size:50px;
+font-size:55px;
 color:#0b3d5c;
+margin-bottom:10px;
+}
+
+.hero-text h3{
+color:#555;
+margin-top:0;
 }
 
 .hero-text p{
 font-size:20px;
+line-height:1.6;
 }
 
 .hero-image{
 width:40%;
+min-width:300px;
 }
 
 .hero-image img{
 width:100%;
-border-radius:10px;
+border-radius:12px;
+box-shadow:0px 2px 10px rgba(0,0,0,0.2);
 }
 
 .cards{
@@ -65,11 +91,20 @@ padding:30px;
 
 .card{
 background:white;
-width:250px;
+width:260px;
 padding:20px;
-border-radius:10px;
+border-radius:12px;
 box-shadow:0px 2px 10px rgba(0,0,0,0.1);
 text-align:center;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card h2{
+color:#0b3d5c;
 }
 
 .button{
@@ -79,6 +114,25 @@ background:#007bff;
 color:white;
 text-decoration:none;
 border-radius:5px;
+margin-top:10px;
+}
+
+.resources{
+background:white;
+padding:30px;
+margin:20px;
+border-radius:12px;
+box-shadow:0px 2px 10px rgba(0,0,0,0.1);
+}
+
+.resources h2{
+text-align:center;
+color:#0b3d5c;
+}
+
+.resources ul{
+font-size:18px;
+line-height:2;
 }
 
 .footer{
@@ -111,10 +165,15 @@ margin-top:30px;
 
 <h1>🧬 BioFetch</h1>
 
+<h3>Developed by Surendra Dutt Arya</h3>
+
 <p>
+
 Integrated Bioinformatics Research Platform
-for Proteins, Genes, Structures and
-Environmental Biotechnology.
+for Proteins, Genes, Structures,
+Environmental Biotechnology and
+Bioinformatics Resources.
+
 </p>
 
 </div>
@@ -134,7 +193,7 @@ Environmental Biotechnology.
 <h2>Protein Search</h2>
 
 <p>
-Search UniProt proteins and sequences.
+Search proteins, sequences, functions and annotations from UniProt.
 </p>
 
 <a class="button" href="protein.html">
@@ -148,7 +207,7 @@ Open
 <h2>Gene Explorer</h2>
 
 <p>
-Explore environmental and disease genes.
+Explore disease genes, environmental genes and functional markers.
 </p>
 
 <a class="button" href="gene.html">
@@ -162,7 +221,7 @@ Open
 <h2>Structure Explorer</h2>
 
 <p>
-Access AlphaFold and PDB resources.
+Access AlphaFold models and PDB structure resources.
 </p>
 
 <a class="button" href="structure.html">
@@ -176,7 +235,7 @@ Open
 <h2>Environment Hub</h2>
 
 <p>
-Bioremediation and bioenergy resources.
+Bioremediation, metal resistance and bioenergy resources.
 </p>
 
 <a class="button" href="environment.html">
@@ -187,9 +246,39 @@ Open
 
 </div>
 
+<div class="resources">
+
+<h2>Connected Bioinformatics Resources</h2>
+
+<ul>
+
+<li>UniProt Protein Database</li>
+
+<li>AlphaFold Structure Database</li>
+
+<li>Protein Data Bank (PDB)</li>
+
+<li>NCBI Gene Resources</li>
+
+<li>KEGG Pathway Database</li>
+
+<li>Environmental Biotechnology Resources</li>
+
+</ul>
+
+</div>
+
 <div class="footer">
 
-BioFetch © 2026
+<h3>BioFetch © 2026</h3>
+
+<p>
+Developed by Surendra Dutt Arya
+</p>
+
+<p>
+Integrated Bioinformatics Research Platform
+</p>
 
 </div>
 
