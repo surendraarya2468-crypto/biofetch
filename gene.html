@@ -1,20 +1,179 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-<title>BioFetch</title>
+<title>BioFetch Gene Explorer</title>
+
+<style>
+
+body{
+font-family:Arial,sans-serif;
+max-width:1000px;
+margin:auto;
+padding:20px;
+background:#f5f5f5;
+}
+
+h1{
+text-align:center;
+color:#2c3e50;
+}
+
+.card{
+background:white;
+padding:20px;
+margin:15px 0;
+border-radius:10px;
+box-shadow:0 2px 6px rgba(0,0,0,0.1);
+}
+
+button{
+padding:10px 15px;
+margin:5px;
+background:#007bff;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+#result{
+background:white;
+padding:15px;
+margin-top:20px;
+border-radius:10px;
+}
+
+a{
+text-decoration:none;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h1>BioFetch</h1>
+<h1>BioFetch Gene Explorer</h1>
 
-<h2>Coming Soon</h2>
+<a href="index.html">⬅ Back to Home</a>
 
-<a href="index.html">
-Back to Home
-</a>
+<div class="card">
+
+<h2>Heavy Metal Resistance Genes</h2>
+
+<button onclick="searchGene('merA')">merA</button>
+<button onclick="searchGene('arsC')">arsC</button>
+<button onclick="searchGene('copA')">copA</button>
+<button onclick="searchGene('czcA')">czcA</button>
+<button onclick="searchGene('nccA')">nccA</button>
+
+</div>
+
+<div class="card">
+
+<h2>Nitrogen Cycle Genes</h2>
+
+<button onclick="searchGene('nifH')">nifH</button>
+<button onclick="searchGene('nirK')">nirK</button>
+<button onclick="searchGene('amoA')">amoA</button>
+
+</div>
+
+<div class="card">
+
+<h2>Methanogenesis Genes</h2>
+
+<button onclick="searchGene('mcrA')">mcrA</button>
+
+</div>
+
+<div class="card">
+
+<h2>Human Disease Genes</h2>
+
+<button onclick="searchGene('TP53')">TP53</button>
+<button onclick="searchGene('BRCA1')">BRCA1</button>
+<button onclick="searchGene('EGFR')">EGFR</button>
+<button onclick="searchGene('MYC')">MYC</button>
+
+</div>
+
+<div id="result">
+
+Select a gene above.
+
+</div>
+
+<script>
+
+async function searchGene(gene){
+
+let url =
+"https://rest.uniprot.org/uniprotkb/search?query=gene:"+gene+"&format=json&size=1";
+
+try{
+
+let response = await fetch(url);
+
+let data = await response.json();
+
+if(data.results.length===0){
+
+document.getElementById("result").innerHTML=
+"<h3>No results found</h3>";
+
+return;
+
+}
+
+let p = data.results[0];
+
+let proteinName =
+p.proteinDescription?.recommendedName?.fullName?.value ||
+"Protein";
+
+let accession =
+p.primaryAccession || "N/A";
+
+let organism =
+p.organism?.scientificName || "N/A";
+
+document.getElementById("result").innerHTML =
+
+"<h2>"+proteinName+"</h2>"
+
++
+
+"<p><b>Gene:</b> "+gene+"</p>"
+
++
+
+"<p><b>Accession:</b> "+accession+"</p>"
+
++
+
+"<p><b>Organism:</b> "+organism+"</p>"
+
++
+
+"<p><a href='https://www.uniprot.org/uniprotkb/"+accession+"' target='_blank'>Open UniProt</a></p>"
+
++
+
+"<p><a href='https://alphafold.ebi.ac.uk/entry/"+accession+"' target='_blank'>Open AlphaFold</a></p>";
+
+}
+
+catch{
+
+document.getElementById("result").innerHTML=
+"<h3>Search failed</h3>";
+
+}
+
+}
+
+</script>
 
 </body>
-
 </html>
