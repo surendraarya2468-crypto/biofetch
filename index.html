@@ -1,21 +1,392 @@
-```html
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
+
 <head>
-<title>Test</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BioFetch | Surendra Dutt Arya</title>
+
 <style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
 body{
-background:blue;
-color:white;
-font-size:40px;
+font-family:Arial,Helvetica,sans-serif;
+background:linear-gradient(135deg,#eef7ff,#d7f1ff);
+color:#16324f;
+}
+
+.navbar{
+background:linear-gradient(90deg,#06283d,#0b5c75);
+padding:18px;
 text-align:center;
 }
+
+.navbar a{
+color:white;
+text-decoration:none;
+margin:0 20px;
+font-weight:bold;
+}
+
+.hero{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:60px;
+gap:50px;
+background:white;
+}
+
+.hero-text{
+width:55%;
+}
+
+.hero-text h1{
+font-size:64px;
+color:#063970;
+margin-bottom:10px;
+}
+
+.hero-text h2{
+color:#0b5c75;
+margin-bottom:20px;
+}
+
+.hero-text p{
+font-size:22px;
+line-height:1.7;
+}
+
+.hero-image{
+width:40%;
+}
+
+.hero-image img{
+width:100%;
+height:380px;
+object-fit:contain;
+border-radius:20px;
+background:white;
+box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+.section-title{
+text-align:center;
+font-size:38px;
+color:#063970;
+margin-top:40px;
+}
+
+.section-subtitle{
+text-align:center;
+color:#555;
+margin-top:10px;
+margin-bottom:20px;
+}
+
+.cards{
+display:flex;
+justify-content:center;
+gap:30px;
+flex-wrap:wrap;
+padding:40px;
+}
+
+.card{
+width:320px;
+background:white;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 5px 20px rgba(0,0,0,0.15);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+}
+
+.card img{
+width:100%;
+height:220px;
+object-fit:contain;
+background:white;
+padding:10px;
+}
+
+.card-content{
+padding:20px;
+text-align:center;
+}
+
+.card-content h2{
+margin-bottom:15px;
+color:#063970;
+}
+
+.card-content p{
+line-height:1.6;
+margin-bottom:20px;
+}
+
+.button{
+display:inline-block;
+padding:12px 25px;
+background:#0077b6;
+color:white;
+text-decoration:none;
+border-radius:8px;
+font-weight:bold;
+}
+
+.environment{
+margin:50px;
+background:white;
+border-radius:20px;
+padding:35px;
+display:flex;
+align-items:center;
+gap:40px;
+box-shadow:0 5px 20px rgba(0,0,0,0.15);
+}
+
+.environment img{
+width:45%;
+height:300px;
+object-fit:contain;
+}
+
+.environment-content{
+width:55%;
+}
+
+.environment-content h2{
+color:#063970;
+margin-bottom:15px;
+}
+
+.environment-content p{
+line-height:1.8;
+margin-bottom:20px;
+}
+
+.video-section{
+margin:50px;
+background:white;
+padding:35px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 5px 20px rgba(0,0,0,0.15);
+}
+
+.video-section h2{
+color:#063970;
+margin-bottom:15px;
+}
+
+.video-section p{
+margin-bottom:20px;
+}
+
+.footer{
+background:#06283d;
+color:white;
+text-align:center;
+padding:25px;
+margin-top:40px;
+}
+
+@media(max-width:900px){
+
+.hero{
+flex-direction:column;
+}
+
+.hero-text,
+.hero-image{
+width:100%;
+}
+
+.environment{
+flex-direction:column;
+}
+
+.environment img,
+.environment-content{
+width:100%;
+}
+
+}
+
 </style>
+
 </head>
 
 <body>
 
-<h1>BIOFETCH TEST</h1>
+<div class="navbar">
+<a href="index.html">Home</a>
+<a href="protein.html">Proteins</a>
+<a href="gene.html">Genes</a>
+<a href="structure.html">Structures</a>
+<a href="environment.html">Environment</a>
+</div>
+
+<section class="hero">
+
+<div class="hero-text">
+
+<h1>🧬 BioFetch</h1>
+
+<h2>Developed by Surendra Dutt Arya</h2>
+
+<p>
+Integrated Bioinformatics Research Platform for Protein Analysis,
+Gene Exploration, Structural Biology, Molecular Informatics,
+Environmental Biotechnology and Bioenergy Research.
+</p>
+
+</div>
+
+<div class="hero-image">
+<img src="assets/protein.gif">
+</div>
+
+</section>
+
+<h2 class="section-title">
+Bioinformatics Research Modules
+</h2>
+
+<p class="section-subtitle">
+Protein • Gene • Structure • Environmental Biotechnology
+</p>
+
+<div class="cards">
+
+<div class="card">
+
+<img src="assets/protein.gif">
+
+<div class="card-content">
+
+<h2>🧬 Protein Explorer</h2>
+
+<p>
+UniProt proteins, sequences, functions and annotations.
+</p>
+
+<a class="button" href="protein.html">
+Open
+</a>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<img src="assets/gene.gif">
+
+<div class="card-content">
+
+<h2>🧬 Gene Explorer</h2>
+
+<p>
+Genes, markers, expression and biological information.
+</p>
+
+<a class="button" href="gene.html">
+Open
+</a>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<img src="assets/structure.gif">
+
+<div class="card-content">
+
+<h2>🔬 Structure Explorer</h2>
+
+<p>
+AlphaFold and PDB 3D structural resources.
+</p>
+
+<a class="button" href="structure.html">
+Open
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<section class="environment">
+
+<img src="assets/environment.gif">
+
+<div class="environment-content">
+
+<h2>🌱 Environmental Bioinformatics Hub</h2>
+
+<p>
+Explore microbial remediation,
+heavy metal resistance,
+acid mine drainage,
+bioenergy,
+resource recovery,
+biomining and sustainable biotechnology.
+</p>
+
+<a class="button" href="environment.html">
+Explore Environment
+</a>
+
+</div>
+
+</section>
+
+<section class="video-section">
+
+<h2>
+🧬 Molecular Biology Learning Resource
+</h2>
+
+<p>
+DNA replication, helicase, primase,
+DNA polymerase III and Okazaki fragment formation.
+</p>
+
+<iframe
+width="700"
+height="400"
+src="https://www.youtube.com/embed/8kK2zwjRV0M"
+title="DNA Replication"
+allowfullscreen>
+</iframe>
+
+</section>
+
+<div class="footer">
+
+BioFetch © 2026
+
+<br><br>
+
+Developed by Surendra Dutt Arya
+
+</div>
 
 </body>
 </html>
