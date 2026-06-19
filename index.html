@@ -2,39 +2,91 @@
 <html>
 
 <head>
+
 <title>BioFetch</title>
 
 <style>
 
 body{
 font-family:Arial,sans-serif;
-background:#f4f6f8;
-text-align:center;
-padding:40px;
+margin:0;
+background:#f4f8fb;
 }
 
-h1{
-color:#2c3e50;
-font-size:42px;
+.navbar{
+background:#0b3d5c;
+padding:15px;
+text-align:center;
+}
+
+.navbar a{
+color:white;
+text-decoration:none;
+margin:20px;
+font-weight:bold;
+}
+
+.hero{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:60px;
+}
+
+.hero-text{
+width:50%;
+}
+
+.hero-text h1{
+font-size:50px;
+color:#0b3d5c;
+}
+
+.hero-text p{
+font-size:20px;
+}
+
+.hero-image{
+width:40%;
+}
+
+.hero-image img{
+width:100%;
+border-radius:10px;
+}
+
+.cards{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+padding:30px;
 }
 
 .card{
 background:white;
-max-width:700px;
-margin:20px auto;
+width:250px;
 padding:20px;
-border-radius:12px;
-box-shadow:0 2px 8px rgba(0,0,0,0.1);
+border-radius:10px;
+box-shadow:0px 2px 10px rgba(0,0,0,0.1);
+text-align:center;
 }
 
-a{
+.button{
 display:inline-block;
-padding:12px 20px;
-margin-top:10px;
+padding:10px 20px;
 background:#007bff;
 color:white;
 text-decoration:none;
-border-radius:8px;
+border-radius:5px;
+}
+
+.footer{
+background:#0b3d5c;
+color:white;
+text-align:center;
+padding:20px;
+margin-top:30px;
 }
 
 </style>
@@ -43,33 +95,104 @@ border-radius:8px;
 
 <body>
 
-<h1>BioFetch</h1>
+<div class="navbar">
 
-<p>Unified Bioinformatics Research Portal</p>
+<a href="index.html">Home</a>
+<a href="protein.html">Proteins</a>
+<a href="gene.html">Genes</a>
+<a href="structure.html">Structures</a>
+<a href="environment.html">Environment</a>
+
+</div>
+
+<div class="hero">
+
+<div class="hero-text">
+
+<h1>🧬 BioFetch</h1>
+
+<p>
+Integrated Bioinformatics Research Platform
+for Proteins, Genes, Structures and
+Environmental Biotechnology.
+</p>
+
+</div>
+
+<div class="hero-image">
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/DNA_orbit_animated_static_thumb.png/640px-DNA_orbit_animated_static_thumb.png">
+
+</div>
+
+</div>
+
+<div class="cards">
 
 <div class="card">
+
 <h2>Protein Search</h2>
-<p>Search proteins and genes using UniProt.</p>
-<a href="protein.html">Open Protein Search</a>
+
+<p>
+Search UniProt proteins and sequences.
+</p>
+
+<a class="button" href="protein.html">
+Open
+</a>
+
 </div>
 
 <div class="card">
-<h2>Gene Search</h2>
-<p>Gene information and annotations.</p>
-<a href="gene.html">Open Gene Search</a>
+
+<h2>Gene Explorer</h2>
+
+<p>
+Explore environmental and disease genes.
+</p>
+
+<a class="button" href="gene.html">
+Open
+</a>
+
 </div>
 
 <div class="card">
-<h2>Structure Resources</h2>
-<p>AlphaFold and PDB resources.</p>
-<a href="structure.html">Open Structure Resources</a>
+
+<h2>Structure Explorer</h2>
+
+<p>
+Access AlphaFold and PDB resources.
+</p>
+
+<a class="button" href="structure.html">
+Open
+</a>
+
 </div>
 
 <div class="card">
-<h2>Environmental Bioinformatics</h2>
-<p>Bioremediation, metal resistance and bioenergy resources.</p>
-<a href="environment.html">Open Environment Section</a>
+
+<h2>Environment Hub</h2>
+
+<p>
+Bioremediation and bioenergy resources.
+</p>
+
+<a class="button" href="environment.html">
+Open
+</a>
+
+</div>
+
+</div>
+
+<div class="footer">
+
+BioFetch © 2026
+
 </div>
 
 </body>
+
 </html>
