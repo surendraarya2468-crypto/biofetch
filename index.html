@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>BioFetch | Surendra Dutt Arya</title>
 
 <style>
@@ -33,6 +31,7 @@ color:white;
 text-decoration:none;
 margin:0 20px;
 font-weight:bold;
+font-size:16px;
 }
 
 .hero{
@@ -66,14 +65,14 @@ line-height:1.7;
 
 .hero-image{
 width:40%;
+text-align:center;
 }
 
 .hero-image img{
 width:100%;
-height:380px;
+max-height:380px;
 object-fit:contain;
 border-radius:20px;
-background:white;
 box-shadow:0 5px 20px rgba(0,0,0,0.2);
 }
 
@@ -109,14 +108,14 @@ transition:0.3s;
 }
 
 .card:hover{
-transform:translateY(-10px);
+transform:translateY(-8px);
 }
 
 .card img{
 width:100%;
 height:220px;
 object-fit:contain;
-background:white;
+background:#ffffff;
 padding:10px;
 }
 
@@ -145,6 +144,10 @@ border-radius:8px;
 font-weight:bold;
 }
 
+.button:hover{
+background:#005f8f;
+}
+
 .environment{
 margin:50px;
 background:white;
@@ -158,7 +161,7 @@ box-shadow:0 5px 20px rgba(0,0,0,0.15);
 
 .environment img{
 width:45%;
-height:300px;
+max-height:320px;
 object-fit:contain;
 }
 
@@ -211,6 +214,7 @@ flex-direction:column;
 .hero-text,
 .hero-image{
 width:100%;
+text-align:center;
 }
 
 .environment{
@@ -220,6 +224,11 @@ flex-direction:column;
 .environment img,
 .environment-content{
 width:100%;
+}
+
+iframe{
+width:100%;
+height:300px;
 }
 
 }
@@ -255,7 +264,7 @@ Environmental Biotechnology and Bioenergy Research.
 </div>
 
 <div class="hero-image">
-<img src="assets/protein.gif">
+<img src="assets/dna.gif" alt="DNA Animation">
 </div>
 
 </section>
@@ -272,7 +281,7 @@ Protein • Gene • Structure • Environmental Biotechnology
 
 <div class="card">
 
-<img src="assets/protein.gif">
+<img src="assets/fightshape.gif" alt="Protein Explorer">
 
 <div class="card-content">
 
@@ -292,7 +301,7 @@ Open
 
 <div class="card">
 
-<img src="assets/gene.gif">
+<img src="assets/gene.gif" alt="Gene Explorer">
 
 <div class="card-content">
 
@@ -312,7 +321,7 @@ Open
 
 <div class="card">
 
-<img src="assets/structure.gif">
+<img src="assets/structure.gif" alt="Structure Explorer">
 
 <div class="card-content">
 
@@ -334,18 +343,15 @@ Open
 
 <section class="environment">
 
-<img src="assets/environment.gif">
+<img src="assets/environment.gif" alt="Environment Hub">
 
 <div class="environment-content">
 
 <h2>🌱 Environmental Bioinformatics Hub</h2>
 
 <p>
-Explore microbial remediation,
-heavy metal resistance,
-acid mine drainage,
-bioenergy,
-resource recovery,
+Explore microbial remediation, heavy metal resistance,
+acid mine drainage, bioenergy, resource recovery,
 biomining and sustainable biotechnology.
 </p>
 
@@ -359,13 +365,11 @@ Explore Environment
 
 <section class="video-section">
 
-<h2>
-🧬 Molecular Biology Learning Resource
-</h2>
+<h2>🧬 Molecular Biology Learning Resource</h2>
 
 <p>
-DNA replication, helicase, primase,
-DNA polymerase III and Okazaki fragment formation.
+DNA replication, helicase, primase, DNA polymerase III
+and Okazaki fragment formation.
 </p>
 
 <iframe
