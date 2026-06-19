@@ -31,6 +31,8 @@ color:#16324f;
 
 
 
+/* Navigation */
+
 
 .navbar{
 
@@ -64,6 +66,10 @@ font-size:16px;
 
 
 
+
+/* Hero */
+
+
 .hero{
 
 
@@ -83,8 +89,9 @@ linear-gradient(
 #d8f3ff
 );
 
-}
+gap:40px;
 
+}
 
 
 
@@ -98,7 +105,6 @@ width:50%;
 
 .hero-text h1{
 
-
 font-size:60px;
 
 color:#063970;
@@ -107,9 +113,7 @@ color:#063970;
 
 
 
-
 .hero-text h2{
-
 
 color:#0b5c75;
 
@@ -117,16 +121,13 @@ color:#0b5c75;
 
 
 
-
 .hero-text p{
-
 
 font-size:22px;
 
 line-height:1.6;
 
 }
-
 
 
 
@@ -147,6 +148,7 @@ width:100%;
 border-radius:20px;
 
 box-shadow:
+
 0px 5px 25px rgba(0,0,0,0.25);
 
 }
@@ -154,6 +156,9 @@ box-shadow:
 
 
 
+
+
+/* Title */
 
 
 .title{
@@ -171,6 +176,9 @@ margin-top:40px;
 
 
 
+
+
+/* Cards */
 
 
 .cards{
@@ -191,6 +199,7 @@ padding:40px;
 
 
 
+
 .card{
 
 
@@ -203,14 +212,14 @@ border-radius:20px;
 overflow:hidden;
 
 box-shadow:
-0px 5px 20px rgba(0,0,0,0.15);
 
+0px 5px 20px rgba(0,0,0,0.15);
 
 transition:0.3s;
 
+border:1px solid rgba(0,119,182,0.2);
 
 }
-
 
 
 
@@ -219,7 +228,6 @@ transition:0.3s;
 transform:translateY(-10px);
 
 }
-
 
 
 
@@ -233,8 +241,26 @@ height:190px;
 
 object-fit:cover;
 
+background:
+
+linear-gradient(
+135deg,
+#001f3f,
+#0077b6
+);
+
+transition:0.5s;
 
 }
+
+
+
+.card:hover img{
+
+transform:scale(1.05);
+
+}
+
 
 
 
@@ -245,6 +271,24 @@ object-fit:cover;
 padding:20px;
 
 text-align:center;
+
+}
+
+
+
+.card h2{
+
+color:#063970;
+
+}
+
+
+
+.card p{
+
+font-size:16px;
+
+color:#444;
 
 }
 
@@ -272,6 +316,9 @@ display:inline-block;
 
 
 
+/* Environment */
+
+
 .environment{
 
 
@@ -290,9 +337,11 @@ align-items:center;
 gap:40px;
 
 box-shadow:
+
 0px 5px 20px rgba(0,0,0,0.15);
 
 }
+
 
 
 
@@ -308,12 +357,17 @@ border-radius:20px;
 
 
 
+
+
+/* DNA Video */
+
+
 .video{
 
 
 margin:50px;
 
-background:#ffffff;
+background:white;
 
 padding:35px;
 
@@ -321,10 +375,26 @@ border-radius:20px;
 
 text-align:center;
 
+box-shadow:
+
+0px 5px 20px rgba(0,0,0,0.15);
+
 }
 
 
 
+
+
+.video iframe{
+
+border-radius:15px;
+
+}
+
+
+
+
+/* Footer */
 
 
 .footer{
@@ -351,6 +421,8 @@ margin-top:40px;
 
 
 
+
+
 <body>
 
 
@@ -361,32 +433,48 @@ margin-top:40px;
 
 
 <a href="index.html">
+
 Home
+
 </a>
+
 
 
 <a href="protein.html">
+
 Proteins
+
 </a>
+
 
 
 <a href="gene.html">
+
 Genes
+
 </a>
+
 
 
 <a href="structure.html">
+
 Structures
+
 </a>
 
 
+
 <a href="environment.html">
+
 Environment
+
 </a>
 
 
 
 </div>
+
+
 
 
 
@@ -397,31 +485,51 @@ Environment
 <section class="hero">
 
 
+
 <div class="hero-text">
 
 
+
 <h1>
+
 🧬 BioFetch
+
 </h1>
 
 
+
 <h2>
+
 Developed by Surendra Dutt Arya
+
 </h2>
+
+
 
 
 <p>
 
+
 Integrated Bioinformatics Research Platform for
 
-Protein Analysis, Gene Exploration,
 
-Structural Biology and Environmental Biotechnology.
+Protein Analysis,
+
+Gene Exploration,
+
+Structural Biology
+
+and Environmental Biotechnology.
+
+
 
 </p>
 
 
+
 </div>
+
+
 
 
 
@@ -435,7 +543,10 @@ Structural Biology and Environmental Biotechnology.
 </div>
 
 
+
 </section>
+
+
 
 
 
@@ -455,8 +566,9 @@ Bioinformatics Research Modules
 
 
 
-<div class="cards">
 
+
+<div class="cards">
 
 
 
@@ -465,24 +577,34 @@ Bioinformatics Research Modules
 <div class="card">
 
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Protein_structure.png">
+<img src="https://media.giphy.com/media/l0HlQXlQ3nHyLMvte/giphy.gif">
+
 
 
 <div class="card-content">
 
 
+
 <h2>
 
-Protein Explorer
+🧬 Protein Explorer
 
 </h2>
 
 
+
+
 <p>
 
-UniProt proteins, sequences, functions and annotations.
+UniProt proteins,
+
+sequences,
+
+functions and annotations.
 
 </p>
+
+
 
 
 <a class="button" href="protein.html">
@@ -492,10 +614,12 @@ Open
 </a>
 
 
+
 </div>
 
 
 </div>
+
 
 
 
@@ -507,24 +631,36 @@ Open
 <div class="card">
 
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/DNA_animation.gif">
+
+<img src="https://media.giphy.com/media/3oKIPu5r9Z9j3m0N5K/giphy.gif">
+
+
 
 
 <div class="card-content">
 
 
+
 <h2>
 
-Gene Explorer
+🧬 Gene Explorer
 
 </h2>
 
 
+
+
 <p>
 
-Genes, markers and biological information.
+Genes,
+
+markers,
+
+expression and biological information.
 
 </p>
+
+
 
 
 <a class="button" href="gene.html">
@@ -534,10 +670,12 @@ Open
 </a>
 
 
+
 </div>
 
 
 </div>
+
 
 
 
@@ -549,24 +687,34 @@ Open
 <div class="card">
 
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Protein_structure_2.png">
+
+<img src="https://media.giphy.com/media/26BRqZ5vK5yN8xT8Q/giphy.gif">
+
+
 
 
 <div class="card-content">
 
 
+
 <h2>
 
-Structure Explorer
+🔬 Structure Explorer
 
 </h2>
 
 
+
+
 <p>
 
-AlphaFold and PDB structural resources.
+AlphaFold and PDB
+
+3D structural resources.
 
 </p>
+
+
 
 
 <a class="button" href="structure.html">
@@ -576,16 +724,20 @@ Open
 </a>
 
 
-</div>
-
 
 </div>
 
 
+</div>
+
+
 
 
 
 </div>
+
+
+
 
 
 
@@ -598,10 +750,14 @@ Open
 <section class="environment">
 
 
+
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Acid_mine_drainage.jpg">
 
 
+
+
 <div>
+
 
 
 <h2>
@@ -611,10 +767,11 @@ Open
 </h2>
 
 
+
 <p>
 
 
-Microbial remediation,
+Explore microbial remediation,
 
 heavy metal resistance,
 
@@ -623,7 +780,10 @@ acid mine drainage,
 bioenergy and sustainable biotechnology.
 
 
+
 </p>
+
+
 
 
 <a class="button" href="environment.html">
@@ -631,6 +791,8 @@ bioenergy and sustainable biotechnology.
 Explore Environment
 
 </a>
+
+
 
 
 </div>
@@ -647,34 +809,55 @@ Explore Environment
 
 
 
+
+
+
+
 <section class="video">
 
 
 <h2>
 
-🧬 Molecular Biology Learning
+🧬 Molecular Biology Learning Resource
 
 </h2>
 
 
+
 <p>
 
-DNA replication, helicase, primase,
 
-DNA polymerase and Okazaki fragments.
+DNA replication,
+
+helicase,
+
+primase,
+
+DNA polymerase III
+
+and Okazaki fragment formation.
+
+
 
 </p>
 
 
 
-<iframe width="560"
+
+
+<iframe
+
+width="560"
+
 height="315"
 
 src="https://www.youtube.com/embed/8kK2zwjRV0M"
 
 allowfullscreen>
 
+
 </iframe>
+
 
 
 
@@ -699,6 +882,8 @@ Developed by Surendra Dutt Arya
 
 
 </div>
+
+
 
 
 
