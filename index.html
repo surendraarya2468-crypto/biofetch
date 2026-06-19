@@ -1,99 +1,83 @@
+```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-<title>BioFetch - Surendra Dutt Arya</title>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>BioFetch | Surendra Dutt Arya</title>
 
 <style>
 
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
 body{
 
-margin:0;
-
 font-family:Arial,Helvetica,sans-serif;
 
-background:linear-gradient(
+background:
+linear-gradient(
 135deg,
 #eef7ff,
-#d9edf7
+#d8f3ff
 );
 
 color:#16324f;
 
 }
 
-
-
-/* Navigation */
-
-
 .navbar{
 
-background:linear-gradient(
+background:
+linear-gradient(
 90deg,
 #06283d,
 #0b5c75
 );
 
 padding:18px;
-
 text-align:center;
 
 }
 
-
-
 .navbar a{
 
 color:white;
-
 text-decoration:none;
-
 margin:20px;
-
 font-weight:bold;
-
 font-size:16px;
 
 }
 
+.navbar a:hover{
 
+color:#90e0ef;
 
-
-/* Hero */
-
+}
 
 .hero{
 
-
 display:flex;
-
 justify-content:space-between;
-
 align-items:center;
-
 padding:60px;
+gap:50px;
 
 background:
-
 linear-gradient(
 120deg,
 #ffffff,
 #d8f3ff
 );
 
-gap:40px;
-
 }
-
-
 
 .hero-text{
 
@@ -101,36 +85,27 @@ width:50%;
 
 }
 
-
-
 .hero-text h1{
 
-font-size:60px;
-
+font-size:64px;
 color:#063970;
+margin-bottom:10px;
 
 }
-
-
 
 .hero-text h2{
 
 color:#0b5c75;
+margin-bottom:20px;
 
 }
-
-
 
 .hero-text p{
 
 font-size:22px;
-
-line-height:1.6;
+line-height:1.7;
 
 }
-
-
-
 
 .hero-image{
 
@@ -138,90 +113,51 @@ width:40%;
 
 }
 
-
-
 .hero-image img{
 
-
 width:100%;
-
 border-radius:20px;
 
 box-shadow:
-
-0px 5px 25px rgba(0,0,0,0.25);
+0px 6px 25px rgba(0,0,0,0.25);
 
 }
-
-
-
-
-
-
-/* Title */
-
 
 .title{
 
-
 text-align:center;
-
-font-size:35px;
-
+font-size:38px;
 color:#063970;
-
-margin-top:40px;
+margin-top:50px;
+margin-bottom:10px;
 
 }
 
-
-
-
-
-/* Cards */
-
-
 .cards{
 
-
 display:flex;
-
 justify-content:center;
-
 gap:30px;
-
 flex-wrap:wrap;
-
 padding:40px;
 
 }
 
-
-
-
-
 .card{
 
-
+width:320px;
 background:white;
-
-width:300px;
 
 border-radius:20px;
 
 overflow:hidden;
 
 box-shadow:
-
-0px 5px 20px rgba(0,0,0,0.15);
+0px 6px 20px rgba(0,0,0,0.15);
 
 transition:0.3s;
 
-border:1px solid rgba(0,119,182,0.2);
-
 }
-
-
 
 .card:hover{
 
@@ -229,98 +165,61 @@ transform:translateY(-10px);
 
 }
 
-
-
-
 .card img{
 
-
 width:100%;
-
-height:190px;
-
+height:220px;
 object-fit:cover;
 
-background:
-
-linear-gradient(
-135deg,
-#001f3f,
-#0077b6
-);
-
-transition:0.5s;
-
 }
-
-
-
-.card:hover img{
-
-transform:scale(1.05);
-
-}
-
-
-
-
 
 .card-content{
 
-
 padding:20px;
-
 text-align:center;
 
 }
 
-
-
-.card h2{
+.card-content h2{
 
 color:#063970;
+margin-bottom:15px;
 
 }
 
-
-
-.card p{
+.card-content p{
 
 font-size:16px;
-
-color:#444;
+line-height:1.6;
+margin-bottom:20px;
 
 }
-
-
-
 
 .button{
 
+display:inline-block;
+
+padding:12px 24px;
 
 background:#0077b6;
 
 color:white;
 
-padding:12px 25px;
+text-decoration:none;
 
 border-radius:8px;
 
-text-decoration:none;
-
-display:inline-block;
+font-weight:bold;
 
 }
 
+.button:hover{
 
+background:#023e8a;
 
-
-
-/* Environment */
-
+}
 
 .environment{
-
 
 margin:50px;
 
@@ -337,33 +236,41 @@ align-items:center;
 gap:40px;
 
 box-shadow:
-
-0px 5px 20px rgba(0,0,0,0.15);
+0px 6px 20px rgba(0,0,0,0.15);
 
 }
 
-
-
-
 .environment img{
 
-
 width:45%;
-
+height:320px;
+object-fit:cover;
 border-radius:20px;
 
 }
 
+.environment-content{
 
+width:55%;
 
+}
 
+.environment-content h2{
 
+color:#063970;
+margin-bottom:15px;
 
-/* DNA Video */
+}
 
+.environment-content p{
+
+font-size:18px;
+line-height:1.7;
+margin-bottom:20px;
+
+}
 
 .video{
-
 
 margin:50px;
 
@@ -376,183 +283,121 @@ border-radius:20px;
 text-align:center;
 
 box-shadow:
-
-0px 5px 20px rgba(0,0,0,0.15);
+0px 6px 20px rgba(0,0,0,0.15);
 
 }
 
+.video h2{
 
+color:#063970;
+margin-bottom:15px;
 
+}
 
+.video p{
+
+margin-bottom:20px;
+
+}
 
 .video iframe{
 
 border-radius:15px;
 
+max-width:100%;
+
 }
-
-
-
-
-/* Footer */
-
 
 .footer{
 
+margin-top:40px;
 
 background:#06283d;
 
 color:white;
 
-padding:25px;
-
 text-align:center;
 
-margin-top:40px;
+padding:25px;
 
 }
 
+@media(max-width:900px){
 
+.hero{
+
+flex-direction:column;
+
+}
+
+.hero-text,
+.hero-image{
+
+width:100%;
+
+}
+
+.environment{
+
+flex-direction:column;
+
+}
+
+.environment img,
+.environment-content{
+
+width:100%;
+
+}
+
+}
 
 </style>
 
-
 </head>
-
-
-
-
 
 <body>
 
-
-
-
-
 <div class="navbar">
 
+<a href="index.html">Home</a>
 
-<a href="index.html">
+<a href="protein.html">Proteins</a>
 
-Home
+<a href="gene.html">Genes</a>
 
-</a>
+<a href="structure.html">Structures</a>
 
-
-
-<a href="protein.html">
-
-Proteins
-
-</a>
-
-
-
-<a href="gene.html">
-
-Genes
-
-</a>
-
-
-
-<a href="structure.html">
-
-Structures
-
-</a>
-
-
-
-<a href="environment.html">
-
-Environment
-
-</a>
-
-
+<a href="environment.html">Environment</a>
 
 </div>
-
-
-
-
-
-
-
-
 
 <section class="hero">
 
-
-
 <div class="hero-text">
 
+<h1>🧬 BioFetch</h1>
 
-
-<h1>
-
-🧬 BioFetch
-
-</h1>
-
-
-
-<h2>
-
-Developed by Surendra Dutt Arya
-
-</h2>
-
-
-
+<h2>Developed by Surendra Dutt Arya</h2>
 
 <p>
 
-
 Integrated Bioinformatics Research Platform for
-
-
-Protein Analysis,
-
-Gene Exploration,
-
-Structural Biology
-
-and Environmental Biotechnology.
-
-
+Protein Analysis, Gene Exploration,
+Structural Biology, Molecular Informatics,
+Environmental Biotechnology and Bioenergy Research.
 
 </p>
 
-
-
 </div>
-
-
-
-
-
 
 <div class="hero-image">
 
-
-<img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2c1dHJpZXd4dHAzYTVnOGY0OGZjeWYwcDVib3JzMW1xdmliNjFhciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/OO8QrbgBSw4SPKJ95z/giphy.gif">
-
+<img src="assets/protein.gif" alt="BioFetch">
 
 </div>
 
-
-
 </section>
-
-
-
-
-
-
-
-
 
 <h2 class="title">
 
@@ -560,52 +405,23 @@ Bioinformatics Research Modules
 
 </h2>
 
-
-
-
-
-
-
-
-
 <div class="cards">
-
-
-
-
 
 <div class="card">
 
-
-<img src="https://media.giphy.com/media/l0HlQXlQ3nHyLMvte/giphy.gif">
-
-
+<img src="assets/protein.gif" alt="Protein Explorer">
 
 <div class="card-content">
 
-
-
-<h2>
-
-🧬 Protein Explorer
-
-</h2>
-
-
-
+<h2>🧬 Protein Explorer</h2>
 
 <p>
 
 UniProt proteins,
-
 sequences,
-
 functions and annotations.
 
 </p>
-
-
-
 
 <a class="button" href="protein.html">
 
@@ -613,55 +429,25 @@ Open
 
 </a>
 
-
-
 </div>
 
-
 </div>
-
-
-
-
-
-
-
-
 
 <div class="card">
 
-
-
-<img src="https://media.giphy.com/media/3oKIPu5r9Z9j3m0N5K/giphy.gif">
-
-
-
+<img src="assets/gene.gif" alt="Gene Explorer">
 
 <div class="card-content">
 
-
-
-<h2>
-
-🧬 Gene Explorer
-
-</h2>
-
-
-
+<h2>🧬 Gene Explorer</h2>
 
 <p>
 
 Genes,
-
 markers,
-
 expression and biological information.
 
 </p>
-
-
-
 
 <a class="button" href="gene.html">
 
@@ -669,53 +455,24 @@ Open
 
 </a>
 
-
-
 </div>
 
-
 </div>
-
-
-
-
-
-
-
-
 
 <div class="card">
 
-
-
-<img src="https://media.giphy.com/media/26BRqZ5vK5yN8xT8Q/giphy.gif">
-
-
-
+<img src="assets/structure.gif" alt="Structure Explorer">
 
 <div class="card-content">
 
-
-
-<h2>
-
-🔬 Structure Explorer
-
-</h2>
-
-
-
+<h2>🔬 Structure Explorer</h2>
 
 <p>
 
 AlphaFold and PDB
-
 3D structural resources.
 
 </p>
-
-
-
 
 <a class="button" href="structure.html">
 
@@ -723,42 +480,17 @@ Open
 
 </a>
 
-
+</div>
 
 </div>
 
-
 </div>
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
 
 <section class="environment">
 
+<img src="assets/environment.gif" alt="Environment Hub">
 
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Acid_mine_drainage.jpg">
-
-
-
-
-<div>
-
-
+<div class="environment-content">
 
 <h2>
 
@@ -766,25 +498,16 @@ Open
 
 </h2>
 
-
-
 <p>
 
-
 Explore microbial remediation,
-
 heavy metal resistance,
-
 acid mine drainage,
-
-bioenergy and sustainable biotechnology.
-
-
+bioenergy,
+resource recovery,
+biomining and sustainable biotechnology.
 
 </p>
-
-
-
 
 <a class="button" href="environment.html">
 
@@ -792,29 +515,11 @@ Explore Environment
 
 </a>
 
-
-
-
 </div>
-
-
 
 </section>
 
-
-
-
-
-
-
-
-
-
-
-
-
 <section class="video">
-
 
 <h2>
 
@@ -822,73 +527,36 @@ Explore Environment
 
 </h2>
 
-
-
 <p>
 
-
 DNA replication,
-
 helicase,
-
 primase,
-
 DNA polymerase III
-
 and Okazaki fragment formation.
-
-
 
 </p>
 
-
-
-
-
 <iframe
-
-width="560"
-
-height="315"
-
+width="700"
+height="394"
 src="https://www.youtube.com/embed/8kK2zwjRV0M"
-
 allowfullscreen>
-
-
 </iframe>
-
-
-
 
 </section>
 
-
-
-
-
-
-
-
-
 <div class="footer">
-
 
 BioFetch © 2026
 
-<br>
+<br><br>
 
 Developed by Surendra Dutt Arya
 
-
 </div>
-
-
-
-
-
 
 </body>
 
-
 </html>
+```
