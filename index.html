@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,336 +17,231 @@ box-sizing:border-box;
 }
 
 body{
-
 font-family:Arial,Helvetica,sans-serif;
-
-background:
-linear-gradient(
-135deg,
-#eef7ff,
-#d8f3ff
-);
-
+background:linear-gradient(135deg,#eef7ff,#d8f3ff);
 color:#16324f;
-
 }
 
 .navbar{
-
-background:
-linear-gradient(
-90deg,
-#06283d,
-#0b5c75
-);
-
+background:linear-gradient(90deg,#06283d,#0b5c75);
 padding:18px;
 text-align:center;
-
+position:sticky;
+top:0;
+z-index:100;
 }
 
 .navbar a{
-
 color:white;
 text-decoration:none;
-margin:20px;
+margin:18px;
 font-weight:bold;
 font-size:16px;
-
 }
 
 .navbar a:hover{
-
 color:#90e0ef;
-
 }
 
 .hero{
-
 display:flex;
 justify-content:space-between;
 align-items:center;
 padding:60px;
 gap:50px;
-
-background:
-linear-gradient(
-120deg,
-#ffffff,
-#d8f3ff
-);
-
+background:linear-gradient(120deg,#ffffff,#d8f3ff);
 }
 
 .hero-text{
-
 width:50%;
-
 }
 
 .hero-text h1{
-
 font-size:64px;
 color:#063970;
 margin-bottom:10px;
-
 }
 
 .hero-text h2{
-
 color:#0b5c75;
 margin-bottom:20px;
-
 }
 
 .hero-text p{
-
 font-size:22px;
 line-height:1.7;
-
 }
 
 .hero-image{
-
 width:40%;
-
 }
 
 .hero-image img{
-
 width:100%;
+height:380px;
+object-fit:cover;
 border-radius:20px;
-
-box-shadow:
-0px 6px 25px rgba(0,0,0,0.25);
-
+box-shadow:0 8px 25px rgba(0,0,0,0.25);
 }
 
 .title{
-
 text-align:center;
 font-size:38px;
 color:#063970;
 margin-top:50px;
 margin-bottom:10px;
+}
 
+.subtitle{
+text-align:center;
+color:#456;
+margin-bottom:25px;
 }
 
 .cards{
-
 display:flex;
 justify-content:center;
 gap:30px;
 flex-wrap:wrap;
 padding:40px;
-
 }
 
 .card{
-
 width:320px;
 background:white;
-
 border-radius:20px;
-
 overflow:hidden;
-
-box-shadow:
-0px 6px 20px rgba(0,0,0,0.15);
-
+box-shadow:0 6px 20px rgba(0,0,0,0.15);
 transition:0.3s;
-
 }
 
 .card:hover{
-
 transform:translateY(-10px);
-
 }
 
 .card img{
-
 width:100%;
 height:220px;
 object-fit:cover;
-
 }
 
 .card-content{
-
 padding:20px;
 text-align:center;
-
 }
 
 .card-content h2{
-
 color:#063970;
 margin-bottom:15px;
-
 }
 
 .card-content p{
-
 font-size:16px;
 line-height:1.6;
 margin-bottom:20px;
-
 }
 
 .button{
-
 display:inline-block;
-
 padding:12px 24px;
-
 background:#0077b6;
-
 color:white;
-
 text-decoration:none;
-
 border-radius:8px;
-
 font-weight:bold;
-
 }
 
 .button:hover{
-
 background:#023e8a;
-
 }
 
 .environment{
-
 margin:50px;
-
 background:white;
-
 border-radius:20px;
-
 padding:35px;
-
 display:flex;
-
 align-items:center;
-
 gap:40px;
-
-box-shadow:
-0px 6px 20px rgba(0,0,0,0.15);
-
+box-shadow:0 6px 20px rgba(0,0,0,0.15);
 }
 
 .environment img{
-
 width:45%;
 height:320px;
 object-fit:cover;
 border-radius:20px;
-
 }
 
 .environment-content{
-
 width:55%;
-
 }
 
 .environment-content h2{
-
 color:#063970;
 margin-bottom:15px;
-
 }
 
 .environment-content p{
-
 font-size:18px;
-line-height:1.7;
+line-height:1.8;
 margin-bottom:20px;
-
 }
 
 .video{
-
 margin:50px;
-
 background:white;
-
 padding:35px;
-
 border-radius:20px;
-
 text-align:center;
-
-box-shadow:
-0px 6px 20px rgba(0,0,0,0.15);
-
+box-shadow:0 6px 20px rgba(0,0,0,0.15);
 }
 
 .video h2{
-
 color:#063970;
 margin-bottom:15px;
-
 }
 
 .video p{
-
 margin-bottom:20px;
-
+font-size:18px;
 }
 
 .video iframe{
-
-border-radius:15px;
-
 max-width:100%;
-
+border-radius:15px;
 }
 
 .footer{
-
 margin-top:40px;
-
 background:#06283d;
-
 color:white;
-
 text-align:center;
-
 padding:25px;
-
 }
 
 @media(max-width:900px){
 
 .hero{
-
 flex-direction:column;
-
 }
 
 .hero-text,
 .hero-image{
-
 width:100%;
-
 }
 
 .environment{
-
 flex-direction:column;
-
 }
 
 .environment img,
 .environment-content{
-
 width:100%;
+}
 
+.hero-text h1{
+font-size:48px;
 }
 
 }
@@ -361,13 +255,9 @@ width:100%;
 <div class="navbar">
 
 <a href="index.html">Home</a>
-
 <a href="protein.html">Proteins</a>
-
 <a href="gene.html">Genes</a>
-
 <a href="structure.html">Structures</a>
-
 <a href="environment.html">Environment</a>
 
 </div>
@@ -381,12 +271,10 @@ width:100%;
 <h2>Developed by Surendra Dutt Arya</h2>
 
 <p>
-
 Integrated Bioinformatics Research Platform for
 Protein Analysis, Gene Exploration,
 Structural Biology, Molecular Informatics,
 Environmental Biotechnology and Bioenergy Research.
-
 </p>
 
 </div>
@@ -400,10 +288,12 @@ Environmental Biotechnology and Bioenergy Research.
 </section>
 
 <h2 class="title">
-
 Bioinformatics Research Modules
-
 </h2>
+
+<p class="subtitle">
+Protein • Gene • Structure • Environmental Biotechnology
+</p>
 
 <div class="cards">
 
@@ -416,17 +306,12 @@ Bioinformatics Research Modules
 <h2>🧬 Protein Explorer</h2>
 
 <p>
-
-UniProt proteins,
-sequences,
+UniProt proteins, sequences,
 functions and annotations.
-
 </p>
 
 <a class="button" href="protein.html">
-
 Open
-
 </a>
 
 </div>
@@ -435,24 +320,19 @@ Open
 
 <div class="card">
 
-<img src="assets/gene.gif" alt="Gene Explorer">
+<img src="gene.gif" alt="Gene Explorer">
 
 <div class="card-content">
 
 <h2>🧬 Gene Explorer</h2>
 
 <p>
-
-Genes,
-markers,
+Genes, markers,
 expression and biological information.
-
 </p>
 
 <a class="button" href="gene.html">
-
 Open
-
 </a>
 
 </div>
@@ -461,23 +341,19 @@ Open
 
 <div class="card">
 
-<img src="assets/structure.gif" alt="Structure Explorer">
+<img src="structure.gif" alt="Structure Explorer">
 
 <div class="card-content">
 
 <h2>🔬 Structure Explorer</h2>
 
 <p>
-
 AlphaFold and PDB
 3D structural resources.
-
 </p>
 
 <a class="button" href="structure.html">
-
 Open
-
 </a>
 
 </div>
@@ -488,31 +364,25 @@ Open
 
 <section class="environment">
 
-<img src="assets/environment.gif" alt="Environment Hub">
+<img src="environment.gif" alt="Environment Hub">
 
 <div class="environment-content">
 
 <h2>
-
 🌱 Environmental Bioinformatics Hub
-
 </h2>
 
 <p>
-
 Explore microbial remediation,
 heavy metal resistance,
 acid mine drainage,
 bioenergy,
 resource recovery,
 biomining and sustainable biotechnology.
-
 </p>
 
 <a class="button" href="environment.html">
-
 Explore Environment
-
 </a>
 
 </div>
@@ -522,25 +392,19 @@ Explore Environment
 <section class="video">
 
 <h2>
-
 🧬 Molecular Biology Learning Resource
-
 </h2>
 
 <p>
-
-DNA replication,
-helicase,
-primase,
-DNA polymerase III
-and Okazaki fragment formation.
-
+DNA replication, helicase, primase,
+DNA polymerase III and Okazaki fragment formation.
 </p>
 
 <iframe
 width="700"
 height="394"
 src="https://www.youtube.com/embed/8kK2zwjRV0M"
+title="DNA Replication"
 allowfullscreen>
 </iframe>
 
@@ -559,4 +423,3 @@ Developed by Surendra Dutt Arya
 </body>
 
 </html>
-```
