@@ -12,30 +12,53 @@
 
 <style>
 
+
 body{
 
-font-family:Arial,sans-serif;
 margin:0;
-background:#f4f8fb;
+
+font-family:Arial,Helvetica,sans-serif;
+
+background:linear-gradient(
+135deg,
+#eef7ff,
+#d9edf7
+);
+
+color:#16324f;
 
 }
 
 
+
+
 .navbar{
 
-background:#0b3d5c;
+background:linear-gradient(
+90deg,
+#06283d,
+#0b5c75
+);
+
 padding:18px;
+
 text-align:center;
 
 }
 
 
+
 .navbar a{
 
 color:white;
+
 text-decoration:none;
+
 margin:20px;
+
 font-weight:bold;
+
+font-size:16px;
 
 }
 
@@ -43,13 +66,25 @@ font-weight:bold;
 
 .hero{
 
+
 display:flex;
-align-items:center;
+
 justify-content:space-between;
-padding:50px;
-gap:40px;
+
+align-items:center;
+
+padding:60px;
+
+background:
+
+linear-gradient(
+120deg,
+#ffffff,
+#d8f3ff
+);
 
 }
+
 
 
 
@@ -60,20 +95,39 @@ width:50%;
 }
 
 
+
 .hero-text h1{
 
-font-size:55px;
-color:#0b3d5c;
+
+font-size:60px;
+
+color:#063970;
 
 }
+
+
+
+
+.hero-text h2{
+
+
+color:#0b5c75;
+
+}
+
+
 
 
 .hero-text p{
 
+
 font-size:22px;
+
 line-height:1.6;
 
 }
+
+
 
 
 
@@ -84,11 +138,16 @@ width:40%;
 }
 
 
+
 .hero-image img{
 
+
 width:100%;
+
 border-radius:20px;
-box-shadow:0px 5px 20px rgba(0,0,0,0.2);
+
+box-shadow:
+0px 5px 25px rgba(0,0,0,0.25);
 
 }
 
@@ -96,56 +155,95 @@ box-shadow:0px 5px 20px rgba(0,0,0,0.2);
 
 
 
-.section-title{
+
+.title{
+
 
 text-align:center;
-color:#0b3d5c;
-font-size:32px;
+
+font-size:35px;
+
+color:#063970;
+
+margin-top:40px;
 
 }
+
 
 
 
 
 .cards{
 
+
 display:flex;
+
 justify-content:center;
-gap:25px;
+
+gap:30px;
+
 flex-wrap:wrap;
-padding:30px;
+
+padding:40px;
 
 }
-
 
 
 
 
 .card{
 
+
 background:white;
-width:280px;
-border-radius:15px;
+
+width:300px;
+
+border-radius:20px;
+
 overflow:hidden;
-box-shadow:0px 3px 15px rgba(0,0,0,0.15);
+
+box-shadow:
+0px 5px 20px rgba(0,0,0,0.15);
+
+
+transition:0.3s;
+
 
 }
+
+
+
+
+.card:hover{
+
+transform:translateY(-10px);
+
+}
+
+
 
 
 
 .card img{
 
+
 width:100%;
-height:170px;
+
+height:190px;
+
 object-fit:cover;
+
 
 }
 
 
 
+
 .card-content{
 
+
 padding:20px;
+
 text-align:center;
 
 }
@@ -155,11 +253,18 @@ text-align:center;
 
 .button{
 
-background:#007bff;
+
+background:#0077b6;
+
 color:white;
-padding:10px 20px;
-border-radius:5px;
+
+padding:12px 25px;
+
+border-radius:8px;
+
 text-decoration:none;
+
+display:inline-block;
 
 }
 
@@ -169,14 +274,23 @@ text-decoration:none;
 
 .environment{
 
-margin:40px;
+
+margin:50px;
+
 background:white;
-padding:30px;
-border-radius:15px;
+
+border-radius:20px;
+
+padding:35px;
+
 display:flex;
+
 align-items:center;
-gap:30px;
-box-shadow:0px 3px 15px rgba(0,0,0,0.1);
+
+gap:40px;
+
+box-shadow:
+0px 5px 20px rgba(0,0,0,0.15);
 
 }
 
@@ -184,33 +298,50 @@ box-shadow:0px 3px 15px rgba(0,0,0,0.1);
 
 .environment img{
 
+
 width:45%;
-border-radius:15px;
+
+border-radius:20px;
 
 }
 
 
 
-.video-section{
 
-margin:40px;
-background:white;
-padding:30px;
-border-radius:15px;
+.video{
+
+
+margin:50px;
+
+background:#ffffff;
+
+padding:35px;
+
+border-radius:20px;
+
 text-align:center;
 
 }
+
+
 
 
 
 .footer{
 
-background:#0b3d5c;
+
+background:#06283d;
+
 color:white;
+
+padding:25px;
+
 text-align:center;
-padding:20px;
+
+margin-top:40px;
 
 }
+
 
 
 </style>
@@ -221,6 +352,7 @@ padding:20px;
 
 
 <body>
+
 
 
 
@@ -261,8 +393,8 @@ Environment
 
 
 
-<div class="hero">
 
+<section class="hero">
 
 
 <div class="hero-text">
@@ -278,11 +410,13 @@ Developed by Surendra Dutt Arya
 </h2>
 
 
-
 <p>
 
-Integrated Bioinformatics Research Platform for Protein Analysis,
-Gene Exploration, Structure Prediction and Environmental Biotechnology.
+Integrated Bioinformatics Research Platform for
+
+Protein Analysis, Gene Exploration,
+
+Structural Biology and Environmental Biotechnology.
 
 </p>
 
@@ -292,17 +426,16 @@ Gene Exploration, Structure Prediction and Environmental Biotechnology.
 
 
 
-
 <div class="hero-image">
 
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/DNA_Overview.svg/640px-DNA_Overview.svg.png">
+<img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2c1dHJpZXd4dHAzYTVnOGY0OGZjeWYwcDVib3JzMW1xdmliNjFhciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/OO8QrbgBSw4SPKJ95z/giphy.gif">
 
 
 </div>
 
 
-</div>
+</section>
 
 
 
@@ -310,12 +443,11 @@ Gene Exploration, Structure Prediction and Environmental Biotechnology.
 
 
 
-<h2 class="section-title">
+<h2 class="title">
 
-Bioinformatics Resources
+Bioinformatics Research Modules
 
 </h2>
-
 
 
 
@@ -340,13 +472,15 @@ Bioinformatics Resources
 
 
 <h2>
+
 Protein Explorer
+
 </h2>
 
 
 <p>
 
-Search proteins, sequences, functions and annotations.
+UniProt proteins, sequences, functions and annotations.
 
 </p>
 
@@ -369,23 +503,26 @@ Open
 
 
 
+
 <div class="card">
 
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/DNA_chemical_structure.svg/640px-DNA_chemical_structure.svg.png">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/DNA_animation.gif">
 
 
 <div class="card-content">
 
 
 <h2>
+
 Gene Explorer
+
 </h2>
 
 
 <p>
 
-Explore genes, mutations and biological markers.
+Genes, markers and biological information.
 
 </p>
 
@@ -408,23 +545,26 @@ Open
 
 
 
+
 <div class="card">
 
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Protein_structure_ribbon.png">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Protein_structure_2.png">
 
 
 <div class="card-content">
 
 
 <h2>
+
 Structure Explorer
+
 </h2>
 
 
 <p>
 
-AlphaFold and PDB protein structures.
+AlphaFold and PDB structural resources.
 
 </p>
 
@@ -455,31 +595,35 @@ Open
 
 
 
-<div class="environment">
+<section class="environment">
 
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Acid_mine_drainage.jpg">
-
 
 
 <div>
 
 
 <h2>
-🌱 Environmental Bioinformatics Hub
-</h2>
 
+🌱 Environmental Bioinformatics Hub
+
+</h2>
 
 
 <p>
 
-Explore microbial remediation,
+
+Microbial remediation,
+
 heavy metal resistance,
+
 acid mine drainage,
-bioenergy and environmental biotechnology.
+
+bioenergy and sustainable biotechnology.
+
 
 </p>
-
 
 
 <a class="button" href="environment.html">
@@ -489,12 +633,11 @@ Explore Environment
 </a>
 
 
-
 </div>
 
 
 
-</div>
+</section>
 
 
 
@@ -503,36 +646,31 @@ Explore Environment
 
 
 
-<div class="video-section">
+
+<section class="video">
 
 
 <h2>
 
-🧬 DNA Replication Learning Resource
+🧬 Molecular Biology Learning
 
 </h2>
 
 
-
 <p>
 
-Helicase unwinding DNA,
-primase RNA primer formation,
-DNA polymerase III synthesis,
-and Okazaki fragment joining.
+DNA replication, helicase, primase,
+
+DNA polymerase and Okazaki fragments.
 
 </p>
 
 
 
-
-<iframe width="560" height="315"
+<iframe width="560"
+height="315"
 
 src="https://www.youtube.com/embed/8kK2zwjRV0M"
-
-title="DNA replication"
-
-frameborder="0"
 
 allowfullscreen>
 
@@ -540,8 +678,7 @@ allowfullscreen>
 
 
 
-
-</div>
+</section>
 
 
 
@@ -562,8 +699,6 @@ Developed by Surendra Dutt Arya
 
 
 </div>
-
-
 
 
 
