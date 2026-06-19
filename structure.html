@@ -2,18 +2,114 @@
 <html>
 
 <head>
-<title>BioFetch</title>
+
+<title>BioFetch Structure Explorer</title>
+
+<style>
+
+body{
+font-family:Arial,sans-serif;
+max-width:900px;
+margin:auto;
+padding:20px;
+background:#f5f5f5;
+}
+
+h1{
+text-align:center;
+color:#2c3e50;
+}
+
+input{
+width:100%;
+padding:10px;
+font-size:16px;
+margin-bottom:10px;
+}
+
+button{
+padding:10px 20px;
+background:#007bff;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+#result{
+margin-top:20px;
+background:white;
+padding:15px;
+border-radius:10px;
+}
+
+a{
+display:inline-block;
+margin:5px;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h1>BioFetch</h1>
+<h1>BioFetch Structure Explorer</h1>
 
-<h2>Coming Soon</h2>
+<p>Enter UniProt Accession</p>
 
-<a href="index.html">
-Back to Home
-</a>
+<input id="proteinId" placeholder="Example: P04637">
+
+<button onclick="showLinks()">
+Search Structure
+</button>
+
+<br><br>
+
+<a href="index.html">⬅ Back to Home</a>
+
+<div id="result"></div>
+
+<script>
+
+function showLinks(){
+
+let id =
+document.getElementById("proteinId").value.trim();
+
+if(id===""){
+document.getElementById("result").innerHTML=
+"Please enter a UniProt accession.";
+return;
+}
+
+let alphafold =
+"https://alphafold.ebi.ac.uk/entry/" + id;
+
+let uniprot =
+"https://www.uniprot.org/uniprotkb/" + id;
+
+let pdb =
+"https://www.rcsb.org/search?query=" + id;
+
+document.getElementById("result").innerHTML =
+
+"<h2>Structure Resources</h2>"
+
++
+
+"<p><a href='"+alphafold+"' target='_blank'>AlphaFold Structure</a></p>"
+
++
+
+"<p><a href='"+uniprot+"' target='_blank'>UniProt Entry</a></p>"
+
++
+
+"<p><a href='"+pdb+"' target='_blank'>PDB Search</a></p>";
+
+}
+
+</script>
 
 </body>
 
