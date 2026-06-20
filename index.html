@@ -3,11 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>BioFetch | Integrated Bioinformatics Research Platform</title>
 
-  <script src="https://cdn.tailwindcss.com"></script>
-
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     html {
       scroll-behavior: smooth;
     }
@@ -15,47 +20,361 @@
     body {
       font-family: Arial, Helvetica, sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(16, 185, 129, 0.18), transparent 34%),
-        radial-gradient(circle at top right, rgba(13, 148, 136, 0.16), transparent 32%),
-        linear-gradient(135deg, #0f172a, #18181b);
-      color: #e5e7eb;
+        radial-gradient(circle at top left, rgba(16, 185, 129, 0.18), transparent 30%),
+        radial-gradient(circle at top right, rgba(13, 148, 136, 0.12), transparent 28%),
+        linear-gradient(135deg, #f8fffe, #eefdf9 45%, #f5fbff);
+      color: #123033;
       min-height: 100vh;
     }
 
-    .glass-card {
-      background: rgba(15, 23, 42, 0.68);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(148, 163, 184, 0.18);
-      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+    a {
+      text-decoration: none;
     }
 
-    .module-card {
-      transition: transform 300ms ease-in-out, border-color 300ms ease-in-out, box-shadow 300ms ease-in-out;
+    .page {
+      display: flex;
+      min-height: 100vh;
     }
 
-    .module-card:hover {
+    .sidebar {
+      position: sticky;
+      top: 0;
+      width: 96px;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(18px);
+      border-right: 1px solid rgba(13, 148, 136, 0.16);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 14px;
+      z-index: 20;
+    }
+
+    .logo {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #0d9488, #10b981);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 26px;
+      box-shadow: 0 14px 34px rgba(16, 185, 129, 0.28);
+    }
+
+    .side-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .side-link {
+      position: relative;
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0f766e;
+      background: rgba(13, 148, 136, 0.08);
+      border: 1px solid rgba(13, 148, 136, 0.12);
+      transition: 0.3s ease-in-out;
+    }
+
+    .side-link:hover {
+      color: white;
+      background: linear-gradient(135deg, #0d9488, #10b981);
+      transform: translateX(4px);
+      box-shadow: 0 14px 30px rgba(16, 185, 129, 0.25);
+    }
+
+    .side-link span {
+      position: absolute;
+      left: 68px;
+      white-space: nowrap;
+      background: #ffffff;
+      color: #0f766e;
+      border: 1px solid rgba(13, 148, 136, 0.16);
+      box-shadow: 0 12px 30px rgba(15, 118, 110, 0.12);
+      border-radius: 12px;
+      padding: 9px 12px;
+      font-size: 14px;
+      font-weight: bold;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-8px);
+      transition: 0.3s ease-in-out;
+    }
+
+    .side-link:hover span {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .main {
+      width: 100%;
+      padding: 24px;
+    }
+
+    .mobile-nav {
+      display: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(13, 148, 136, 0.15);
+      border-radius: 22px;
+      padding: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 14px 30px rgba(15, 118, 110, 0.08);
+    }
+
+    .mobile-nav a {
+      display: inline-block;
+      color: #0f766e;
+      font-weight: bold;
+      padding: 10px 12px;
+      border-radius: 999px;
+      transition: 0.3s ease-in-out;
+    }
+
+    .mobile-nav a:hover {
+      background: rgba(16, 185, 129, 0.12);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(13, 148, 136, 0.16);
+      border-radius: 32px;
+      padding: 48px;
+      box-shadow: 0 24px 70px rgba(15, 118, 110, 0.12);
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.12);
+      color: #0f766e;
+      border: 1px solid rgba(16, 185, 129, 0.24);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      color: #073b3a;
+      font-size: clamp(48px, 8vw, 86px);
+      line-height: 1;
+      margin-bottom: 18px;
+      letter-spacing: 0;
+    }
+
+    .hero h2 {
+      color: #0d9488;
+      font-size: clamp(22px, 3vw, 34px);
+      margin-bottom: 22px;
+    }
+
+    .hero p {
+      color: #34585a;
+      max-width: 760px;
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 20px;
+      border-radius: 14px;
+      font-weight: bold;
+      transition: 0.3s ease-in-out;
+      border: none;
+      cursor: pointer;
+    }
+
+    .button-primary {
+      background: linear-gradient(135deg, #0d9488, #10b981);
+      color: white;
+      box-shadow: 0 14px 30px rgba(16, 185, 129, 0.24);
+    }
+
+    .button-secondary {
+      background: white;
+      color: #0f766e;
+      border: 1px solid rgba(13, 148, 136, 0.18);
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 34px rgba(16, 185, 129, 0.25);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 360px;
+      border-radius: 28px;
+      border: 1px solid rgba(13, 148, 136, 0.16);
+      background:
+        linear-gradient(135deg, rgba(16, 185, 129, 0.11), rgba(14, 165, 233, 0.08)),
+        #ffffff;
+      overflow: hidden;
+      box-shadow: inset 0 0 45px rgba(16, 185, 129, 0.08);
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .dna-gif {
+      position: absolute;
+      right: 22px;
+      bottom: 22px;
+      width: 96px;
+      height: 96px;
+      border-radius: 20px;
+      object-fit: contain;
+      background: white;
+      border: 1px solid rgba(13, 148, 136, 0.14);
+      box-shadow: 0 14px 28px rgba(15, 118, 110, 0.12);
+    }
+
+    .section-head {
+      margin: 34px 0 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: end;
+    }
+
+    .section-head h2 {
+      color: #073b3a;
+      font-size: 34px;
+    }
+
+    .section-head p {
+      color: #547174;
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+
+    .section-pill {
+      white-space: nowrap;
+      background: rgba(16, 185, 129, 0.12);
+      color: #0f766e;
+      border: 1px solid rgba(16, 185, 129, 0.22);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(13, 148, 136, 0.16);
+      border-radius: 26px;
+      padding: 26px;
+      box-shadow: 0 18px 50px rgba(15, 118, 110, 0.1);
+      transition: 0.3s ease-in-out;
+    }
+
+    .card:hover {
       transform: scale(1.02);
-      border-color: rgba(16, 185, 129, 0.7);
-      box-shadow: 0 24px 80px rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.55);
+      box-shadow: 0 24px 70px rgba(16, 185, 129, 0.16);
     }
 
-    .nav-link {
-      transition: background 300ms ease-in-out, color 300ms ease-in-out, transform 300ms ease-in-out;
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 20px;
     }
 
-    .nav-link:hover {
-      background: rgba(16, 185, 129, 0.13);
-      color: #6ee7b7;
-      transform: translateX(3px);
+    .icon-box {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      background: rgba(16, 185, 129, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 25px;
+      margin-bottom: 16px;
     }
 
-    .bio-button {
-      transition: transform 300ms ease-in-out, box-shadow 300ms ease-in-out, background 300ms ease-in-out;
+    .card h3 {
+      color: #073b3a;
+      font-size: 25px;
+      margin-bottom: 12px;
     }
 
-    .bio-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(16, 185, 129, 0.25);
+    .card p {
+      color: #45686b;
+      line-height: 1.7;
+    }
+
+    .card-img {
+      width: 86px;
+      height: 86px;
+      object-fit: contain;
+      border-radius: 20px;
+      background: white;
+      border: 1px solid rgba(13, 148, 136, 0.12);
+    }
+
+    .card .button {
+      margin-top: 24px;
+    }
+
+    .structure-layout {
+      display: grid;
+      grid-template-columns: 1fr 190px;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .molecule-box {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(14, 165, 233, 0.08));
+      border: 1px solid rgba(13, 148, 136, 0.16);
+      border-radius: 24px;
+      padding: 16px;
+      text-align: center;
     }
 
     .molecule {
@@ -73,26 +392,26 @@
       height: 18px;
       border-radius: 999px;
       background: #10b981;
-      box-shadow: 0 0 22px rgba(16, 185, 129, 0.75);
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.58);
     }
 
     .molecule span:nth-child(1) { top: 12px; left: 66px; }
-    .molecule span:nth-child(2) { top: 66px; left: 12px; background: #38bdf8; }
-    .molecule span:nth-child(3) { top: 66px; right: 12px; background: #a7f3d0; }
-    .molecule span:nth-child(4) { bottom: 12px; left: 66px; background: #2dd4bf; }
+    .molecule span:nth-child(2) { top: 66px; left: 12px; background: #0ea5e9; }
+    .molecule span:nth-child(3) { top: 66px; right: 12px; background: #14b8a6; }
+    .molecule span:nth-child(4) { bottom: 12px; left: 66px; background: #34d399; }
 
     .molecule::before,
     .molecule::after {
       content: "";
       position: absolute;
       inset: 35px;
-      border: 1px solid rgba(16, 185, 129, 0.5);
+      border: 1px solid rgba(13, 148, 136, 0.38);
       border-radius: 999px;
     }
 
     .molecule::after {
       transform: rotate(65deg);
-      border-color: rgba(56, 189, 248, 0.5);
+      border-color: rgba(14, 165, 233, 0.38);
     }
 
     @keyframes spinMolecule {
@@ -100,308 +419,483 @@
       to { transform: rotateX(62deg) rotateZ(360deg); }
     }
 
-    .timeline-step {
-      transition: background 300ms ease-in-out, border-color 300ms ease-in-out, transform 300ms ease-in-out;
+    .workspace {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 22px;
     }
 
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .timeline-step {
+      text-align: left;
+      background: #ffffff;
+      border: 1px solid rgba(13, 148, 136, 0.14);
+      border-radius: 22px;
+      padding: 18px;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+    }
+
+    .timeline-step:hover,
     .timeline-step.active {
-      background: rgba(16, 185, 129, 0.15);
-      border-color: rgba(16, 185, 129, 0.8);
+      background: rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.55);
       transform: translateY(-3px);
     }
 
-    canvas {
-      width: 100%;
-      height: 100%;
-      display: block;
+    .timeline-number {
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      background: rgba(16, 185, 129, 0.14);
+      color: #0f766e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-bottom: 14px;
     }
 
-    @media (max-width: 1024px) {
-      .desktop-sidebar {
+    .timeline-step h3 {
+      color: #073b3a;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .timeline-step p {
+      font-size: 14px;
+      color: #5f777a;
+    }
+
+    .timeline-output {
+      margin-top: 18px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.22);
+      border-radius: 22px;
+      padding: 18px;
+      color: #0f4f4a;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .ai-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 520px;
+    }
+
+    .ai-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin: 18px 0;
+    }
+
+    .ai-pill {
+      border: 1px solid rgba(13, 148, 136, 0.18);
+      background: rgba(16, 185, 129, 0.1);
+      color: #0f766e;
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+    }
+
+    .ai-pill:hover {
+      background: rgba(16, 185, 129, 0.18);
+      transform: translateY(-2px);
+    }
+
+    .chat-box {
+      flex: 1;
+      background: #f8fffe;
+      border: 1px solid rgba(13, 148, 136, 0.14);
+      border-radius: 24px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    .chat-message {
+      background: white;
+      border: 1px solid rgba(13, 148, 136, 0.12);
+      border-radius: 18px;
+      padding: 14px;
+      color: #45686b;
+      line-height: 1.7;
+    }
+
+    .chat-message strong {
+      color: #0f766e;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .ai-form {
+      position: sticky;
+      bottom: 16px;
+      display: flex;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(13, 148, 136, 0.16);
+      border-radius: 18px;
+      padding: 8px;
+      box-shadow: 0 16px 34px rgba(15, 118, 110, 0.12);
+    }
+
+    .ai-form input {
+      min-width: 0;
+      flex: 1;
+      border: 1px solid rgba(13, 148, 136, 0.14);
+      border-radius: 14px;
+      padding: 13px 14px;
+      outline: none;
+      color: #123033;
+      font-size: 15px;
+    }
+
+    .ai-form input:focus {
+      border-color: #10b981;
+    }
+
+    .floating-ai {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 50;
+      background: linear-gradient(135deg, #0d9488, #10b981);
+      color: white;
+      padding: 14px 20px;
+      border-radius: 999px;
+      font-weight: bold;
+      box-shadow: 0 16px 36px rgba(16, 185, 129, 0.3);
+      transition: 0.3s ease-in-out;
+    }
+
+    .floating-ai:hover {
+      transform: translateY(-4px);
+    }
+
+    .footer {
+      margin-top: 28px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(13, 148, 136, 0.16);
+      border-radius: 24px;
+      padding: 22px;
+      text-align: center;
+      color: #547174;
+      font-weight: bold;
+      box-shadow: 0 14px 34px rgba(15, 118, 110, 0.08);
+    }
+
+    @media (max-width: 1100px) {
+      .sidebar {
         display: none;
+      }
+
+      .main {
+        padding: 18px;
+      }
+
+      .mobile-nav {
+        display: block;
+      }
+
+      .hero,
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+
+      .module-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .hero {
+        padding: 28px;
+      }
+
+      .hero-visual {
+        min-height: 260px;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-pill {
+        display: inline-block;
+        margin-top: 14px;
+        white-space: normal;
+      }
+
+      .structure-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card-top {
+        flex-direction: column;
+      }
+
+      .floating-ai {
+        right: 14px;
+        bottom: 14px;
+        padding: 12px 15px;
+        font-size: 14px;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="min-h-screen lg:flex">
+  <div class="page">
 
-    <aside class="desktop-sidebar sticky top-0 h-screen w-24 border-r border-white/10 bg-slate-950/70 backdrop-blur-xl">
-      <div class="flex h-full flex-col items-center justify-between py-6">
-        <a href="index.html" class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/15 text-2xl text-emerald-300">
-          🧬
+    <aside class="sidebar">
+      <a href="index.html" class="logo">🧬</a>
+
+      <nav class="side-nav">
+        <a href="index.html" class="side-link">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.5Z"/></svg>
+          <span>Home</span>
         </a>
 
-        <nav class="flex flex-col gap-4">
-          <a href="index.html" class="nav-link group relative flex h-12 w-12 items-center justify-center rounded-2xl text-slate-300">
-            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.5Z"/></svg>
-            <span class="absolute left-16 hidden rounded-lg bg-slate-900 px-3 py-2 text-sm text-white shadow-xl group-hover:block">Home</span>
-          </a>
+        <a href="protein.html" class="side-link">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 4c6 0 6 16 12 16"/><path d="M18 4C12 4 12 20 6 20"/><path d="M8 8h8M8 16h8"/></svg>
+          <span>Protein Explorer</span>
+        </a>
 
-          <a href="protein.html" class="nav-link group relative flex h-12 w-12 items-center justify-center rounded-2xl text-slate-300">
-            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 4c6 0 6 16 12 16"/><path d="M18 4C12 4 12 20 6 20"/><path d="M8 8h8M8 16h8"/></svg>
-            <span class="absolute left-16 hidden rounded-lg bg-slate-900 px-3 py-2 text-sm text-white shadow-xl group-hover:block">Protein Explorer</span>
-          </a>
+        <a href="gene.html" class="side-link">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 3v18M17 3v18"/><path d="M7 7h10M7 12h10M7 17h10"/></svg>
+          <span>Gene Explorer</span>
+        </a>
 
-          <a href="gene.html" class="nav-link group relative flex h-12 w-12 items-center justify-center rounded-2xl text-slate-300">
-            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 3v18M17 3v18"/><path d="M7 7h10M7 12h10M7 17h10"/></svg>
-            <span class="absolute left-16 hidden rounded-lg bg-slate-900 px-3 py-2 text-sm text-white shadow-xl group-hover:block">Gene Explorer</span>
-          </a>
+        <a href="structure.html" class="side-link">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="12" cy="17" r="3"/><path d="M10 8.5h4M8.5 9.5l2 5M15.5 9.5l-2 5"/></svg>
+          <span>Structure Explorer</span>
+        </a>
 
-          <a href="structure.html" class="nav-link group relative flex h-12 w-12 items-center justify-center rounded-2xl text-slate-300">
-            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="12" cy="17" r="3"/><path d="M10 8.5h4M8.5 9.5l2 5M15.5 9.5l-2 5"/></svg>
-            <span class="absolute left-16 hidden rounded-lg bg-slate-900 px-3 py-2 text-sm text-white shadow-xl group-hover:block">Structure Explorer</span>
-          </a>
+        <a href="environment.html" class="side-link">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21V9"/><path d="M12 13c-5 0-8-3-8-8 5 0 8 3 8 8Z"/><path d="M12 15c5 0 8-3 8-8-5 0-8 3-8 8Z"/></svg>
+          <span>Environment Hub</span>
+        </a>
 
-          <a href="environment.html" class="nav-link group relative flex h-12 w-12 items-center justify-center rounded-2xl text-slate-300">
-            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21V9"/><path d="M12 13c-5 0-8-3-8-8 5 0 8 3 8 8Z"/><path d="M12 15c5 0 8-3 8-8-5 0-8 3-8 8Z"/></svg>
-            <span class="absolute left-16 hidden rounded-lg bg-slate-900 px-3 py-2 text-sm text-white shadow-xl group-hover:block">Environment Hub</span>
-          </a>
+        <a href="ai.html" class="side-link">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg>
+          <span>AI Assistant</span>
+        </a>
+      </nav>
 
-          <a href="ai.html" class="nav-link group relative flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-300">
-            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg>
-            <span class="absolute left-16 hidden rounded-lg bg-slate-900 px-3 py-2 text-sm text-white shadow-xl group-hover:block">AI Assistant</span>
-          </a>
-        </nav>
-
-        <div class="h-12 w-12"></div>
-      </div>
+      <div></div>
     </aside>
 
-    <main class="w-full px-4 py-5 sm:px-6 lg:px-8">
+    <main class="main">
 
-      <header class="mb-6 rounded-3xl border border-white/10 bg-slate-950/60 p-3 backdrop-blur-xl lg:hidden">
-        <nav class="flex flex-wrap justify-center gap-2 text-sm">
-          <a class="rounded-full px-3 py-2 text-slate-200 hover:bg-emerald-500/15 hover:text-emerald-300" href="index.html">Home</a>
-          <a class="rounded-full px-3 py-2 text-slate-200 hover:bg-emerald-500/15 hover:text-emerald-300" href="protein.html">Protein Explorer</a>
-          <a class="rounded-full px-3 py-2 text-slate-200 hover:bg-emerald-500/15 hover:text-emerald-300" href="gene.html">Gene Explorer</a>
-          <a class="rounded-full px-3 py-2 text-slate-200 hover:bg-emerald-500/15 hover:text-emerald-300" href="structure.html">Structure Explorer</a>
-          <a class="rounded-full px-3 py-2 text-slate-200 hover:bg-emerald-500/15 hover:text-emerald-300" href="environment.html">Environment Hub</a>
-          <a class="rounded-full bg-emerald-500/15 px-3 py-2 text-emerald-300" href="ai.html">🧬 AI Assistant</a>
-        </nav>
+      <header class="mobile-nav">
+        <a href="index.html">Home</a>
+        <a href="protein.html">Protein Explorer</a>
+        <a href="gene.html">Gene Explorer</a>
+        <a href="structure.html">Structure Explorer</a>
+        <a href="environment.html">Environment Hub</a>
+        <a href="ai.html">🧬 AI Assistant</a>
       </header>
 
-      <section class="glass-card relative overflow-hidden rounded-[2rem] p-6 sm:p-8 lg:p-10">
-        <div class="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-          <div class="relative z-10">
-            <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-500/10 px-4 py-2 text-sm font-semibold text-emerald-300">
-              <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-              Integrated research workspace
-            </div>
-
-            <h1 class="text-5xl font-black tracking-tight text-white sm:text-6xl lg:text-7xl">
-              BioFetch
-            </h1>
-
-            <p class="mt-4 max-w-2xl text-xl font-semibold text-emerald-300 sm:text-2xl">
-              Integrated Bioinformatics Research Platform
-            </p>
-
-            <p class="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-              Protein analysis, gene exploration, structural biology, molecular informatics,
-              environmental biotechnology, bioenergy research, and AI-assisted scientific discovery.
-            </p>
-
-            <div class="mt-8 flex flex-wrap gap-3">
-              <a href="ai.html" class="bio-button rounded-2xl bg-emerald-500 px-5 py-3 font-bold text-slate-950 hover:bg-emerald-400">
-                Open AI Assistant
-              </a>
-              <a href="#modules" class="bio-button rounded-2xl border border-white/15 bg-white/5 px-5 py-3 font-bold text-white hover:bg-white/10">
-                Explore Modules
-              </a>
-            </div>
+      <section class="hero">
+        <div>
+          <div class="badge">
+            <span class="badge-dot"></span>
+            Scientific discovery workspace
           </div>
 
-          <div class="relative h-[340px] overflow-hidden rounded-[2rem] border border-emerald-400/20 bg-slate-950/40">
-            <canvas id="dnaCanvas" aria-label="Animated DNA double helix"></canvas>
-            <img src="assets/dna GIF.gif" alt="DNA Animation" class="pointer-events-none absolute bottom-5 right-5 h-24 w-24 rounded-2xl border border-white/10 object-contain opacity-80" />
+          <h1>BioFetch</h1>
+
+          <h2>Integrated Bioinformatics Research Platform</h2>
+
+          <p>
+            Protein analysis, gene exploration, structural biology, molecular informatics,
+            environmental biotechnology, bioenergy research, and AI-assisted scientific discovery.
+          </p>
+
+          <div class="hero-actions">
+            <a href="ai.html" class="button button-primary">🧬 Open AI Assistant</a>
+            <a href="#modules" class="button button-secondary">Explore Modules</a>
           </div>
+        </div>
+
+        <div class="hero-visual">
+          <canvas id="dnaCanvas" aria-label="Animated DNA double helix"></canvas>
+          <img src="assets/dna GIF.gif" alt="DNA Animation" class="dna-gif" />
         </div>
       </section>
 
-      <section id="modules" class="mt-8">
-        <div class="mb-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+      <section id="modules">
+        <div class="section-head">
           <div>
-            <h2 class="text-3xl font-black text-white">Research Modules</h2>
-            <p class="mt-2 text-slate-400">A focused dashboard for biological data, structures, and environmental biotechnology.</p>
+            <h2>Research Modules</h2>
+            <p>A clean dashboard for biological data, structures, and environmental biotechnology.</p>
           </div>
-          <p class="rounded-full border border-emerald-400/20 bg-emerald-500/10 px-4 py-2 text-sm font-semibold text-emerald-300">
-            Protein • Gene • Structure • Environment
-          </p>
+          <div class="section-pill">Protein • Gene • Structure • Environment</div>
         </div>
 
-        <div class="grid gap-5 lg:grid-cols-2">
-          <article class="module-card glass-card rounded-3xl p-6">
-            <div class="mb-5 flex items-start justify-between gap-4">
+        <div class="module-grid">
+          <article class="card">
+            <div class="card-top">
               <div>
-                <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/15 text-2xl">🧬</div>
-                <h3 class="text-2xl font-black text-white">Protein Explorer</h3>
+                <div class="icon-box">🧬</div>
+                <h3>Protein Explorer</h3>
               </div>
-              <img src="assets/fightshape.gif" alt="Protein Explorer" class="h-20 w-20 rounded-2xl border border-white/10 object-contain" />
+              <img src="assets/fightshape.gif" alt="Protein Explorer" class="card-img" />
             </div>
-            <p class="min-h-16 leading-7 text-slate-300">UniProt proteins, sequences, functions, and annotations.</p>
-            <a href="protein.html" class="bio-button mt-6 inline-flex rounded-2xl bg-teal-500 px-5 py-3 font-bold text-white hover:bg-teal-400">
-              Explore Proteins
-            </a>
+
+            <p>UniProt proteins, sequences, functions, and annotations.</p>
+
+            <a href="protein.html" class="button button-primary">Explore Proteins</a>
           </article>
 
-          <article class="module-card glass-card rounded-3xl p-6">
-            <div class="mb-5 flex items-start justify-between gap-4">
+          <article class="card">
+            <div class="card-top">
               <div>
-                <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/15 text-2xl">🧫</div>
-                <h3 class="text-2xl font-black text-white">Gene Explorer</h3>
+                <div class="icon-box">🧫</div>
+                <h3>Gene Explorer</h3>
               </div>
-              <img src="assets/gene.gif" alt="Gene Explorer" class="h-20 w-20 rounded-2xl border border-white/10 object-contain" />
+              <img src="assets/gene.gif" alt="Gene Explorer" class="card-img" />
             </div>
-            <p class="min-h-16 leading-7 text-slate-300">Genes, markers, expression, and biological information.</p>
-            <a href="gene.html" class="bio-button mt-6 inline-flex rounded-2xl bg-teal-500 px-5 py-3 font-bold text-white hover:bg-teal-400">
-              Explore Genes
-            </a>
+
+            <p>Genes, markers, expression, and biological information.</p>
+
+            <a href="gene.html" class="button button-primary">Explore Genes</a>
           </article>
 
-          <article class="module-card glass-card rounded-3xl p-6">
-            <div class="grid gap-5 sm:grid-cols-[1fr_180px] sm:items-center">
+          <article class="card">
+            <div class="structure-layout">
               <div>
-                <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/15 text-2xl">🔬</div>
-                <h3 class="text-2xl font-black text-white">Structure Explorer</h3>
-                <p class="mt-4 leading-7 text-slate-300">AlphaFold and PDB 3D structural resources.</p>
-                <a href="structure.html" class="bio-button mt-6 inline-flex rounded-2xl bg-teal-500 px-5 py-3 font-bold text-white hover:bg-teal-400">
-                  View 3D Structures
-                </a>
+                <div class="icon-box">🔬</div>
+                <h3>Structure Explorer</h3>
+
+                <p>AlphaFold and PDB 3D structural resources.</p>
+
+                <a href="structure.html" class="button button-primary">View 3D Structures</a>
               </div>
 
-              <div class="rounded-3xl border border-emerald-400/20 bg-slate-950/50 p-4">
-                <div class="molecule" aria-label="Interactive molecule placeholder">
+              <div class="molecule-box">
+                <div class="molecule" aria-label="3D molecule viewer placeholder">
                   <span></span>
                   <span></span>
                   <span></span>
                   <span></span>
                 </div>
-                <img src="assets/structure.gif" alt="Structure Explorer" class="mx-auto mt-3 h-12 w-20 object-contain opacity-80" />
+                <img src="assets/structure.gif" alt="Structure Explorer" class="card-img" />
               </div>
             </div>
           </article>
 
-          <article class="module-card glass-card rounded-3xl p-6">
-            <div class="mb-5 flex items-start justify-between gap-4">
+          <article class="card">
+            <div class="card-top">
               <div>
-                <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/15 text-2xl">🌱</div>
-                <h3 class="text-2xl font-black text-white">Environment Hub</h3>
+                <div class="icon-box">🌱</div>
+                <h3>Environment Hub</h3>
               </div>
-              <img src="assets/environment.gif" alt="Environment Hub" class="h-20 w-20 rounded-2xl border border-white/10 object-contain" />
+              <img src="assets/environment.gif" alt="Environment Hub" class="card-img" />
             </div>
-            <p class="leading-7 text-slate-300">
-              Microbial remediation, heavy metal resistance, acid mine drainage, bioenergy, and sustainable biotechnology.
+
+            <p>
+              Microbial remediation, heavy metal resistance, acid mine drainage,
+              bioenergy, and sustainable biotechnology.
             </p>
-            <a href="environment.html" class="bio-button mt-6 inline-flex rounded-2xl bg-teal-500 px-5 py-3 font-bold text-white hover:bg-teal-400">
-              Enter Environment Hub
-            </a>
+
+            <a href="environment.html" class="button button-primary">Enter Environment Hub</a>
           </article>
         </div>
       </section>
 
-      <section class="mt-8 grid gap-5 xl:grid-cols-[1.5fr_1fr]">
-        <article class="glass-card rounded-3xl p-6">
-          <div class="mb-6 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
-            <div>
-              <h2 class="text-3xl font-black text-white">Molecular Biology Learning Resource</h2>
-              <p class="mt-2 text-slate-400">Interactive DNA replication pathway for students and researchers.</p>
-            </div>
-            <a href="https://www.youtube.com/embed/8kK2zwjRV0M" class="text-sm font-bold text-emerald-300 hover:text-emerald-200">
-              Watch resource
-            </a>
-          </div>
+      <section class="workspace">
+        <article class="card">
+          <h2>Molecular Biology Learning Resource</h2>
+          <p>Interactive DNA replication pathway for students and researchers.</p>
 
-          <div class="grid gap-4 md:grid-cols-4">
-            <button class="timeline-step active rounded-3xl border border-white/10 bg-white/5 p-5 text-left" data-step="Helicase unwinds the DNA double helix and separates the two strands.">
-              <span class="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-500/15 text-xl">1</span>
-              <h3 class="font-black text-white">Helicase</h3>
-              <p class="mt-2 text-sm leading-6 text-slate-400">Unwinds the DNA double helix.</p>
+          <div class="timeline-grid">
+            <button class="timeline-step active" data-step="Helicase unwinds the DNA double helix and separates the two strands.">
+              <span class="timeline-number">1</span>
+              <h3>Helicase</h3>
+              <p>Unwinds the DNA double helix.</p>
             </button>
 
-            <button class="timeline-step rounded-3xl border border-white/10 bg-white/5 p-5 text-left" data-step="Primase adds short RNA primers so DNA polymerase can begin synthesis.">
-              <span class="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-500/15 text-xl">2</span>
-              <h3 class="font-black text-white">Primase</h3>
-              <p class="mt-2 text-sm leading-6 text-slate-400">Builds RNA primers.</p>
+            <button class="timeline-step" data-step="Primase adds short RNA primers so DNA polymerase can begin synthesis.">
+              <span class="timeline-number">2</span>
+              <h3>Primase</h3>
+              <p>Builds RNA primers.</p>
             </button>
 
-            <button class="timeline-step rounded-3xl border border-white/10 bg-white/5 p-5 text-left" data-step="DNA Polymerase III extends new DNA strands by adding nucleotides in the 5 prime to 3 prime direction.">
-              <span class="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-500/15 text-xl">3</span>
-              <h3 class="font-black text-white">DNA Polymerase III</h3>
-              <p class="mt-2 text-sm leading-6 text-slate-400">Synthesizes new DNA.</p>
+            <button class="timeline-step" data-step="DNA Polymerase III extends new DNA strands by adding nucleotides in the 5 prime to 3 prime direction.">
+              <span class="timeline-number">3</span>
+              <h3>DNA Polymerase III</h3>
+              <p>Synthesizes new DNA.</p>
             </button>
 
-            <button class="timeline-step rounded-3xl border border-white/10 bg-white/5 p-5 text-left" data-step="Okazaki fragments form on the lagging strand and are joined to create a continuous DNA strand.">
-              <span class="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-500/15 text-xl">4</span>
-              <h3 class="font-black text-white">Okazaki Fragments</h3>
-              <p class="mt-2 text-sm leading-6 text-slate-400">Complete lagging strand synthesis.</p>
+            <button class="timeline-step" data-step="Okazaki fragments form on the lagging strand and are joined to create a continuous DNA strand.">
+              <span class="timeline-number">4</span>
+              <h3>Okazaki Fragments</h3>
+              <p>Complete lagging strand synthesis.</p>
             </button>
           </div>
 
-          <div class="mt-5 rounded-3xl border border-emerald-400/20 bg-emerald-500/10 p-5">
-            <p id="timelineOutput" class="text-lg leading-8 text-emerald-100">
-              Helicase unwinds the DNA double helix and separates the two strands.
-            </p>
+          <div class="timeline-output" id="timelineOutput">
+            Helicase unwinds the DNA double helix and separates the two strands.
           </div>
         </article>
 
-        <aside class="glass-card flex min-h-[520px] flex-col rounded-3xl p-6">
-          <div class="mb-5">
-            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/15 text-2xl">🧬</div>
-            <h2 class="text-3xl font-black text-white">BioFetch AI Assistant</h2>
-            <p class="mt-3 leading-7 text-slate-300">
-              Ask scientific questions about proteins, genes, genomics, proteomics, AlphaFold, PDB structures,
-              molecular biology, microbiology, environmental biotechnology, biomining, acid mine drainage,
-              bioenergy and microbial remediation.
-            </p>
+        <aside class="card ai-card">
+          <div class="icon-box">🧬</div>
+
+          <h2>BioFetch AI Assistant</h2>
+
+          <p>
+            Ask scientific questions about proteins, genes, genomics, proteomics,
+            AlphaFold, PDB structures, molecular biology, microbiology,
+            environmental biotechnology, biomining, acid mine drainage,
+            bioenergy and microbial remediation.
+          </p>
+
+          <div class="ai-pills">
+            <button class="ai-pill" data-question="Analyze Acid Mine Drainage">Analyze Acid Mine Drainage</button>
+            <button class="ai-pill" data-question="Predict AlphaFold Structure">Predict AlphaFold Structure</button>
+            <button class="ai-pill" data-question="Explain UniProt protein annotations">UniProt Annotations</button>
           </div>
 
-          <div class="mb-5 flex flex-wrap gap-2">
-            <button class="ai-pill rounded-full border border-emerald-400/20 bg-emerald-500/10 px-3 py-2 text-sm font-semibold text-emerald-300 hover:bg-emerald-500/20" data-question="Analyze Acid Mine Drainage">
-              Analyze Acid Mine Drainage
-            </button>
-            <button class="ai-pill rounded-full border border-emerald-400/20 bg-emerald-500/10 px-3 py-2 text-sm font-semibold text-emerald-300 hover:bg-emerald-500/20" data-question="Predict AlphaFold Structure">
-              Predict AlphaFold Structure
-            </button>
-            <button class="ai-pill rounded-full border border-emerald-400/20 bg-emerald-500/10 px-3 py-2 text-sm font-semibold text-emerald-300 hover:bg-emerald-500/20" data-question="Explain UniProt protein annotations">
-              UniProt Annotations
-            </button>
-          </div>
-
-          <div class="flex-1 rounded-3xl border border-white/10 bg-slate-950/50 p-5">
-            <div class="rounded-2xl bg-white/5 p-4">
-              <p class="text-sm font-bold text-emerald-300">BioFetch AI</p>
-              <p class="mt-2 leading-7 text-slate-300">
-                Ready to help with bioinformatics, molecular biology, structures, and environmental biotechnology.
-              </p>
+          <div class="chat-box">
+            <div class="chat-message">
+              <strong>BioFetch AI</strong>
+              Ready to help with bioinformatics, molecular biology, protein structures,
+              genomics, and environmental biotechnology.
             </div>
           </div>
 
-          <form id="aiForm" class="sticky bottom-0 mt-5 flex gap-2 rounded-2xl border border-white/10 bg-slate-950/80 p-2 backdrop-blur-xl">
-            <input
-              id="aiInput"
-              type="text"
-              placeholder="Ask BioFetch AI..."
-              class="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none transition duration-300 ease-in-out placeholder:text-slate-500 focus:border-emerald-400"
-            />
-            <button type="submit" class="bio-button rounded-xl bg-emerald-500 px-5 py-3 font-black text-slate-950 hover:bg-emerald-400">
-              Ask
-            </button>
+          <form id="aiForm" class="ai-form">
+            <input id="aiInput" type="text" placeholder="Ask BioFetch AI..." />
+            <button type="submit" class="button button-primary">Ask</button>
           </form>
         </aside>
       </section>
 
-      <footer class="mt-8 rounded-3xl border border-white/10 bg-slate-950/60 p-6 text-center text-sm text-slate-400">
+      <footer class="footer">
         BioFetch © 2026 | Developed by Surendra Dutt Arya
       </footer>
 
     </main>
   </div>
 
-  <a href="ai.html" class="bio-button fixed bottom-5 right-5 z-50 rounded-full bg-emerald-500 px-5 py-3 font-black text-slate-950 shadow-2xl hover:bg-emerald-400">
-    🧬 Ask BioFetch AI
-  </a>
+  <a href="ai.html" class="floating-ai">🧬 Ask BioFetch AI</a>
 
   <script>
     const canvas = document.getElementById("dnaCanvas");
@@ -424,10 +918,10 @@
     function drawDNA() {
       const w = canvas.getBoundingClientRect().width;
       const h = canvas.getBoundingClientRect().height;
+
       ctx.clearRect(0, 0, w, h);
 
       const centerX = w / 2;
-      const centerY = h / 2;
       const amplitude = Math.min(w, 360) * 0.22;
       const spacing = 16;
       const speed = time * 0.035;
@@ -440,29 +934,23 @@
         const z = Math.cos(angle);
         const radius = 4 + z * 1.8;
 
-        ctx.strokeStyle = "rgba(16, 185, 129, 0.28)";
+        ctx.strokeStyle = "rgba(13, 148, 136, 0.25)";
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(x1, y);
         ctx.lineTo(x2, y);
         ctx.stroke();
 
-        ctx.fillStyle = "rgba(16, 185, 129, 0.95)";
+        ctx.fillStyle = "rgba(13, 148, 136, 0.95)";
         ctx.beginPath();
         ctx.arc(x1, y, radius, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.fillStyle = "rgba(45, 212, 191, 0.85)";
+        ctx.fillStyle = "rgba(16, 185, 129, 0.9)";
         ctx.beginPath();
         ctx.arc(x2, y, 6 - radius * 0.35, 0, Math.PI * 2);
         ctx.fill();
       }
-
-      const gradient = ctx.createRadialGradient(centerX, centerY, 20, centerX, centerY, w * 0.55);
-      gradient.addColorStop(0, "rgba(16, 185, 129, 0.14)");
-      gradient.addColorStop(1, "rgba(16, 185, 129, 0)");
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, w, h);
 
       time += 1;
       requestAnimationFrame(drawDNA);
@@ -503,6 +991,7 @@
 
     aiForm.addEventListener("submit", function(event) {
       event.preventDefault();
+
       const question = aiInput.value.trim();
 
       if (question) {
