@@ -6,148 +6,20 @@ let q=document.getElementById("query").value.trim();
 
 let result=document.getElementById("result");
 
-result.innerHTML="<h3>Searching...</h3>";
+result.innerHTML="Searching...";
 
 try{
 
-let accession=q;
-
-if(!q.match(/^[A-Z0-9]{6,10}$/i)){
-
-let searchURL=
-"https://rest.uniprot.org/uniprotkb/search?query=gene:"+q+
-"+AND+reviewed:true+AND+organism_id:9606&format=json&size=1";
-
-let searchResponse=await fetch(searchURL);
-
-let searchData=await searchResponse.json();
-
-if(searchData.results.length===0){
-
-result.innerHTML="<h2>No protein found</h2>";
-
-return;
-
-}
-
-accession=searchData.results[0].primaryAccession;
-
-}
-
 let response=await fetch(
-"https://rest.uniprot.org/uniprotkb/"+accession+".json"
+"https://rest.uniprot.org/uniprotkb/P04637.json"
 );
 
 let data=await response.json();
 
-let proteinName=
-data.proteinDescription?.recommendedName?.fullName?.value
-|| "Unknown";
-
-let geneName=
-data.genes?.[0]?.geneName?.value
-|| "Not available";
-
-let organism=
-data.organism?.scientificName
-|| "Unknown";
-
-let length=
-data.sequence?.length
-|| "Unknown";
-
-let mass=
-data.sequence?.molWeight
-|| "Unknown";
-
-let sequence=
-data.sequence?.value
-|| "";
-
-let accessionID=
-data.primaryAccession;
-
-let functionText=
-data.comments?.find(
-c=>c.commentType==="FUNCTION"
-)?.texts?.[0]?.value
-|| "Function not available";
-
 result.innerHTML=`
-
-<div class="result">
-
-<h2>${proteinName}</h2>
-
-<div class="info-grid">
-
-<div class="card">
-<b>Accession</b><br>
-${accessionID}
-</div>
-
-<div class="card">
-<b>Gene</b><br>
-${geneName}
-</div>
-
-<div class="card">
-<b>Organism</b><br>
-${organism}
-</div>
-
-<div class="card">
-<b>Length</b><br>
-${length} aa
-</div>
-
-<div class="card">
-<b>Molecular Weight</b><br>
-${mass} Da
-</div>
-
-</div>
-
-<h3>Function</h3>
-
-<p>${functionText}</p>
-
-<div class="links">
-
-<a target="_blank"
-href="https://www.uniprot.org/uniprotkb/${accessionID}">
-UniProt
-</a>
-
-<a target="_blank"
-href="https://alphafold.ebi.ac.uk/entry/${accessionID}">
-AlphaFold
-</a>
-
-<a target="_blank"
-href="https://rest.uniprot.org/uniprotkb/${accessionID}.fasta">
-Download FASTA
-</a>
-
-<a target="_blank"
-href="https://www.ncbi.nlm.nih.gov/gene/?term=${geneName}">
-NCBI Gene
-</a>
-
-</div>
-
-<h3>Protein Sequence</h3>
-
-<button onclick="copySequence()">
-Copy Sequence
-</button>
-
-<div class="sequence">
-${sequence}
-</div>
-
-</div>
-
+<h2>${data.proteinDescription.recommendedName.fullName.value}</h2>
+<p>Gene: TP53</p>
+<p>Accession: ${data.primaryAccession}</p>
 `;
 
 }
@@ -155,19 +27,11 @@ ${sequence}
 catch(error){
 
 result.innerHTML=
-"<h2>Error retrieving protein data.</h2>";
+"<h2>Error connecting to UniProt API</h2>";
+
+console.error(error);
 
 }
-
-}
-
-function copySequence(){
-
-let seq=document.querySelector(".sequence").innerText;
-
-navigator.clipboard.writeText(seq);
-
-alert("Sequence copied");
 
 }
 
