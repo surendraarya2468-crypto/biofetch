@@ -1,279 +1,33 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-
-<title>BioFetch AI Assistant</title>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+export default async function handler(req, res) {
 
 
-<style>
+if(req.method !== "POST"){
 
-body{
+return res.status(405).json({
 
-font-family:Arial, sans-serif;
+error:"Only POST allowed"
 
-background:#eef6ff;
-
-margin:0;
+});
 
 }
-
-
-.header{
-
-background:#063970;
-
-color:white;
-
-padding:25px;
-
-text-align:center;
-
-}
-
-
-.container{
-
-width:90%;
-
-max-width:900px;
-
-margin:auto;
-
-margin-top:40px;
-
-background:white;
-
-padding:30px;
-
-border-radius:15px;
-
-box-shadow:0 5px 20px rgba(0,0,0,0.15);
-
-}
-
-
-textarea{
-
-width:100%;
-
-height:120px;
-
-padding:15px;
-
-font-size:16px;
-
-border-radius:10px;
-
-border:1px solid #ccc;
-
-}
-
-
-button{
-
-margin-top:15px;
-
-padding:14px 30px;
-
-background:#0077cc;
-
-color:white;
-
-border:none;
-
-border-radius:8px;
-
-font-size:16px;
-
-cursor:pointer;
-
-}
-
-
-button:hover{
-
-background:#005fa3;
-
-}
-
-
-#answer{
-
-margin-top:25px;
-
-background:#f7f7f7;
-
-padding:20px;
-
-border-radius:10px;
-
-line-height:1.6;
-
-white-space:pre-wrap;
-
-}
-
-
-.examples{
-
-margin-top:20px;
-
-background:#e8f4ff;
-
-padding:15px;
-
-border-radius:10px;
-
-}
-
-
-a{
-
-text-decoration:none;
-
-}
-
-
-</style>
-
-
-</head>
-
-
-<body>
-
-
-<div class="header">
-
-
-<h1>🧬 BioFetch AI Assistant</h1>
-
-
-<p>
-
-AI assistant for Bioinformatics, Biotechnology and Molecular Biology
-
-</p>
-
-
-</div>
-
-
-
-<div class="container">
-
-
-<h2>Ask your research question</h2>
-
-
-<textarea id="question"
-
-placeholder="Example:
-Explain TP53 protein function
-or
-How does acid mine drainage remediation work?">
-
-</textarea>
-
-
-<br>
-
-
-<button onclick="askAI()">
-
-Ask BioFetch AI
-
-</button>
-
-
-
-<div id="answer">
-
-AI response will appear here...
-
-</div>
-
-
-
-<div class="examples">
-
-
-<b>Try:</b>
-
-<br><br>
-
-🧬 What is AlphaFold?
-
-<br>
-
-🧬 Explain CRISPR-Cas9
-
-<br>
-
-🧬 Genes involved in beta carotene production
-
-<br>
-
-🌱 Microbes used in acid mine drainage remediation
-
-<br>
-
-🔬 Function of TP53 protein
-
-
-</div>
-
-
-
-<br>
-
-
-<a href="index.html">
-
-⬅ Back to BioFetch Home
-
-</a>
-
-
-</div>
-
-
-
-
-<script>
-
-
-async function askAI(){
-
-
-let question = document.getElementById("question").value;
-
-
-
-if(question.trim()==""){
-
-alert("Please enter a question");
-
-return;
-
-}
-
-
-
-document.getElementById("answer").innerHTML =
-"🧬 BioFetch AI is thinking...";
 
 
 
 try{
 
 
-let response = await fetch("/api/chat",{
+const {question}=req.body;
+
+
+
+const response = await fetch(
+
+"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key="
+
++process.env.GEMINI_API_KEY,
+
+
+{
 
 
 method:"POST",
@@ -291,24 +45,80 @@ headers:{
 body:JSON.stringify({
 
 
-question:question
+contents:[
 
+{
+
+parts:[
+
+{
+
+text:
+
+`
+
+You are BioFetch AI Assistant.
+
+Answer only biotechnology and bioinformatics questions.
+
+Explain:
+
+Proteins,
+Genes,
+Genomics,
+Proteomics,
+Microbiology,
+Environmental biotechnology,
+Biomining,
+Acid mine drainage,
+Bioenergy.
+
+Question:
+
+${question}
+
+`
+
+}
+
+]
+
+}
+
+]
 
 })
 
 
+}
+
+);
+
+
+
+const data = await response.json();
+
+
+
+if(data.error){
+
+
+return res.status(500).json({
+
+answer:"Gemini Error: "+data.error.message
+
 });
 
 
-
-let data = await response.json();
-
+}
 
 
-document.getElementById("answer").innerHTML =
 
-data.answer;
+res.status(200).json({
 
+answer:data.candidates[0].content.parts[0].text
+
+});
 
 
 }
@@ -316,24 +126,14 @@ data.answer;
 catch(error){
 
 
-document.getElementById("answer").innerHTML =
+res.status(500).json({
 
-"Error connecting to BioFetch AI";
+answer:"Backend Error: "+error.message
 
-
-console.log(error);
-
-
-}
+});
 
 
 }
 
 
-
-</script>
-
-
-</body>
-
-</html>
+}
