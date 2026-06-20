@@ -1,545 +1,516 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BioFetch | Integrated Bioinformatics Research Platform</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
 
-<title>BioFetch | Surendra Dutt Arya</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
 
-<style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(16, 185, 129, 0.18), transparent 34%),
+        radial-gradient(circle at top right, rgba(13, 148, 136, 0.16), transparent 32%),
+        linear-gradient(135deg, #0f172a, #18181b);
+      color: #e5e7eb;
+      min-height: 100vh;
+    }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+    .glass-card {
+      background: rgba(15, 23, 42, 0.68);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+    }
 
-body{
-font-family:Arial,Helvetica,sans-serif;
-background:linear-gradient(135deg,#eef7ff,#d7f1ff);
-color:#16324f;
-}
+    .module-card {
+      transition: transform 300ms ease-in-out, border-color 300ms ease-in-out, box-shadow 300ms ease-in-out;
+    }
 
-.navbar{
-background:linear-gradient(90deg,#06283d,#0b5c75);
-padding:18px;
-text-align:center;
-}
+    .module-card:hover {
+      transform: scale(1.02);
+      border-color: rgba(16, 185, 129, 0.7);
+      box-shadow: 0 24px 80px rgba(16, 185, 129, 0.15);
+    }
 
-.navbar a{
-color:white;
-text-decoration:none;
-margin:0 14px;
-font-weight:bold;
-font-size:16px;
-display:inline-block;
-}
+    .nav-link {
+      transition: background 300ms ease-in-out, color 300ms ease-in-out, transform 300ms ease-in-out;
+    }
 
-.navbar a:hover{
-color:#d7f1ff;
-}
+    .nav-link:hover {
+      background: rgba(16, 185, 129, 0.13);
+      color: #6ee7b7;
+      transform: translateX(3px);
+    }
 
-.hero{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:60px;
-gap:50px;
-background:white;
-}
+    .bio-button {
+      transition: transform 300ms ease-in-out, box-shadow 300ms ease-in-out, background 300ms ease-in-out;
+    }
 
-.hero-text{
-width:55%;
-}
+    .bio-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(16, 185, 129, 0.25);
+    }
 
-.hero-text h1{
-font-size:64px;
-color:#063970;
-margin-bottom:10px;
-}
+    .molecule {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      margin: 0 auto;
+      transform-style: preserve-3d;
+      animation: spinMolecule 8s linear infinite;
+    }
 
-.hero-text h2{
-color:#0b5c75;
-margin-bottom:20px;
-}
+    .molecule span {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: #10b981;
+      box-shadow: 0 0 22px rgba(16, 185, 129, 0.75);
+    }
 
-.hero-text p{
-font-size:22px;
-line-height:1.7;
-}
+    .molecule span:nth-child(1) { top: 12px; left: 66px; }
+    .molecule span:nth-child(2) { top: 66px; left: 12px; background: #38bdf8; }
+    .molecule span:nth-child(3) { top: 66px; right: 12px; background: #a7f3d0; }
+    .molecule span:nth-child(4) { bottom: 12px; left: 66px; background: #2dd4bf; }
 
-.hero-image{
-width:40%;
-text-align:center;
-}
+    .molecule::before,
+    .molecule::after {
+      content: "";
+      position: absolute;
+      inset: 35px;
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      border-radius: 999px;
+    }
 
-.hero-image img{
-width:100%;
-max-height:400px;
-object-fit:contain;
-border-radius:20px;
-box-shadow:0 5px 20px rgba(0,0,0,0.2);
-}
+    .molecule::after {
+      transform: rotate(65deg);
+      border-color: rgba(56, 189, 248, 0.5);
+    }
 
-.section-title{
-text-align:center;
-font-size:38px;
-color:#063970;
-margin-top:40px;
-}
+    @keyframes spinMolecule {
+      from { transform: rotateX(62deg) rotateZ(0deg); }
+      to { transform: rotateX(62deg) rotateZ(360deg); }
+    }
 
-.section-subtitle{
-text-align:center;
-color:#555;
-margin-top:10px;
-margin-bottom:20px;
-}
+    .timeline-step {
+      transition: background 300ms ease-in-out, border-color 300ms ease-in-out, transform 300ms ease-in-out;
+    }
 
-.cards{
-display:flex;
-justify-content:center;
-gap:30px;
-flex-wrap:wrap;
-padding:40px;
-}
+    .timeline-step.active {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.8);
+      transform: translateY(-3px);
+    }
 
-.card{
-width:320px;
-background:white;
-border-radius:20px;
-overflow:hidden;
-box-shadow:0 5px 20px rgba(0,0,0,0.15);
-transition:0.3s;
-}
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
 
-.card:hover{
-transform:translateY(-8px);
-}
-
-.card img{
-width:100%;
-height:220px;
-object-fit:contain;
-background:#ffffff;
-padding:10px;
-}
-
-.card-content{
-padding:20px;
-text-align:center;
-}
-
-.card-content h2{
-margin-bottom:15px;
-color:#063970;
-}
-
-.card-content p{
-line-height:1.6;
-margin-bottom:20px;
-}
-
-.button{
-display:inline-block;
-padding:12px 25px;
-background:#0077b6;
-color:white;
-text-decoration:none;
-border-radius:8px;
-font-weight:bold;
-}
-
-.button:hover{
-background:#005f8f;
-}
-
-.environment{
-margin:50px;
-background:white;
-border-radius:20px;
-padding:35px;
-display:flex;
-align-items:center;
-gap:40px;
-box-shadow:0 5px 20px rgba(0,0,0,0.15);
-}
-
-.environment img{
-width:45%;
-max-height:320px;
-object-fit:contain;
-}
-
-.environment-content{
-width:55%;
-}
-
-.environment-content h2{
-color:#063970;
-margin-bottom:15px;
-}
-
-.environment-content p{
-line-height:1.8;
-margin-bottom:20px;
-}
-
-.ai-section{
-margin:50px;
-background:white;
-border-radius:20px;
-padding:35px;
-display:flex;
-align-items:center;
-gap:40px;
-box-shadow:0 5px 20px rgba(0,0,0,0.15);
-transition:0.3s;
-}
-
-.ai-section:hover{
-transform:translateY(-5px);
-}
-
-.ai-visual{
-width:45%;
-min-height:250px;
-display:flex;
-align-items:center;
-justify-content:center;
-background:linear-gradient(135deg,#eef7ff,#d7f1ff);
-border-radius:20px;
-font-size:90px;
-box-shadow:inset 0 0 20px rgba(0,119,182,0.12);
-}
-
-.ai-content{
-width:55%;
-}
-
-.ai-content h2{
-color:#063970;
-margin-bottom:15px;
-}
-
-.ai-content p{
-line-height:1.8;
-margin-bottom:20px;
-}
-
-.video-section{
-margin:50px;
-background:white;
-padding:35px;
-border-radius:20px;
-text-align:center;
-box-shadow:0 5px 20px rgba(0,0,0,0.15);
-}
-
-.video-section h2{
-color:#063970;
-margin-bottom:15px;
-}
-
-.video-section p{
-margin-bottom:20px;
-}
-
-.floating-ai-button{
-position:fixed;
-right:22px;
-bottom:22px;
-z-index:999;
-background:#0077b6;
-color:white;
-padding:14px 20px;
-border-radius:50px;
-text-decoration:none;
-font-weight:bold;
-box-shadow:0 5px 20px rgba(0,0,0,0.25);
-transition:0.3s;
-}
-
-.floating-ai-button:hover{
-background:#005f8f;
-transform:translateY(-4px);
-}
-
-.footer{
-background:#06283d;
-color:white;
-text-align:center;
-padding:25px;
-margin-top:40px;
-}
-
-@media(max-width:900px){
-
-.navbar a{
-margin:8px 10px;
-font-size:15px;
-}
-
-.hero{
-flex-direction:column;
-padding:40px 25px;
-}
-
-.hero-text,
-.hero-image{
-width:100%;
-text-align:center;
-}
-
-.hero-text h1{
-font-size:46px;
-}
-
-.hero-text p{
-font-size:18px;
-}
-
-.environment,
-.ai-section{
-flex-direction:column;
-margin:30px 20px;
-}
-
-.environment img,
-.environment-content,
-.ai-visual,
-.ai-content{
-width:100%;
-}
-
-.ai-visual{
-min-height:190px;
-font-size:70px;
-}
-
-iframe{
-width:100%;
-height:300px;
-}
-
-.floating-ai-button{
-right:15px;
-bottom:15px;
-padding:12px 16px;
-font-size:14px;
-}
-
-}
-
-</style>
-
+    @media (max-width: 1024px) {
+      .desktop-sidebar {
+        display: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
-
-<div class="navbar">
-<a href="index.html">Home</a>
-<a href="protein.html">Protein Explorer</a>
-<a href="gene.html">Gene Explorer</a>
-<a href="structure.html">Structure Explorer</a>
-<a href="environment.html">Environment Hub</a>
-<a href="ai.html">🧬 AI Assistant</a>
-</div>
-
-<section class="hero">
-
-<div class="hero-text">
-
-<h1>🧬 BioFetch</h1>
-
-<h2>Developed by Surendra Dutt Arya</h2>
-
-<p>
-Integrated Bioinformatics Research Platform for Protein Analysis,
-Gene Exploration, Structural Biology, Molecular Informatics,
-Environmental Biotechnology and Bioenergy Research.
-</p>
-
-</div>
-
-<div class="hero-image">
-
-<img src="assets/dna GIF.gif" alt="DNA Animation">
-
-</div>
-
-</section>
-
-<h2 class="section-title">
-Bioinformatics Research Modules
-</h2>
-
-<p class="section-subtitle">
-Protein • Gene • Structure • Environmental Biotechnology • AI Assistant
-</p>
-
-<div class="cards">
-
-<div class="card">
-
-<img src="assets/fightshape.gif" alt="Protein Explorer">
-
-<div class="card-content">
-
-<h2>🧬 Protein Explorer</h2>
-
-<p>
-UniProt proteins, sequences, functions and annotations.
-</p>
-
-<a class="button" href="protein.html">
-Open
-</a>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<img src="assets/gene.gif" alt="Gene Explorer">
-
-<div class="card-content">
-
-<h2>🧬 Gene Explorer</h2>
-
-<p>
-Genes, markers, expression and biological information.
-</p>
-
-<a class="button" href="gene.html">
-Open
-</a>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<img src="assets/structure.gif" alt="Structure Explorer">
-
-<div class="card-content">
-
-<h2>🔬 Structure Explorer</h2>
-
-<p>
-AlphaFold and PDB 3D structural resources.
-</p>
-
-<a class="button" href="structure.html">
-Open
-</a>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<img src="assets/dna GIF.gif" alt="BioFetch AI Assistant">
-
-<div class="card-content">
-
-<h2>🧬 BioFetch AI Assistant</h2>
-
-<p>
-Ask scientific questions about proteins, genes, genomics, proteomics, AlphaFold, PDB structures, molecular biology, microbiology, environmental biotechnology, biomining, acid mine drainage, bioenergy and microbial remediation.
-</p>
-
-<a class="button" href="ai.html">
-Open AI Assistant
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-<section class="environment">
-
-<img src="assets/environment.gif" alt="Environment Hub">
-
-<div class="environment-content">
-
-<h2>🌱 Environmental Bioinformatics Hub</h2>
-
-<p>
-Explore microbial remediation, heavy metal resistance,
-acid mine drainage, bioenergy, resource recovery,
-biomining and sustainable biotechnology.
-</p>
-
-<a class="button" href="environment.html">
-Explore Environment
-</a>
-
-</div>
-
-</section>
-
-<section class="ai-section">
-
-<div class="ai-visual">
-🧬
-</div>
-
-<div class="ai-content">
-
-<h2>🧬 BioFetch AI Assistant</h2>
-
-<p>
-Ask scientific questions about proteins, genes, genomics, proteomics, AlphaFold, PDB structures, molecular biology, microbiology, environmental biotechnology, biomining, acid mine drainage, bioenergy and microbial remediation.
-</p>
-
-<a class="button" href="ai.html">
-Open AI Assistant
-</a>
-
-</div>
-
-</section>
-
-<section class="video-section">
-
-<h2>🧬 Molecular Biology Learning Resource</h2>
-
-<p>
-DNA replication, helicase, primase, DNA polymerase III and
-Okazaki fragment formation.
-</p>
-
-<iframe
-width="700"
-height="400"
-src="https://www.youtube.com/embed/8kK2zwjRV0M"
-title="DNA Replication"
-allowfullscreen>
-</iframe>
-
-</section>
-
-<a class="floating-ai-button" href="ai.html">
-🧬 Ask BioFetch AI
-</a>
-
-<div class="footer">
-
-BioFetch © 2026
-
-<br><br>
-
-Developed by Surendra Dutt Arya
-
-</div>
-
+  <div class="min-h-screen lg:flex">
+
+    <aside class="desktop-sidebar sticky top-0 h-screen w-24 border-r border-white/10 bg-slate-950/70 backdrop-blur-xl">
+      <div class="flex h-full flex-col items-center justify-between py-6">
+        <a href="index.html" class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/15 text-2xl text-emerald-300">
+          🧬
+        </a>
+
+        <nav class="flex flex-col gap-4">
+          <a href="index.html" class="nav-link group relative flex h-12 w-12 items-center justify-center rounded-2xl text-slate-300">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.5Z"/></svg>
+            <span class="absolute left-16 hidden rounded-lg bg-slate-900 px-3 py-2 text-sm text-white shadow-xl group-hover:block">Home</span>
+          </a>
+
+          <a href="protein.html" class="nav-link group relative flex h-12 w-12 items-center justify-center rounded-2xl text-slate-300">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 4c6 0 6 16 12 16"/><path d="M18 4C12 4 12 20 6 20"/><path d="M8 8h8M8 16h8"/></svg>
+            <span class="absolute left-16 hidden rounded-lg bg-slate-900 px-3 py-2 text-sm text-white shadow-xl group-hover:block">Protein Explorer</span>
+          </a>
+
+          <a href="gene.html" class="nav-link group relative flex h-12 w-12 items-center justify-center rounded-2xl text-slate-300">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 3v18M17 3v18"/><path d="M7 7h10M7 12h10M7 17h10"/></svg>
+            <span class="absolute left-16 hidden rounded-lg bg-slate-900 px-3 py-2 text-sm text-white shadow-xl group-hover:block">Gene Explorer</span>
+          </a>
+
+          <a href="structure.html" class="nav-link group relative flex h-12 w-12 items-center justify-center rounded-2xl text-slate-300">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="12" cy="17" r="3"/><path d="M10 8.5h4M8.5 9.5l2 5M15.5 9.5l-2 5"/></svg>
+            <span class="absolute left-16 hidden rounded-lg bg-slate-900 px-3 py-2 text-sm text-white shadow-xl group-hover:block">Structure Explorer</span>
+          </a>
+
+          <a href="environment.html" class="nav-link group relative flex h-12 w-12 items-center justify-center rounded-2xl text-slate-300">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21V9"/><path d="M12 13c-5 0-8-3-8-8 5 0 8 3 8 8Z"/><path d="M12 15c5 0 8-3 8-8-5 0-8 3-8 8Z"/></svg>
+            <span class="absolute left-16 hidden rounded-lg bg-slate-900 px-3 py-2 text-sm text-white shadow-xl group-hover:block">Environment Hub</span>
+          </a>
+
+          <a href="ai.html" class="nav-link group relative flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-300">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg>
+            <span class="absolute left-16 hidden rounded-lg bg-slate-900 px-3 py-2 text-sm text-white shadow-xl group-hover:block">AI Assistant</span>
+          </a>
+        </nav>
+
+        <div class="h-12 w-12"></div>
+      </div>
+    </aside>
+
+    <main class="w-full px-4 py-5 sm:px-6 lg:px-8">
+
+      <header class="mb-6 rounded-3xl border border-white/10 bg-slate-950/60 p-3 backdrop-blur-xl lg:hidden">
+        <nav class="flex flex-wrap justify-center gap-2 text-sm">
+          <a class="rounded-full px-3 py-2 text-slate-200 hover:bg-emerald-500/15 hover:text-emerald-300" href="index.html">Home</a>
+          <a class="rounded-full px-3 py-2 text-slate-200 hover:bg-emerald-500/15 hover:text-emerald-300" href="protein.html">Protein Explorer</a>
+          <a class="rounded-full px-3 py-2 text-slate-200 hover:bg-emerald-500/15 hover:text-emerald-300" href="gene.html">Gene Explorer</a>
+          <a class="rounded-full px-3 py-2 text-slate-200 hover:bg-emerald-500/15 hover:text-emerald-300" href="structure.html">Structure Explorer</a>
+          <a class="rounded-full px-3 py-2 text-slate-200 hover:bg-emerald-500/15 hover:text-emerald-300" href="environment.html">Environment Hub</a>
+          <a class="rounded-full bg-emerald-500/15 px-3 py-2 text-emerald-300" href="ai.html">🧬 AI Assistant</a>
+        </nav>
+      </header>
+
+      <section class="glass-card relative overflow-hidden rounded-[2rem] p-6 sm:p-8 lg:p-10">
+        <div class="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+          <div class="relative z-10">
+            <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-500/10 px-4 py-2 text-sm font-semibold text-emerald-300">
+              <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+              Integrated research workspace
+            </div>
+
+            <h1 class="text-5xl font-black tracking-tight text-white sm:text-6xl lg:text-7xl">
+              BioFetch
+            </h1>
+
+            <p class="mt-4 max-w-2xl text-xl font-semibold text-emerald-300 sm:text-2xl">
+              Integrated Bioinformatics Research Platform
+            </p>
+
+            <p class="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
+              Protein analysis, gene exploration, structural biology, molecular informatics,
+              environmental biotechnology, bioenergy research, and AI-assisted scientific discovery.
+            </p>
+
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a href="ai.html" class="bio-button rounded-2xl bg-emerald-500 px-5 py-3 font-bold text-slate-950 hover:bg-emerald-400">
+                Open AI Assistant
+              </a>
+              <a href="#modules" class="bio-button rounded-2xl border border-white/15 bg-white/5 px-5 py-3 font-bold text-white hover:bg-white/10">
+                Explore Modules
+              </a>
+            </div>
+          </div>
+
+          <div class="relative h-[340px] overflow-hidden rounded-[2rem] border border-emerald-400/20 bg-slate-950/40">
+            <canvas id="dnaCanvas" aria-label="Animated DNA double helix"></canvas>
+            <img src="assets/dna GIF.gif" alt="DNA Animation" class="pointer-events-none absolute bottom-5 right-5 h-24 w-24 rounded-2xl border border-white/10 object-contain opacity-80" />
+          </div>
+        </div>
+      </section>
+
+      <section id="modules" class="mt-8">
+        <div class="mb-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+          <div>
+            <h2 class="text-3xl font-black text-white">Research Modules</h2>
+            <p class="mt-2 text-slate-400">A focused dashboard for biological data, structures, and environmental biotechnology.</p>
+          </div>
+          <p class="rounded-full border border-emerald-400/20 bg-emerald-500/10 px-4 py-2 text-sm font-semibold text-emerald-300">
+            Protein • Gene • Structure • Environment
+          </p>
+        </div>
+
+        <div class="grid gap-5 lg:grid-cols-2">
+          <article class="module-card glass-card rounded-3xl p-6">
+            <div class="mb-5 flex items-start justify-between gap-4">
+              <div>
+                <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/15 text-2xl">🧬</div>
+                <h3 class="text-2xl font-black text-white">Protein Explorer</h3>
+              </div>
+              <img src="assets/fightshape.gif" alt="Protein Explorer" class="h-20 w-20 rounded-2xl border border-white/10 object-contain" />
+            </div>
+            <p class="min-h-16 leading-7 text-slate-300">UniProt proteins, sequences, functions, and annotations.</p>
+            <a href="protein.html" class="bio-button mt-6 inline-flex rounded-2xl bg-teal-500 px-5 py-3 font-bold text-white hover:bg-teal-400">
+              Explore Proteins
+            </a>
+          </article>
+
+          <article class="module-card glass-card rounded-3xl p-6">
+            <div class="mb-5 flex items-start justify-between gap-4">
+              <div>
+                <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/15 text-2xl">🧫</div>
+                <h3 class="text-2xl font-black text-white">Gene Explorer</h3>
+              </div>
+              <img src="assets/gene.gif" alt="Gene Explorer" class="h-20 w-20 rounded-2xl border border-white/10 object-contain" />
+            </div>
+            <p class="min-h-16 leading-7 text-slate-300">Genes, markers, expression, and biological information.</p>
+            <a href="gene.html" class="bio-button mt-6 inline-flex rounded-2xl bg-teal-500 px-5 py-3 font-bold text-white hover:bg-teal-400">
+              Explore Genes
+            </a>
+          </article>
+
+          <article class="module-card glass-card rounded-3xl p-6">
+            <div class="grid gap-5 sm:grid-cols-[1fr_180px] sm:items-center">
+              <div>
+                <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/15 text-2xl">🔬</div>
+                <h3 class="text-2xl font-black text-white">Structure Explorer</h3>
+                <p class="mt-4 leading-7 text-slate-300">AlphaFold and PDB 3D structural resources.</p>
+                <a href="structure.html" class="bio-button mt-6 inline-flex rounded-2xl bg-teal-500 px-5 py-3 font-bold text-white hover:bg-teal-400">
+                  View 3D Structures
+                </a>
+              </div>
+
+              <div class="rounded-3xl border border-emerald-400/20 bg-slate-950/50 p-4">
+                <div class="molecule" aria-label="Interactive molecule placeholder">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <img src="assets/structure.gif" alt="Structure Explorer" class="mx-auto mt-3 h-12 w-20 object-contain opacity-80" />
+              </div>
+            </div>
+          </article>
+
+          <article class="module-card glass-card rounded-3xl p-6">
+            <div class="mb-5 flex items-start justify-between gap-4">
+              <div>
+                <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/15 text-2xl">🌱</div>
+                <h3 class="text-2xl font-black text-white">Environment Hub</h3>
+              </div>
+              <img src="assets/environment.gif" alt="Environment Hub" class="h-20 w-20 rounded-2xl border border-white/10 object-contain" />
+            </div>
+            <p class="leading-7 text-slate-300">
+              Microbial remediation, heavy metal resistance, acid mine drainage, bioenergy, and sustainable biotechnology.
+            </p>
+            <a href="environment.html" class="bio-button mt-6 inline-flex rounded-2xl bg-teal-500 px-5 py-3 font-bold text-white hover:bg-teal-400">
+              Enter Environment Hub
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <section class="mt-8 grid gap-5 xl:grid-cols-[1.5fr_1fr]">
+        <article class="glass-card rounded-3xl p-6">
+          <div class="mb-6 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+            <div>
+              <h2 class="text-3xl font-black text-white">Molecular Biology Learning Resource</h2>
+              <p class="mt-2 text-slate-400">Interactive DNA replication pathway for students and researchers.</p>
+            </div>
+            <a href="https://www.youtube.com/embed/8kK2zwjRV0M" class="text-sm font-bold text-emerald-300 hover:text-emerald-200">
+              Watch resource
+            </a>
+          </div>
+
+          <div class="grid gap-4 md:grid-cols-4">
+            <button class="timeline-step active rounded-3xl border border-white/10 bg-white/5 p-5 text-left" data-step="Helicase unwinds the DNA double helix and separates the two strands.">
+              <span class="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-500/15 text-xl">1</span>
+              <h3 class="font-black text-white">Helicase</h3>
+              <p class="mt-2 text-sm leading-6 text-slate-400">Unwinds the DNA double helix.</p>
+            </button>
+
+            <button class="timeline-step rounded-3xl border border-white/10 bg-white/5 p-5 text-left" data-step="Primase adds short RNA primers so DNA polymerase can begin synthesis.">
+              <span class="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-500/15 text-xl">2</span>
+              <h3 class="font-black text-white">Primase</h3>
+              <p class="mt-2 text-sm leading-6 text-slate-400">Builds RNA primers.</p>
+            </button>
+
+            <button class="timeline-step rounded-3xl border border-white/10 bg-white/5 p-5 text-left" data-step="DNA Polymerase III extends new DNA strands by adding nucleotides in the 5 prime to 3 prime direction.">
+              <span class="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-500/15 text-xl">3</span>
+              <h3 class="font-black text-white">DNA Polymerase III</h3>
+              <p class="mt-2 text-sm leading-6 text-slate-400">Synthesizes new DNA.</p>
+            </button>
+
+            <button class="timeline-step rounded-3xl border border-white/10 bg-white/5 p-5 text-left" data-step="Okazaki fragments form on the lagging strand and are joined to create a continuous DNA strand.">
+              <span class="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-500/15 text-xl">4</span>
+              <h3 class="font-black text-white">Okazaki Fragments</h3>
+              <p class="mt-2 text-sm leading-6 text-slate-400">Complete lagging strand synthesis.</p>
+            </button>
+          </div>
+
+          <div class="mt-5 rounded-3xl border border-emerald-400/20 bg-emerald-500/10 p-5">
+            <p id="timelineOutput" class="text-lg leading-8 text-emerald-100">
+              Helicase unwinds the DNA double helix and separates the two strands.
+            </p>
+          </div>
+        </article>
+
+        <aside class="glass-card flex min-h-[520px] flex-col rounded-3xl p-6">
+          <div class="mb-5">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/15 text-2xl">🧬</div>
+            <h2 class="text-3xl font-black text-white">BioFetch AI Assistant</h2>
+            <p class="mt-3 leading-7 text-slate-300">
+              Ask scientific questions about proteins, genes, genomics, proteomics, AlphaFold, PDB structures,
+              molecular biology, microbiology, environmental biotechnology, biomining, acid mine drainage,
+              bioenergy and microbial remediation.
+            </p>
+          </div>
+
+          <div class="mb-5 flex flex-wrap gap-2">
+            <button class="ai-pill rounded-full border border-emerald-400/20 bg-emerald-500/10 px-3 py-2 text-sm font-semibold text-emerald-300 hover:bg-emerald-500/20" data-question="Analyze Acid Mine Drainage">
+              Analyze Acid Mine Drainage
+            </button>
+            <button class="ai-pill rounded-full border border-emerald-400/20 bg-emerald-500/10 px-3 py-2 text-sm font-semibold text-emerald-300 hover:bg-emerald-500/20" data-question="Predict AlphaFold Structure">
+              Predict AlphaFold Structure
+            </button>
+            <button class="ai-pill rounded-full border border-emerald-400/20 bg-emerald-500/10 px-3 py-2 text-sm font-semibold text-emerald-300 hover:bg-emerald-500/20" data-question="Explain UniProt protein annotations">
+              UniProt Annotations
+            </button>
+          </div>
+
+          <div class="flex-1 rounded-3xl border border-white/10 bg-slate-950/50 p-5">
+            <div class="rounded-2xl bg-white/5 p-4">
+              <p class="text-sm font-bold text-emerald-300">BioFetch AI</p>
+              <p class="mt-2 leading-7 text-slate-300">
+                Ready to help with bioinformatics, molecular biology, structures, and environmental biotechnology.
+              </p>
+            </div>
+          </div>
+
+          <form id="aiForm" class="sticky bottom-0 mt-5 flex gap-2 rounded-2xl border border-white/10 bg-slate-950/80 p-2 backdrop-blur-xl">
+            <input
+              id="aiInput"
+              type="text"
+              placeholder="Ask BioFetch AI..."
+              class="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none transition duration-300 ease-in-out placeholder:text-slate-500 focus:border-emerald-400"
+            />
+            <button type="submit" class="bio-button rounded-xl bg-emerald-500 px-5 py-3 font-black text-slate-950 hover:bg-emerald-400">
+              Ask
+            </button>
+          </form>
+        </aside>
+      </section>
+
+      <footer class="mt-8 rounded-3xl border border-white/10 bg-slate-950/60 p-6 text-center text-sm text-slate-400">
+        BioFetch © 2026 | Developed by Surendra Dutt Arya
+      </footer>
+
+    </main>
+  </div>
+
+  <a href="ai.html" class="bio-button fixed bottom-5 right-5 z-50 rounded-full bg-emerald-500 px-5 py-3 font-black text-slate-950 shadow-2xl hover:bg-emerald-400">
+    🧬 Ask BioFetch AI
+  </a>
+
+  <script>
+    const canvas = document.getElementById("dnaCanvas");
+    const ctx = canvas.getContext("2d");
+
+    let width;
+    let height;
+    let time = 0;
+    let mouseX = 0;
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      width = rect.width * window.devicePixelRatio;
+      height = rect.height * window.devicePixelRatio;
+      canvas.width = width;
+      canvas.height = height;
+      ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+    }
+
+    function drawDNA() {
+      const w = canvas.getBoundingClientRect().width;
+      const h = canvas.getBoundingClientRect().height;
+      ctx.clearRect(0, 0, w, h);
+
+      const centerX = w / 2;
+      const centerY = h / 2;
+      const amplitude = Math.min(w, 360) * 0.22;
+      const spacing = 16;
+      const speed = time * 0.035;
+      const interaction = mouseX * 0.0008;
+
+      for (let y = -40; y < h + 40; y += spacing) {
+        const angle = y * 0.045 + speed + interaction;
+        const x1 = centerX + Math.sin(angle) * amplitude;
+        const x2 = centerX + Math.sin(angle + Math.PI) * amplitude;
+        const z = Math.cos(angle);
+        const radius = 4 + z * 1.8;
+
+        ctx.strokeStyle = "rgba(16, 185, 129, 0.28)";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(x1, y);
+        ctx.lineTo(x2, y);
+        ctx.stroke();
+
+        ctx.fillStyle = "rgba(16, 185, 129, 0.95)";
+        ctx.beginPath();
+        ctx.arc(x1, y, radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = "rgba(45, 212, 191, 0.85)";
+        ctx.beginPath();
+        ctx.arc(x2, y, 6 - radius * 0.35, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      const gradient = ctx.createRadialGradient(centerX, centerY, 20, centerX, centerY, w * 0.55);
+      gradient.addColorStop(0, "rgba(16, 185, 129, 0.14)");
+      gradient.addColorStop(1, "rgba(16, 185, 129, 0)");
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, w, h);
+
+      time += 1;
+      requestAnimationFrame(drawDNA);
+    }
+
+    canvas.addEventListener("mousemove", function(event) {
+      mouseX = event.offsetX;
+    });
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+    drawDNA();
+
+    const steps = document.querySelectorAll(".timeline-step");
+    const output = document.getElementById("timelineOutput");
+
+    steps.forEach(function(step) {
+      step.addEventListener("click", function() {
+        steps.forEach(function(item) {
+          item.classList.remove("active");
+        });
+
+        step.classList.add("active");
+        output.textContent = step.dataset.step;
+      });
+    });
+
+    const aiInput = document.getElementById("aiInput");
+    const aiForm = document.getElementById("aiForm");
+    const aiPills = document.querySelectorAll(".ai-pill");
+
+    aiPills.forEach(function(pill) {
+      pill.addEventListener("click", function() {
+        aiInput.value = pill.dataset.question;
+        aiInput.focus();
+      });
+    });
+
+    aiForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+      const question = aiInput.value.trim();
+
+      if (question) {
+        window.location.href = "ai.html?question=" + encodeURIComponent(question);
+      } else {
+        window.location.href = "ai.html";
+      }
+    });
+  </script>
 </body>
-
 </html>
