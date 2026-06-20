@@ -1,178 +1,450 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>BioFetch Gene Explorer</title>
 
 <style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
 body{
-font-family:Arial,sans-serif;
-max-width:1000px;
-margin:auto;
-padding:20px;
-background:#f5f5f5;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f8fb;
+    color:#16324f;
 }
 
-h1{
-text-align:center;
-color:#2c3e50;
+.header{
+    background:linear-gradient(90deg,#06283d,#0b5c75);
+    color:white;
+    padding:28px;
+    text-align:center;
 }
 
-.card{
-background:white;
-padding:20px;
-margin:15px 0;
-border-radius:10px;
-box-shadow:0 2px 6px rgba(0,0,0,0.1);
+.header h1{
+    margin-bottom:8px;
+}
+
+.container{
+    max-width:1250px;
+    margin:auto;
+    padding:30px;
+}
+
+.topbar{
+    margin-bottom:20px;
+}
+
+.back{
+    display:inline-block;
+    text-decoration:none;
+    color:#0b3d5c;
+    font-weight:bold;
+}
+
+.layout{
+    display:grid;
+    grid-template-columns:360px 1fr;
+    gap:24px;
+    align-items:start;
+}
+
+.panel,
+.result{
+    background:white;
+    padding:24px;
+    border-radius:14px;
+    box-shadow:0 4px 16px rgba(0,0,0,0.12);
+}
+
+.panel h2,
+.result h2{
+    color:#063970;
+    margin-bottom:12px;
+}
+
+.panel p{
+    margin-bottom:18px;
+    color:#555;
+    line-height:1.6;
+}
+
+.gene-group{
+    margin-bottom:24px;
+}
+
+.gene-group h3{
+    color:#0b5c75;
+    margin-bottom:10px;
+    font-size:18px;
+}
+
+.gene-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
 }
 
 button{
-padding:10px 15px;
-margin:5px;
-background:#007bff;
-color:white;
-border:none;
-border-radius:5px;
-cursor:pointer;
+    padding:10px 14px;
+    background:#0077b6;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
 }
 
-#result{
-background:white;
-padding:15px;
-margin-top:20px;
-border-radius:10px;
+button:hover{
+    background:#005f8f;
 }
 
-a{
-text-decoration:none;
+.search-row{
+    display:flex;
+    gap:10px;
+    margin-bottom:24px;
 }
 
+input{
+    flex:1;
+    padding:12px;
+    font-size:16px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+    margin:20px 0;
+}
+
+.info-card{
+    background:#eef6ff;
+    padding:16px;
+    border-radius:10px;
+    border-left:5px solid #0077b6;
+}
+
+.info-card b{
+    color:#063970;
+}
+
+.section{
+    margin-top:22px;
+}
+
+.section h3{
+    color:#063970;
+    margin-bottom:10px;
+}
+
+.links{
+    margin-top:22px;
+}
+
+.links a{
+    display:inline-block;
+    margin:6px 8px 6px 0;
+    padding:10px 14px;
+    background:#0b3d5c;
+    color:white;
+    text-decoration:none;
+    border-radius:7px;
+    font-weight:bold;
+}
+
+.links a:hover{
+    background:#06283d;
+}
+
+.sequence{
+    background:#fafafa;
+    padding:16px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    overflow-x:auto;
+    word-break:break-all;
+    line-height:1.7;
+    margin-top:12px;
+    font-family:Consolas,monospace;
+}
+
+.placeholder{
+    min-height:420px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:#555;
+}
+
+.placeholder h2{
+    margin-bottom:10px;
+}
+
+.error{
+    color:#b00020;
+    font-weight:bold;
+}
+
+.loading{
+    font-weight:bold;
+    color:#0077b6;
+}
+
+@media(max-width:900px){
+    .layout{
+        grid-template-columns:1fr;
+    }
+
+    .container{
+        padding:18px;
+    }
+
+    .search-row{
+        flex-direction:column;
+    }
+}
 </style>
-
 </head>
 
 <body>
 
-<h1>BioFetch Gene Explorer</h1>
-
-<a href="index.html">⬅ Back to Home</a>
-
-<div class="card">
-
-<h2>Heavy Metal Resistance Genes</h2>
-
-<button onclick="searchGene('merA')">merA</button>
-<button onclick="searchGene('arsC')">arsC</button>
-<button onclick="searchGene('copA')">copA</button>
-<button onclick="searchGene('czcA')">czcA</button>
-<button onclick="searchGene('nccA')">nccA</button>
-
+<div class="header">
+    <h1>BioFetch Gene Explorer</h1>
+    <p>Genes, proteins, organisms, functions and biological annotations</p>
 </div>
 
-<div class="card">
+<div class="container">
 
-<h2>Nitrogen Cycle Genes</h2>
+    <div class="topbar">
+        <a href="index.html" class="back">Back to Home</a>
+    </div>
 
-<button onclick="searchGene('nifH')">nifH</button>
-<button onclick="searchGene('nirK')">nirK</button>
-<button onclick="searchGene('amoA')">amoA</button>
+    <div class="layout">
 
-</div>
+        <div class="panel">
+            <h2>Gene Categories</h2>
+            <p>Select a gene below or search any gene name manually.</p>
 
-<div class="card">
+            <div class="search-row">
+                <input id="customGene" placeholder="Example: TP53, merA, nifH">
+                <button onclick="searchCustomGene()">Search</button>
+            </div>
 
-<h2>Methanogenesis Genes</h2>
+            <div class="gene-group">
+                <h3>Heavy Metal Resistance</h3>
+                <div class="gene-buttons">
+                    <button onclick="searchGene('merA')">merA</button>
+                    <button onclick="searchGene('arsC')">arsC</button>
+                    <button onclick="searchGene('copA')">copA</button>
+                    <button onclick="searchGene('czcA')">czcA</button>
+                    <button onclick="searchGene('nccA')">nccA</button>
+                </div>
+            </div>
 
-<button onclick="searchGene('mcrA')">mcrA</button>
+            <div class="gene-group">
+                <h3>Nitrogen Cycle</h3>
+                <div class="gene-buttons">
+                    <button onclick="searchGene('nifH')">nifH</button>
+                    <button onclick="searchGene('nirK')">nirK</button>
+                    <button onclick="searchGene('amoA')">amoA</button>
+                </div>
+            </div>
 
-</div>
+            <div class="gene-group">
+                <h3>Methanogenesis</h3>
+                <div class="gene-buttons">
+                    <button onclick="searchGene('mcrA')">mcrA</button>
+                </div>
+            </div>
 
-<div class="card">
+            <div class="gene-group">
+                <h3>Human Disease Genes</h3>
+                <div class="gene-buttons">
+                    <button onclick="searchGene('TP53')">TP53</button>
+                    <button onclick="searchGene('BRCA1')">BRCA1</button>
+                    <button onclick="searchGene('EGFR')">EGFR</button>
+                    <button onclick="searchGene('MYC')">MYC</button>
+                </div>
+            </div>
+        </div>
 
-<h2>Human Disease Genes</h2>
+        <div id="result" class="result placeholder">
+            <h2>Select a Gene</h2>
+            <p>Gene information, protein details, function, sequence and database links will appear here.</p>
+        </div>
 
-<button onclick="searchGene('TP53')">TP53</button>
-<button onclick="searchGene('BRCA1')">BRCA1</button>
-<button onclick="searchGene('EGFR')">EGFR</button>
-<button onclick="searchGene('MYC')">MYC</button>
-
-</div>
-
-<div id="result">
-
-Select a gene above.
+    </div>
 
 </div>
 
 <script>
+function searchCustomGene(){
+    const gene = document.getElementById("customGene").value.trim();
+
+    if(gene === ""){
+        document.getElementById("result").className = "result";
+        document.getElementById("result").innerHTML = '<p class="error">Please enter a gene name.</p>';
+        return;
+    }
+
+    searchGene(gene);
+}
 
 async function searchGene(gene){
+    const result = document.getElementById("result");
+    result.className = "result";
+    result.innerHTML = '<p class="loading">Searching gene data...</p>';
 
-let url =
-"https://rest.uniprot.org/uniprotkb/search?query=gene:"+gene+"&format=json&size=1";
+    try{
+        const searchQuery = encodeURIComponent("gene:" + gene);
+        const url = "https://rest.uniprot.org/uniprotkb/search?query=" + searchQuery + "&format=json&size=1";
 
-try{
+        const response = await fetch(url);
 
-let response = await fetch(url);
+        if(!response.ok){
+            throw new Error("UniProt search failed");
+        }
 
-let data = await response.json();
+        const data = await response.json();
 
-if(data.results.length===0){
+        if(!data.results || data.results.length === 0){
+            result.innerHTML = '<h2>No results found</h2><p>Try another gene name.</p>';
+            return;
+        }
 
-document.getElementById("result").innerHTML=
-"<h3>No results found</h3>";
+        const p = data.results[0];
 
-return;
+        const proteinName =
+            p.proteinDescription?.recommendedName?.fullName?.value ||
+            p.proteinDescription?.submissionNames?.[0]?.fullName?.value ||
+            "Protein name not available";
 
+        const accession =
+            p.primaryAccession ||
+            "N/A";
+
+        const organism =
+            p.organism?.scientificName ||
+            "N/A";
+
+        const geneName =
+            p.genes?.[0]?.geneName?.value ||
+            gene;
+
+        const length =
+            p.sequence?.length ||
+            "Unknown";
+
+        const mass =
+            p.sequence?.molWeight ||
+            "Unknown";
+
+        const sequence =
+            p.sequence?.value ||
+            "Sequence not available";
+
+        const functionText =
+            p.comments?.find(c => c.commentType === "FUNCTION")?.texts?.[0]?.value ||
+            "Function not available.";
+
+        const goTerms = (p.uniProtKBCrossReferences || [])
+            .filter(ref => ref.database === "GO")
+            .slice(0,8)
+            .map(ref => {
+                const term = ref.properties?.find(prop => prop.key === "GoTerm")?.value || ref.id;
+                return "<li>" + escapeHTML(term) + "</li>";
+            })
+            .join("");
+
+        result.innerHTML = `
+            <h2>${escapeHTML(proteinName)}</h2>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <b>Gene</b><br>
+                    ${escapeHTML(geneName)}
+                </div>
+
+                <div class="info-card">
+                    <b>UniProt Accession</b><br>
+                    ${escapeHTML(accession)}
+                </div>
+
+                <div class="info-card">
+                    <b>Organism</b><br>
+                    ${escapeHTML(organism)}
+                </div>
+
+                <div class="info-card">
+                    <b>Protein Length</b><br>
+                    ${escapeHTML(String(length))} aa
+                </div>
+
+                <div class="info-card">
+                    <b>Molecular Weight</b><br>
+                    ${escapeHTML(String(mass))} Da
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>Function</h3>
+                <p>${escapeHTML(functionText)}</p>
+            </div>
+
+            <div class="section">
+                <h3>GO Terms</h3>
+                <ul>${goTerms || "<li>Not available</li>"}</ul>
+            </div>
+
+            <div class="links">
+                <a target="_blank" href="https://www.uniprot.org/uniprotkb/${accession}">Open UniProt</a>
+                <a target="_blank" href="https://alphafold.ebi.ac.uk/entry/${accession}">Open AlphaFold</a>
+                <a target="_blank" href="https://www.ncbi.nlm.nih.gov/gene/?term=${encodeURIComponent(geneName)}">NCBI Gene</a>
+                <a target="_blank" href="https://www.kegg.jp/kegg-bin/search_pathway_text?keyword=${encodeURIComponent(geneName)}">KEGG</a>
+            </div>
+
+            <div class="section">
+                <h3>Protein Sequence</h3>
+                <button onclick="copySequence()">Copy Sequence</button>
+                <div class="sequence">${escapeHTML(sequence)}</div>
+            </div>
+        `;
+    }
+    catch(error){
+        result.innerHTML = '<h2 class="error">Search failed</h2><p>Please check your internet connection or try another gene name.</p>';
+    }
 }
 
-let p = data.results[0];
+function copySequence(){
+    const seqBox = document.querySelector(".sequence");
 
-let proteinName =
-p.proteinDescription?.recommendedName?.fullName?.value ||
-"Protein";
+    if(!seqBox){
+        alert("No sequence available to copy.");
+        return;
+    }
 
-let accession =
-p.primaryAccession || "N/A";
-
-let organism =
-p.organism?.scientificName || "N/A";
-
-document.getElementById("result").innerHTML =
-
-"<h2>"+proteinName+"</h2>"
-
-+
-
-"<p><b>Gene:</b> "+gene+"</p>"
-
-+
-
-"<p><b>Accession:</b> "+accession+"</p>"
-
-+
-
-"<p><b>Organism:</b> "+organism+"</p>"
-
-+
-
-"<p><a href='https://www.uniprot.org/uniprotkb/"+accession+"' target='_blank'>Open UniProt</a></p>"
-
-+
-
-"<p><a href='https://alphafold.ebi.ac.uk/entry/"+accession+"' target='_blank'>Open AlphaFold</a></p>";
-
+    navigator.clipboard.writeText(seqBox.innerText);
+    alert("Sequence copied");
 }
 
-catch{
-
-document.getElementById("result").innerHTML=
-"<h3>Search failed</h3>";
-
+function escapeHTML(text){
+    return String(text)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
 }
-
-}
-
 </script>
 
 </body>
