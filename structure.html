@@ -1,116 +1,336 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>BioFetch Structure Explorer</title>
 
 <style>
-
-body{
-font-family:Arial,sans-serif;
-max-width:900px;
-margin:auto;
-padding:20px;
-background:#f5f5f5;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-h1{
-text-align:center;
-color:#2c3e50;
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f8fb;
+    color:#16324f;
+}
+
+.header{
+    background:linear-gradient(90deg,#06283d,#0b5c75);
+    color:white;
+    padding:28px;
+    text-align:center;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:30px;
+}
+
+.search-box,
+.result{
+    background:white;
+    padding:24px;
+    border-radius:14px;
+    box-shadow:0 4px 16px rgba(0,0,0,0.12);
+    margin-bottom:25px;
+}
+
+.search-box h2,
+.result h2{
+    color:#063970;
+    margin-bottom:10px;
+}
+
+.search-box p{
+    margin-bottom:15px;
 }
 
 input{
-width:100%;
-padding:10px;
-font-size:16px;
-margin-bottom:10px;
+    width:100%;
+    padding:14px;
+    font-size:16px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    margin-bottom:12px;
 }
 
 button{
-padding:10px 20px;
-background:#007bff;
-color:white;
-border:none;
-cursor:pointer;
+    padding:12px 24px;
+    background:#0077b6;
+    color:white;
+    border:none;
+    cursor:pointer;
+    border-radius:8px;
+    font-weight:bold;
 }
 
-#result{
-margin-top:20px;
-background:white;
-padding:15px;
-border-radius:10px;
+button:hover{
+    background:#005f8f;
 }
 
-a{
-display:inline-block;
-margin:5px;
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+    margin:20px 0;
 }
 
+.card{
+    background:#eef6ff;
+    padding:16px;
+    border-radius:10px;
+    border-left:5px solid #0077b6;
+}
+
+.card b{
+    color:#063970;
+}
+
+.links{
+    margin-top:22px;
+}
+
+.links a{
+    display:inline-block;
+    margin:6px 8px 6px 0;
+    padding:10px 14px;
+    background:#0b3d5c;
+    color:white;
+    text-decoration:none;
+    border-radius:7px;
+    font-weight:bold;
+}
+
+.links a:hover{
+    background:#06283d;
+}
+
+.viewer{
+    margin-top:25px;
+}
+
+iframe{
+    width:100%;
+    height:560px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    background:white;
+}
+
+.back{
+    display:inline-block;
+    margin-top:10px;
+    text-decoration:none;
+    color:#0b3d5c;
+    font-weight:bold;
+}
+
+.error{
+    color:#b00020;
+    font-weight:bold;
+}
+
+.loading{
+    font-weight:bold;
+    color:#0077b6;
+}
+
+.note{
+    margin-top:10px;
+    color:#555;
+    line-height:1.6;
+}
+
+@media(max-width:700px){
+    .container{
+        padding:18px;
+    }
+
+    iframe{
+        height:420px;
+    }
+}
 </style>
-
 </head>
 
 <body>
 
-<h1>BioFetch Structure Explorer</h1>
+<div class="header">
+    <h1>BioFetch Structure Explorer</h1>
+    <p>AlphaFold, UniProt and PDB structural resources</p>
+</div>
 
-<p>Enter UniProt Accession</p>
+<div class="container">
 
-<input id="proteinId" placeholder="Example: P04637">
+    <div class="search-box">
+        <h2>Search Protein Structure</h2>
+        <p>Enter a UniProt accession or gene name. Examples: P04637, TP53, EGFR, MYC</p>
 
-<button onclick="showLinks()">
-Search Structure
-</button>
+        <input id="query" placeholder="Enter UniProt accession or gene name">
 
-<br><br>
+        <button onclick="searchStructure()">Search Structure</button>
+    </div>
 
-<a href="index.html">⬅ Back to Home</a>
+    <div id="result"></div>
 
-<div id="result"></div>
+    <a href="index.html" class="back">Back to Home</a>
+
+</div>
 
 <script>
+async function searchStructure(){
+    const q = document.getElementById("query").value.trim();
+    const result = document.getElementById("result");
 
-function showLinks(){
+    if(q === ""){
+        result.innerHTML = '<div class="result"><p class="error">Please enter a UniProt accession or gene name.</p></div>';
+        return;
+    }
 
-let id =
-document.getElementById("proteinId").value.trim();
+    result.innerHTML = '<div class="result"><p class="loading">Searching structure resources...</p></div>';
 
-if(id===""){
-document.getElementById("result").innerHTML=
-"Please enter a UniProt accession.";
-return;
+    try{
+        let accession = q;
+        const accessionPattern = /^[A-Z0-9]{6,10}$/i;
+
+        if(!accessionPattern.test(q)){
+            const searchQuery = encodeURIComponent("gene:" + q + " AND organism_id:9606 AND reviewed:true");
+            const searchURL = "https://rest.uniprot.org/uniprotkb/search?query=" + searchQuery + "&format=json&size=1";
+
+            const searchResponse = await fetch(searchURL);
+
+            if(!searchResponse.ok){
+                throw new Error("UniProt search failed");
+            }
+
+            const searchData = await searchResponse.json();
+
+            if(!searchData.results || searchData.results.length === 0){
+                result.innerHTML = '<div class="result"><h2>No structure found</h2><p>Try a UniProt accession like P04637.</p></div>';
+                return;
+            }
+
+            accession = searchData.results[0].primaryAccession;
+        }
+
+        const proteinURL = "https://rest.uniprot.org/uniprotkb/" + accession + ".json";
+        const response = await fetch(proteinURL);
+
+        if(!response.ok){
+            throw new Error("Protein record not found");
+        }
+
+        const data = await response.json();
+
+        const accessionID = data.primaryAccession || accession;
+
+        const proteinName =
+            data.proteinDescription?.recommendedName?.fullName?.value ||
+            data.proteinDescription?.submissionNames?.[0]?.fullName?.value ||
+            "Unknown protein";
+
+        const geneName =
+            data.genes?.[0]?.geneName?.value ||
+            "Not available";
+
+        const organism =
+            data.organism?.scientificName ||
+            "Unknown";
+
+        const length =
+            data.sequence?.length ||
+            "Unknown";
+
+        const pdbRefs = (data.uniProtKBCrossReferences || [])
+            .filter(ref => ref.database === "PDB")
+            .map(ref => ref.id);
+
+        const pdbList = pdbRefs.length > 0 ? pdbRefs.join(", ") : "No experimental PDB structure found in UniProt record";
+
+        const alphafoldURL = "https://alphafold.ebi.ac.uk/entry/" + accessionID;
+        const uniprotURL = "https://www.uniprot.org/uniprotkb/" + accessionID;
+        const pdbSearchURL = "https://www.rcsb.org/search?query=" + encodeURIComponent(accessionID);
+        const pdbDownloadURL = "https://alphafold.ebi.ac.uk/files/AF-" + accessionID + "-F1-model_v4.pdb";
+        const cifDownloadURL = "https://alphafold.ebi.ac.uk/files/AF-" + accessionID + "-F1-model_v4.cif";
+
+        result.innerHTML = `
+            <div class="result">
+                <h2>${escapeHTML(proteinName)}</h2>
+
+                <div class="info-grid">
+                    <div class="card">
+                        <b>UniProt Accession</b><br>
+                        ${escapeHTML(accessionID)}
+                    </div>
+
+                    <div class="card">
+                        <b>Gene</b><br>
+                        ${escapeHTML(geneName)}
+                    </div>
+
+                    <div class="card">
+                        <b>Organism</b><br>
+                        ${escapeHTML(organism)}
+                    </div>
+
+                    <div class="card">
+                        <b>Protein Length</b><br>
+                        ${escapeHTML(String(length))} aa
+                    </div>
+
+                    <div class="card">
+                        <b>PDB IDs</b><br>
+                        ${escapeHTML(pdbList)}
+                    </div>
+                </div>
+
+                <div class="links">
+                    <a target="_blank" href="${alphafoldURL}">Open AlphaFold</a>
+                    <a target="_blank" href="${uniprotURL}">Open UniProt</a>
+                    <a target="_blank" href="${pdbSearchURL}">Search PDB</a>
+                    <a target="_blank" href="${pdbDownloadURL}">Download AlphaFold PDB</a>
+                    <a target="_blank" href="${cifDownloadURL}">Download AlphaFold CIF</a>
+                </div>
+
+                <div class="viewer">
+                    <h2>AlphaFold Structure Viewer</h2>
+                    <p class="note">
+                        The 3D model opens below if AlphaFold has a predicted structure for this accession.
+                    </p>
+
+                    <iframe
+                        src="https://alphafold.ebi.ac.uk/entry/${accessionID}"
+                        title="AlphaFold Structure Viewer">
+                    </iframe>
+                </div>
+            </div>
+        `;
+    }
+    catch(error){
+        result.innerHTML = `
+            <div class="result">
+                <h2 class="error">Error retrieving structure data</h2>
+                <p>Please check the accession or gene name and try again.</p>
+            </div>
+        `;
+    }
 }
 
-let alphafold =
-"https://alphafold.ebi.ac.uk/entry/" + id;
-
-let uniprot =
-"https://www.uniprot.org/uniprotkb/" + id;
-
-let pdb =
-"https://www.rcsb.org/search?query=" + id;
-
-document.getElementById("result").innerHTML =
-
-"<h2>Structure Resources</h2>"
-
-+
-
-"<p><a href='"+alphafold+"' target='_blank'>AlphaFold Structure</a></p>"
-
-+
-
-"<p><a href='"+uniprot+"' target='_blank'>UniProt Entry</a></p>"
-
-+
-
-"<p><a href='"+pdb+"' target='_blank'>PDB Search</a></p>";
-
+function escapeHTML(text){
+    return String(text)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
 }
-
 </script>
 
 </body>
-
 </html>
