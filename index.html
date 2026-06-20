@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>BioFetch | Integrated Bioinformatics Research Platform</title>
+  <title>BioFetch Protein Explorer</title>
 
   <style>
     * {
@@ -13,993 +13,535 @@
       box-sizing: border-box;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
-
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(16, 185, 129, 0.18), transparent 30%),
-        radial-gradient(circle at top right, rgba(13, 148, 136, 0.12), transparent 28%),
-        linear-gradient(135deg, #f8fffe, #eefdf9 45%, #f5fbff);
-      color: #123033;
+      background: linear-gradient(135deg, #eef7ff, #d7f1ff);
+      color: #16324f;
       min-height: 100vh;
     }
 
-    a {
-      text-decoration: none;
-    }
-
-    .page {
-      display: flex;
-      min-height: 100vh;
-    }
-
-    .sidebar {
-      position: sticky;
-      top: 0;
-      width: 96px;
-      height: 100vh;
-      background: rgba(255, 255, 255, 0.86);
-      backdrop-filter: blur(18px);
-      border-right: 1px solid rgba(13, 148, 136, 0.16);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      padding: 24px 14px;
-      z-index: 20;
-    }
-
-    .logo {
-      width: 54px;
-      height: 54px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, #0d9488, #10b981);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 26px;
-      box-shadow: 0 14px 34px rgba(16, 185, 129, 0.28);
-    }
-
-    .side-nav {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .side-link {
-      position: relative;
-      width: 52px;
-      height: 52px;
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #0f766e;
-      background: rgba(13, 148, 136, 0.08);
-      border: 1px solid rgba(13, 148, 136, 0.12);
-      transition: 0.3s ease-in-out;
-    }
-
-    .side-link:hover {
-      color: white;
-      background: linear-gradient(135deg, #0d9488, #10b981);
-      transform: translateX(4px);
-      box-shadow: 0 14px 30px rgba(16, 185, 129, 0.25);
-    }
-
-    .side-link span {
-      position: absolute;
-      left: 68px;
-      white-space: nowrap;
-      background: #ffffff;
-      color: #0f766e;
-      border: 1px solid rgba(13, 148, 136, 0.16);
-      box-shadow: 0 12px 30px rgba(15, 118, 110, 0.12);
-      border-radius: 12px;
-      padding: 9px 12px;
-      font-size: 14px;
-      font-weight: bold;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateX(-8px);
-      transition: 0.3s ease-in-out;
-    }
-
-    .side-link:hover span {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .main {
-      width: 100%;
-      padding: 24px;
-    }
-
-    .mobile-nav {
-      display: none;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(13, 148, 136, 0.15);
-      border-radius: 22px;
-      padding: 12px;
-      margin-bottom: 20px;
-      box-shadow: 0 14px 30px rgba(15, 118, 110, 0.08);
-    }
-
-    .mobile-nav a {
-      display: inline-block;
-      color: #0f766e;
-      font-weight: bold;
-      padding: 10px 12px;
-      border-radius: 999px;
-      transition: 0.3s ease-in-out;
-    }
-
-    .mobile-nav a:hover {
-      background: rgba(16, 185, 129, 0.12);
-    }
-
-    .hero {
-      position: relative;
-      overflow: hidden;
-      background: rgba(255, 255, 255, 0.86);
-      border: 1px solid rgba(13, 148, 136, 0.16);
-      border-radius: 32px;
-      padding: 48px;
-      box-shadow: 0 24px 70px rgba(15, 118, 110, 0.12);
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 42px;
-      align-items: center;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(16, 185, 129, 0.12);
-      color: #0f766e;
-      border: 1px solid rgba(16, 185, 129, 0.24);
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-weight: bold;
-      font-size: 14px;
-      margin-bottom: 22px;
-    }
-
-    .badge-dot {
-      width: 8px;
-      height: 8px;
-      background: #10b981;
-      border-radius: 50%;
-    }
-
-    .hero h1 {
-      color: #073b3a;
-      font-size: clamp(48px, 8vw, 86px);
-      line-height: 1;
-      margin-bottom: 18px;
-      letter-spacing: 0;
-    }
-
-    .hero h2 {
-      color: #0d9488;
-      font-size: clamp(22px, 3vw, 34px);
-      margin-bottom: 22px;
-    }
-
-    .hero p {
-      color: #34585a;
-      max-width: 760px;
-      font-size: 18px;
-      line-height: 1.8;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 30px;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 13px 20px;
-      border-radius: 14px;
-      font-weight: bold;
-      transition: 0.3s ease-in-out;
-      border: none;
-      cursor: pointer;
-    }
-
-    .button-primary {
-      background: linear-gradient(135deg, #0d9488, #10b981);
-      color: white;
-      box-shadow: 0 14px 30px rgba(16, 185, 129, 0.24);
-    }
-
-    .button-secondary {
-      background: white;
-      color: #0f766e;
-      border: 1px solid rgba(13, 148, 136, 0.18);
-    }
-
-    .button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 16px 34px rgba(16, 185, 129, 0.25);
-    }
-
-    .hero-visual {
-      position: relative;
-      min-height: 360px;
-      border-radius: 28px;
-      border: 1px solid rgba(13, 148, 136, 0.16);
-      background:
-        linear-gradient(135deg, rgba(16, 185, 129, 0.11), rgba(14, 165, 233, 0.08)),
-        #ffffff;
-      overflow: hidden;
-      box-shadow: inset 0 0 45px rgba(16, 185, 129, 0.08);
-    }
-
-    canvas {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    .dna-gif {
-      position: absolute;
-      right: 22px;
-      bottom: 22px;
-      width: 96px;
-      height: 96px;
-      border-radius: 20px;
-      object-fit: contain;
-      background: white;
-      border: 1px solid rgba(13, 148, 136, 0.14);
-      box-shadow: 0 14px 28px rgba(15, 118, 110, 0.12);
-    }
-
-    .section-head {
-      margin: 34px 0 18px;
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      align-items: end;
-    }
-
-    .section-head h2 {
-      color: #073b3a;
-      font-size: 34px;
-    }
-
-    .section-head p {
-      color: #547174;
-      margin-top: 8px;
-      line-height: 1.6;
-    }
-
-    .section-pill {
-      white-space: nowrap;
-      background: rgba(16, 185, 129, 0.12);
-      color: #0f766e;
-      border: 1px solid rgba(16, 185, 129, 0.22);
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    .module-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 22px;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.86);
-      border: 1px solid rgba(13, 148, 136, 0.16);
-      border-radius: 26px;
-      padding: 26px;
-      box-shadow: 0 18px 50px rgba(15, 118, 110, 0.1);
-      transition: 0.3s ease-in-out;
-    }
-
-    .card:hover {
-      transform: scale(1.02);
-      border-color: rgba(16, 185, 129, 0.55);
-      box-shadow: 0 24px 70px rgba(16, 185, 129, 0.16);
-    }
-
-    .card-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 18px;
-      margin-bottom: 20px;
-    }
-
-    .icon-box {
-      width: 54px;
-      height: 54px;
-      border-radius: 18px;
-      background: rgba(16, 185, 129, 0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 25px;
-      margin-bottom: 16px;
-    }
-
-    .card h3 {
-      color: #073b3a;
-      font-size: 25px;
-      margin-bottom: 12px;
-    }
-
-    .card p {
-      color: #45686b;
-      line-height: 1.7;
-    }
-
-    .card-img {
-      width: 86px;
-      height: 86px;
-      object-fit: contain;
-      border-radius: 20px;
-      background: white;
-      border: 1px solid rgba(13, 148, 136, 0.12);
-    }
-
-    .card .button {
-      margin-top: 24px;
-    }
-
-    .structure-layout {
-      display: grid;
-      grid-template-columns: 1fr 190px;
-      gap: 20px;
-      align-items: center;
-    }
-
-    .molecule-box {
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(14, 165, 233, 0.08));
-      border: 1px solid rgba(13, 148, 136, 0.16);
-      border-radius: 24px;
-      padding: 16px;
+    .navbar {
+      background: linear-gradient(90deg, #06283d, #0b5c75);
+      padding: 18px;
       text-align: center;
     }
 
-    .molecule {
-      position: relative;
-      width: 150px;
-      height: 150px;
-      margin: 0 auto;
-      transform-style: preserve-3d;
-      animation: spinMolecule 8s linear infinite;
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin: 0 14px;
+      font-weight: bold;
+      font-size: 16px;
+      display: inline-block;
     }
 
-    .molecule span {
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      border-radius: 999px;
-      background: #10b981;
-      box-shadow: 0 0 20px rgba(16, 185, 129, 0.58);
+    .navbar a:hover {
+      color: #d7f1ff;
     }
 
-    .molecule span:nth-child(1) { top: 12px; left: 66px; }
-    .molecule span:nth-child(2) { top: 66px; left: 12px; background: #0ea5e9; }
-    .molecule span:nth-child(3) { top: 66px; right: 12px; background: #14b8a6; }
-    .molecule span:nth-child(4) { bottom: 12px; left: 66px; background: #34d399; }
-
-    .molecule::before,
-    .molecule::after {
-      content: "";
-      position: absolute;
-      inset: 35px;
-      border: 1px solid rgba(13, 148, 136, 0.38);
-      border-radius: 999px;
-    }
-
-    .molecule::after {
-      transform: rotate(65deg);
-      border-color: rgba(14, 165, 233, 0.38);
-    }
-
-    @keyframes spinMolecule {
-      from { transform: rotateX(62deg) rotateZ(0deg); }
-      to { transform: rotateX(62deg) rotateZ(360deg); }
-    }
-
-    .workspace {
-      margin-top: 28px;
-      display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 22px;
-    }
-
-    .timeline-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 22px;
-    }
-
-    .timeline-step {
-      text-align: left;
-      background: #ffffff;
-      border: 1px solid rgba(13, 148, 136, 0.14);
+    .hero {
+      background: white;
+      margin: 35px auto;
+      width: 92%;
+      max-width: 1200px;
       border-radius: 22px;
-      padding: 18px;
-      cursor: pointer;
-      transition: 0.3s ease-in-out;
-    }
-
-    .timeline-step:hover,
-    .timeline-step.active {
-      background: rgba(16, 185, 129, 0.1);
-      border-color: rgba(16, 185, 129, 0.55);
-      transform: translateY(-3px);
-    }
-
-    .timeline-number {
-      width: 42px;
-      height: 42px;
-      border-radius: 16px;
-      background: rgba(16, 185, 129, 0.14);
-      color: #0f766e;
+      padding: 45px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      margin-bottom: 14px;
+      justify-content: space-between;
+      gap: 40px;
+      box-shadow: 0 5px 22px rgba(0, 0, 0, 0.15);
     }
 
-    .timeline-step h3 {
-      color: #073b3a;
-      font-size: 16px;
-      margin-bottom: 8px;
+    .hero-text {
+      width: 58%;
     }
 
-    .timeline-step p {
-      font-size: 14px;
-      color: #5f777a;
+    .hero-text h1 {
+      font-size: 48px;
+      color: #063970;
+      margin-bottom: 15px;
     }
 
-    .timeline-output {
-      margin-top: 18px;
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.22);
-      border-radius: 22px;
-      padding: 18px;
-      color: #0f4f4a;
-      font-size: 17px;
+    .hero-text p {
+      font-size: 21px;
       line-height: 1.7;
+      color: #31536b;
+      margin-bottom: 25px;
     }
 
-    .ai-card {
-      display: flex;
-      flex-direction: column;
-      min-height: 520px;
+    .hero-image {
+      width: 38%;
+      text-align: center;
     }
 
-    .ai-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      margin: 18px 0;
+    .hero-image img {
+      width: 100%;
+      max-height: 340px;
+      object-fit: contain;
+      border-radius: 18px;
+      background: #ffffff;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
+      padding: 12px;
     }
 
-    .ai-pill {
-      border: 1px solid rgba(13, 148, 136, 0.18);
-      background: rgba(16, 185, 129, 0.1);
-      color: #0f766e;
-      padding: 9px 12px;
-      border-radius: 999px;
+    .button {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #0077b6;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
       font-weight: bold;
+      border: none;
       cursor: pointer;
-      transition: 0.3s ease-in-out;
+      transition: 0.3s;
     }
 
-    .ai-pill:hover {
-      background: rgba(16, 185, 129, 0.18);
+    .button:hover {
+      background: #005f8f;
       transform: translateY(-2px);
     }
 
-    .chat-box {
-      flex: 1;
-      background: #f8fffe;
-      border: 1px solid rgba(13, 148, 136, 0.14);
-      border-radius: 24px;
-      padding: 18px;
-      margin-bottom: 16px;
+    .main-grid {
+      width: 92%;
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 28px;
     }
 
-    .chat-message {
+    .panel {
       background: white;
-      border: 1px solid rgba(13, 148, 136, 0.12);
-      border-radius: 18px;
-      padding: 14px;
-      color: #45686b;
-      line-height: 1.7;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.14);
     }
 
-    .chat-message strong {
-      color: #0f766e;
+    .panel h2 {
+      color: #063970;
+      margin-bottom: 12px;
+      font-size: 28px;
+    }
+
+    .panel p {
+      color: #445;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .search-box input {
+      flex: 1;
+      padding: 14px;
+      border: 2px solid #b7dff5;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .search-box input:focus {
+      border-color: #0077b6;
+    }
+
+    .category {
+      margin-top: 28px;
+    }
+
+    .category h3 {
+      color: #0b5c75;
+      margin-bottom: 14px;
+      font-size: 21px;
+    }
+
+    .protein-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .protein-tag {
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: #e6f6ff;
+      color: #063970;
+      border: 1px solid #b7dff5;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .protein-tag:hover {
+      background: #0077b6;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .result-card {
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .result-placeholder {
+      flex: 1;
+      background: linear-gradient(135deg, #eef7ff, #ffffff);
+      border: 2px dashed #b7dff5;
+      border-radius: 18px;
+      padding: 35px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .result-placeholder h2 {
+      font-size: 34px;
+      color: #063970;
+      margin-bottom: 15px;
+    }
+
+    .result-placeholder p {
+      font-size: 18px;
+      color: #526d7d;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .result-output {
+      display: none;
+    }
+
+    .result-output.active {
+      display: block;
+    }
+
+    .info-row {
+      background: #f4fbff;
+      border-left: 5px solid #0077b6;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 14px;
+    }
+
+    .info-row strong {
+      color: #063970;
       display: block;
       margin-bottom: 6px;
     }
 
-    .ai-form {
-      position: sticky;
-      bottom: 16px;
+    .links {
       display: flex;
-      gap: 10px;
-      background: rgba(255, 255, 255, 0.92);
-      border: 1px solid rgba(13, 148, 136, 0.16);
-      border-radius: 18px;
-      padding: 8px;
-      box-shadow: 0 16px 34px rgba(15, 118, 110, 0.12);
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
     }
 
-    .ai-form input {
-      min-width: 0;
-      flex: 1;
-      border: 1px solid rgba(13, 148, 136, 0.14);
-      border-radius: 14px;
-      padding: 13px 14px;
-      outline: none;
-      color: #123033;
-      font-size: 15px;
-    }
-
-    .ai-form input:focus {
-      border-color: #10b981;
-    }
-
-    .floating-ai {
-      position: fixed;
-      right: 22px;
-      bottom: 22px;
-      z-index: 50;
-      background: linear-gradient(135deg, #0d9488, #10b981);
+    .links a {
+      background: #0077b6;
       color: white;
-      padding: 14px 20px;
-      border-radius: 999px;
+      text-decoration: none;
+      padding: 11px 16px;
+      border-radius: 8px;
       font-weight: bold;
-      box-shadow: 0 16px 36px rgba(16, 185, 129, 0.3);
-      transition: 0.3s ease-in-out;
     }
 
-    .floating-ai:hover {
-      transform: translateY(-4px);
+    .links a:hover {
+      background: #005f8f;
+    }
+
+    .loader {
+      display: none;
+      text-align: center;
+      color: #063970;
+      font-weight: bold;
+      padding: 25px;
+    }
+
+    .loader.active {
+      display: block;
     }
 
     .footer {
-      margin-top: 28px;
-      background: rgba(255, 255, 255, 0.86);
-      border: 1px solid rgba(13, 148, 136, 0.16);
-      border-radius: 24px;
-      padding: 22px;
+      background: #06283d;
+      color: white;
       text-align: center;
-      color: #547174;
-      font-weight: bold;
-      box-shadow: 0 14px 34px rgba(15, 118, 110, 0.08);
+      padding: 25px;
+      margin-top: 40px;
     }
 
-    @media (max-width: 1100px) {
-      .sidebar {
-        display: none;
+    @media (max-width: 900px) {
+      .navbar a {
+        margin: 8px 10px;
       }
 
-      .main {
-        padding: 18px;
-      }
-
-      .mobile-nav {
-        display: block;
-      }
-
-      .hero,
-      .workspace {
-        grid-template-columns: 1fr;
-      }
-
-      .module-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 760px) {
       .hero {
-        padding: 28px;
-      }
-
-      .hero-visual {
-        min-height: 260px;
-      }
-
-      .section-head {
-        display: block;
-      }
-
-      .section-pill {
-        display: inline-block;
-        margin-top: 14px;
-        white-space: normal;
-      }
-
-      .structure-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .timeline-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .card-top {
         flex-direction: column;
+        padding: 30px;
       }
 
-      .floating-ai {
-        right: 14px;
-        bottom: 14px;
-        padding: 12px 15px;
-        font-size: 14px;
+      .hero-text,
+      .hero-image {
+        width: 100%;
+        text-align: center;
+      }
+
+      .hero-text h1 {
+        font-size: 38px;
+      }
+
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .search-box {
+        flex-direction: column;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="page">
 
-    <aside class="sidebar">
-      <a href="index.html" class="logo">🧬</a>
-
-      <nav class="side-nav">
-        <a href="index.html" class="side-link">
-          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.5Z"/></svg>
-          <span>Home</span>
-        </a>
-
-        <a href="protein.html" class="side-link">
-          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 4c6 0 6 16 12 16"/><path d="M18 4C12 4 12 20 6 20"/><path d="M8 8h8M8 16h8"/></svg>
-          <span>Protein Explorer</span>
-        </a>
-
-        <a href="gene.html" class="side-link">
-          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 3v18M17 3v18"/><path d="M7 7h10M7 12h10M7 17h10"/></svg>
-          <span>Gene Explorer</span>
-        </a>
-
-        <a href="structure.html" class="side-link">
-          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="12" cy="17" r="3"/><path d="M10 8.5h4M8.5 9.5l2 5M15.5 9.5l-2 5"/></svg>
-          <span>Structure Explorer</span>
-        </a>
-
-        <a href="environment.html" class="side-link">
-          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21V9"/><path d="M12 13c-5 0-8-3-8-8 5 0 8 3 8 8Z"/><path d="M12 15c5 0 8-3 8-8-5 0-8 3-8 8Z"/></svg>
-          <span>Environment Hub</span>
-        </a>
-
-        <a href="ai.html" class="side-link">
-          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg>
-          <span>AI Assistant</span>
-        </a>
-      </nav>
-
-      <div></div>
-    </aside>
-
-    <main class="main">
-
-      <header class="mobile-nav">
-        <a href="index.html">Home</a>
-        <a href="protein.html">Protein Explorer</a>
-        <a href="gene.html">Gene Explorer</a>
-        <a href="structure.html">Structure Explorer</a>
-        <a href="environment.html">Environment Hub</a>
-        <a href="ai.html">🧬 AI Assistant</a>
-      </header>
-
-      <section class="hero">
-        <div>
-          <div class="badge">
-            <span class="badge-dot"></span>
-            Scientific discovery workspace
-          </div>
-
-          <h1>BioFetch</h1>
-
-          <h2>Integrated Bioinformatics Research Platform</h2>
-
-          <p>
-            Protein analysis, gene exploration, structural biology, molecular informatics,
-            environmental biotechnology, bioenergy research, and AI-assisted scientific discovery.
-          </p>
-
-          <div class="hero-actions">
-            <a href="ai.html" class="button button-primary">🧬 Open AI Assistant</a>
-            <a href="#modules" class="button button-secondary">Explore Modules</a>
-          </div>
-        </div>
-
-        <div class="hero-visual">
-          <canvas id="dnaCanvas" aria-label="Animated DNA double helix"></canvas>
-          <img src="assets/dna GIF.gif" alt="DNA Animation" class="dna-gif" />
-        </div>
-      </section>
-
-      <section id="modules">
-        <div class="section-head">
-          <div>
-            <h2>Research Modules</h2>
-            <p>A clean dashboard for biological data, structures, and environmental biotechnology.</p>
-          </div>
-          <div class="section-pill">Protein • Gene • Structure • Environment</div>
-        </div>
-
-        <div class="module-grid">
-          <article class="card">
-            <div class="card-top">
-              <div>
-                <div class="icon-box">🧬</div>
-                <h3>Protein Explorer</h3>
-              </div>
-              <img src="assets/fightshape.gif" alt="Protein Explorer" class="card-img" />
-            </div>
-
-            <p>UniProt proteins, sequences, functions, and annotations.</p>
-
-            <a href="protein.html" class="button button-primary">Explore Proteins</a>
-          </article>
-
-          <article class="card">
-            <div class="card-top">
-              <div>
-                <div class="icon-box">🧫</div>
-                <h3>Gene Explorer</h3>
-              </div>
-              <img src="assets/gene.gif" alt="Gene Explorer" class="card-img" />
-            </div>
-
-            <p>Genes, markers, expression, and biological information.</p>
-
-            <a href="gene.html" class="button button-primary">Explore Genes</a>
-          </article>
-
-          <article class="card">
-            <div class="structure-layout">
-              <div>
-                <div class="icon-box">🔬</div>
-                <h3>Structure Explorer</h3>
-
-                <p>AlphaFold and PDB 3D structural resources.</p>
-
-                <a href="structure.html" class="button button-primary">View 3D Structures</a>
-              </div>
-
-              <div class="molecule-box">
-                <div class="molecule" aria-label="3D molecule viewer placeholder">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-                <img src="assets/structure.gif" alt="Structure Explorer" class="card-img" />
-              </div>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="card-top">
-              <div>
-                <div class="icon-box">🌱</div>
-                <h3>Environment Hub</h3>
-              </div>
-              <img src="assets/environment.gif" alt="Environment Hub" class="card-img" />
-            </div>
-
-            <p>
-              Microbial remediation, heavy metal resistance, acid mine drainage,
-              bioenergy, and sustainable biotechnology.
-            </p>
-
-            <a href="environment.html" class="button button-primary">Enter Environment Hub</a>
-          </article>
-        </div>
-      </section>
-
-      <section class="workspace">
-        <article class="card">
-          <h2>Molecular Biology Learning Resource</h2>
-          <p>Interactive DNA replication pathway for students and researchers.</p>
-
-          <div class="timeline-grid">
-            <button class="timeline-step active" data-step="Helicase unwinds the DNA double helix and separates the two strands.">
-              <span class="timeline-number">1</span>
-              <h3>Helicase</h3>
-              <p>Unwinds the DNA double helix.</p>
-            </button>
-
-            <button class="timeline-step" data-step="Primase adds short RNA primers so DNA polymerase can begin synthesis.">
-              <span class="timeline-number">2</span>
-              <h3>Primase</h3>
-              <p>Builds RNA primers.</p>
-            </button>
-
-            <button class="timeline-step" data-step="DNA Polymerase III extends new DNA strands by adding nucleotides in the 5 prime to 3 prime direction.">
-              <span class="timeline-number">3</span>
-              <h3>DNA Polymerase III</h3>
-              <p>Synthesizes new DNA.</p>
-            </button>
-
-            <button class="timeline-step" data-step="Okazaki fragments form on the lagging strand and are joined to create a continuous DNA strand.">
-              <span class="timeline-number">4</span>
-              <h3>Okazaki Fragments</h3>
-              <p>Complete lagging strand synthesis.</p>
-            </button>
-          </div>
-
-          <div class="timeline-output" id="timelineOutput">
-            Helicase unwinds the DNA double helix and separates the two strands.
-          </div>
-        </article>
-
-        <aside class="card ai-card">
-          <div class="icon-box">🧬</div>
-
-          <h2>BioFetch AI Assistant</h2>
-
-          <p>
-            Ask scientific questions about proteins, genes, genomics, proteomics,
-            AlphaFold, PDB structures, molecular biology, microbiology,
-            environmental biotechnology, biomining, acid mine drainage,
-            bioenergy and microbial remediation.
-          </p>
-
-          <div class="ai-pills">
-            <button class="ai-pill" data-question="Analyze Acid Mine Drainage">Analyze Acid Mine Drainage</button>
-            <button class="ai-pill" data-question="Predict AlphaFold Structure">Predict AlphaFold Structure</button>
-            <button class="ai-pill" data-question="Explain UniProt protein annotations">UniProt Annotations</button>
-          </div>
-
-          <div class="chat-box">
-            <div class="chat-message">
-              <strong>BioFetch AI</strong>
-              Ready to help with bioinformatics, molecular biology, protein structures,
-              genomics, and environmental biotechnology.
-            </div>
-          </div>
-
-          <form id="aiForm" class="ai-form">
-            <input id="aiInput" type="text" placeholder="Ask BioFetch AI..." />
-            <button type="submit" class="button button-primary">Ask</button>
-          </form>
-        </aside>
-      </section>
-
-      <footer class="footer">
-        BioFetch © 2026 | Developed by Surendra Dutt Arya
-      </footer>
-
-    </main>
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="protein.html">Protein Explorer</a>
+    <a href="gene.html">Gene Explorer</a>
+    <a href="structure.html">Structure Explorer</a>
+    <a href="environment.html">Environment Hub</a>
+    <a href="ai.html">🧬 AI Assistant</a>
   </div>
 
-  <a href="ai.html" class="floating-ai">🧬 Ask BioFetch AI</a>
+  <section class="hero">
+    <div class="hero-text">
+      <h1>🧬 BioFetch Protein Explorer</h1>
+
+      <p>
+        Search protein sequences, biological functions, UniProt annotations,
+        organism details, Gene Ontology terms and structural database links.
+      </p>
+
+      <a class="button" href="index.html">Back to Home</a>
+    </div>
+
+    <div class="hero-image">
+      <img src="assets/fightshape.gif" alt="Protein Explorer Animation" />
+    </div>
+  </section>
+
+  <main class="main-grid">
+
+    <section class="panel">
+      <h2>Protein Search</h2>
+
+      <p>
+        Search by UniProt accession, gene name or protein name.
+      </p>
+
+      <div class="search-box">
+        <input
+          type="text"
+          id="proteinInput"
+          placeholder="Example: P04637, TP53, EGFR"
+        />
+        <button class="button" onclick="searchProtein()">Search Protein</button>
+      </div>
+
+      <div class="category">
+        <h3>Human Disease Proteins</h3>
+        <div class="protein-tags">
+          <button class="protein-tag" onclick="quickSearch('TP53')">TP53</button>
+          <button class="protein-tag" onclick="quickSearch('BRCA1')">BRCA1</button>
+          <button class="protein-tag" onclick="quickSearch('EGFR')">EGFR</button>
+          <button class="protein-tag" onclick="quickSearch('MYC')">MYC</button>
+        </div>
+      </div>
+
+      <div class="category">
+        <h3>Environmental Proteins</h3>
+        <div class="protein-tags">
+          <button class="protein-tag" onclick="quickSearch('merA')">merA</button>
+          <button class="protein-tag" onclick="quickSearch('arsC')">arsC</button>
+          <button class="protein-tag" onclick="quickSearch('copA')">copA</button>
+          <button class="protein-tag" onclick="quickSearch('czcA')">czcA</button>
+        </div>
+      </div>
+
+      <div class="category">
+        <h3>Nitrogen Cycle Proteins</h3>
+        <div class="protein-tags">
+          <button class="protein-tag" onclick="quickSearch('nifH')">nifH</button>
+          <button class="protein-tag" onclick="quickSearch('nirK')">nirK</button>
+          <button class="protein-tag" onclick="quickSearch('amoA')">amoA</button>
+        </div>
+      </div>
+
+      <div class="category">
+        <h3>Methanogenesis Protein</h3>
+        <div class="protein-tags">
+          <button class="protein-tag" onclick="quickSearch('mcrA')">mcrA</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel result-card">
+      <div id="loader" class="loader">
+        Searching UniProt database...
+      </div>
+
+      <div id="placeholder" class="result-placeholder">
+        <h2>Select or Search a Protein</h2>
+        <p>
+          Protein name, accession, organism, function, GO terms, sequence and
+          database links will appear here.
+        </p>
+      </div>
+
+      <div id="resultOutput" class="result-output">
+        <h2 id="proteinTitle">Protein Result</h2>
+
+        <div class="info-row">
+          <strong>Accession</strong>
+          <span id="accession">-</span>
+        </div>
+
+        <div class="info-row">
+          <strong>Protein Name</strong>
+          <span id="proteinName">-</span>
+        </div>
+
+        <div class="info-row">
+          <strong>Gene</strong>
+          <span id="geneName">-</span>
+        </div>
+
+        <div class="info-row">
+          <strong>Organism</strong>
+          <span id="organism">-</span>
+        </div>
+
+        <div class="info-row">
+          <strong>Function</strong>
+          <span id="functionText">Function annotation will appear here when available.</span>
+        </div>
+
+        <div class="info-row">
+          <strong>Sequence</strong>
+          <span id="sequence">Protein sequence will appear here.</span>
+        </div>
+
+        <div class="links">
+          <a id="uniprotLink" href="#" target="_blank">Open UniProt</a>
+          <a id="alphafoldLink" href="#" target="_blank">Open AlphaFold</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="footer">
+    BioFetch © 2026
+    <br><br>
+    Developed by Surendra Dutt Arya
+  </div>
 
   <script>
-    const canvas = document.getElementById("dnaCanvas");
-    const ctx = canvas.getContext("2d");
-
-    let width;
-    let height;
-    let time = 0;
-    let mouseX = 0;
-
-    function resizeCanvas() {
-      const rect = canvas.getBoundingClientRect();
-      width = rect.width * window.devicePixelRatio;
-      height = rect.height * window.devicePixelRatio;
-      canvas.width = width;
-      canvas.height = height;
-      ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+    async function quickSearch(query) {
+      document.getElementById("proteinInput").value = query;
+      searchProtein();
     }
 
-    function drawDNA() {
-      const w = canvas.getBoundingClientRect().width;
-      const h = canvas.getBoundingClientRect().height;
+    async function searchProtein() {
+      const query = document.getElementById("proteinInput").value.trim();
 
-      ctx.clearRect(0, 0, w, h);
-
-      const centerX = w / 2;
-      const amplitude = Math.min(w, 360) * 0.22;
-      const spacing = 16;
-      const speed = time * 0.035;
-      const interaction = mouseX * 0.0008;
-
-      for (let y = -40; y < h + 40; y += spacing) {
-        const angle = y * 0.045 + speed + interaction;
-        const x1 = centerX + Math.sin(angle) * amplitude;
-        const x2 = centerX + Math.sin(angle + Math.PI) * amplitude;
-        const z = Math.cos(angle);
-        const radius = 4 + z * 1.8;
-
-        ctx.strokeStyle = "rgba(13, 148, 136, 0.25)";
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(x1, y);
-        ctx.lineTo(x2, y);
-        ctx.stroke();
-
-        ctx.fillStyle = "rgba(13, 148, 136, 0.95)";
-        ctx.beginPath();
-        ctx.arc(x1, y, radius, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.fillStyle = "rgba(16, 185, 129, 0.9)";
-        ctx.beginPath();
-        ctx.arc(x2, y, 6 - radius * 0.35, 0, Math.PI * 2);
-        ctx.fill();
+      if (!query) {
+        alert("Please enter a UniProt accession, gene name or protein name.");
+        return;
       }
 
-      time += 1;
-      requestAnimationFrame(drawDNA);
+      const loader = document.getElementById("loader");
+      const placeholder = document.getElementById("placeholder");
+      const resultOutput = document.getElementById("resultOutput");
+
+      loader.classList.add("active");
+      placeholder.style.display = "none";
+      resultOutput.classList.remove("active");
+
+      try {
+        const url =
+          "https://rest.uniprot.org/uniprotkb/search?query=" +
+          encodeURIComponent(query) +
+          "&format=json&size=1";
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (!data.results || data.results.length === 0) {
+          loader.classList.remove("active");
+          placeholder.style.display = "flex";
+          placeholder.querySelector("h2").textContent = "No Protein Found";
+          placeholder.querySelector("p").textContent =
+            "Try another accession, gene name or protein keyword.";
+          return;
+        }
+
+        const protein = data.results[0];
+
+        const accession = protein.primaryAccession || "Not available";
+        const proteinName =
+          protein.proteinDescription?.recommendedName?.fullName?.value ||
+          protein.proteinDescription?.submissionNames?.[0]?.fullName?.value ||
+          "Not available";
+
+        const geneName =
+          protein.genes?.[0]?.geneName?.value ||
+          protein.genes?.[0]?.synonyms?.[0]?.value ||
+          "Not available";
+
+        const organism =
+          protein.organism?.scientificName || "Not available";
+
+        const functionComment =
+          protein.comments?.find(comment => comment.commentType === "FUNCTION");
+
+        const functionText =
+          functionComment?.texts?.[0]?.value ||
+          "Function annotation is not available for this entry.";
+
+        const sequence =
+          protein.sequence?.value || "Sequence not available.";
+
+        document.getElementById("proteinTitle").textContent = proteinName;
+        document.getElementById("accession").textContent = accession;
+        document.getElementById("proteinName").textContent = proteinName;
+        document.getElementById("geneName").textContent = geneName;
+        document.getElementById("organism").textContent = organism;
+        document.getElementById("functionText").textContent = functionText;
+        document.getElementById("sequence").textContent = sequence;
+
+        document.getElementById("uniprotLink").href =
+          "https://www.uniprot.org/uniprotkb/" + accession;
+
+        document.getElementById("alphafoldLink").href =
+          "https://alphafold.ebi.ac.uk/entry/" + accession;
+
+        loader.classList.remove("active");
+        resultOutput.classList.add("active");
+      } catch (error) {
+        loader.classList.remove("active");
+        placeholder.style.display = "flex";
+        placeholder.querySelector("h2").textContent = "Search Error";
+        placeholder.querySelector("p").textContent =
+          "Unable to fetch protein data. Please check your internet connection or try again.";
+      }
     }
-
-    canvas.addEventListener("mousemove", function(event) {
-      mouseX = event.offsetX;
-    });
-
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
-    drawDNA();
-
-    const steps = document.querySelectorAll(".timeline-step");
-    const output = document.getElementById("timelineOutput");
-
-    steps.forEach(function(step) {
-      step.addEventListener("click", function() {
-        steps.forEach(function(item) {
-          item.classList.remove("active");
-        });
-
-        step.classList.add("active");
-        output.textContent = step.dataset.step;
-      });
-    });
-
-    const aiInput = document.getElementById("aiInput");
-    const aiForm = document.getElementById("aiForm");
-    const aiPills = document.querySelectorAll(".ai-pill");
-
-    aiPills.forEach(function(pill) {
-      pill.addEventListener("click", function() {
-        aiInput.value = pill.dataset.question;
-        aiInput.focus();
-      });
-    });
-
-    aiForm.addEventListener("submit", function(event) {
-      event.preventDefault();
-
-      const question = aiInput.value.trim();
-
-      if (question) {
-        window.location.href = "ai.html?question=" + encodeURIComponent(question);
-      } else {
-        window.location.href = "ai.html";
-      }
-    });
   </script>
+
 </body>
 </html>
