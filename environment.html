@@ -1,95 +1,549 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BioFetch Environmental Bioinformatics</title>
+<title>BioFetch Environmental Bioinformatics Hub</title>
 
 <style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
 body{
-font-family:Arial,sans-serif;
-max-width:1000px;
-margin:auto;
-padding:20px;
-background:#f5f5f5;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f8fb;
+    color:#16324f;
 }
 
-h1{
-text-align:center;
-color:#2c3e50;
+.header{
+    background:linear-gradient(90deg,#063970,#0b7554);
+    color:white;
+    padding:30px;
+    text-align:center;
 }
 
-.card{
-background:white;
-padding:20px;
-margin:15px 0;
-border-radius:10px;
-box-shadow:0 2px 6px rgba(0,0,0,0.1);
+.header h1{
+    margin-bottom:8px;
 }
 
-a{
-text-decoration:none;
-color:#007bff;
+.container{
+    max-width:1250px;
+    margin:auto;
+    padding:30px;
 }
 
+.topbar{
+    margin-bottom:20px;
+}
+
+.back{
+    text-decoration:none;
+    color:#0b5c75;
+    font-weight:bold;
+}
+
+.intro{
+    background:white;
+    padding:24px;
+    border-radius:14px;
+    box-shadow:0 4px 16px rgba(0,0,0,0.12);
+    margin-bottom:24px;
+}
+
+.intro h2{
+    color:#063970;
+    margin-bottom:10px;
+}
+
+.intro p{
+    line-height:1.7;
+    color:#444;
+}
+
+.layout{
+    display:grid;
+    grid-template-columns:360px 1fr;
+    gap:24px;
+    align-items:start;
+}
+
+.panel,
+.result{
+    background:white;
+    padding:24px;
+    border-radius:14px;
+    box-shadow:0 4px 16px rgba(0,0,0,0.12);
+}
+
+.panel h2,
+.result h2{
+    color:#063970;
+    margin-bottom:12px;
+}
+
+.panel p{
+    color:#555;
+    line-height:1.6;
+    margin-bottom:18px;
+}
+
+.topic-group{
+    margin-bottom:24px;
+}
+
+.topic-group h3{
+    color:#0b7554;
+    margin-bottom:10px;
+    font-size:18px;
+}
+
+.topic-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+button{
+    padding:10px 14px;
+    background:#0077b6;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+button:hover{
+    background:#005f8f;
+}
+
+.green-btn{
+    background:#0b7554;
+}
+
+.green-btn:hover{
+    background:#075c41;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+    margin:20px 0;
+}
+
+.info-card{
+    background:#eefaf4;
+    padding:16px;
+    border-radius:10px;
+    border-left:5px solid #0b7554;
+}
+
+.info-card b{
+    color:#063970;
+}
+
+.section{
+    margin-top:22px;
+}
+
+.section h3{
+    color:#063970;
+    margin-bottom:10px;
+}
+
+.section p,
+.section li{
+    line-height:1.7;
+}
+
+ul{
+    padding-left:22px;
+}
+
+.links{
+    margin-top:22px;
+}
+
+.links a{
+    display:inline-block;
+    margin:6px 8px 6px 0;
+    padding:10px 14px;
+    background:#0b3d5c;
+    color:white;
+    text-decoration:none;
+    border-radius:7px;
+    font-weight:bold;
+}
+
+.links a:hover{
+    background:#06283d;
+}
+
+.placeholder{
+    min-height:430px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:#555;
+}
+
+.placeholder h2{
+    margin-bottom:10px;
+}
+
+.badge{
+    display:inline-block;
+    padding:6px 10px;
+    background:#e6f5ef;
+    color:#0b7554;
+    border-radius:20px;
+    font-weight:bold;
+    margin:4px;
+    font-size:14px;
+}
+
+@media(max-width:900px){
+    .layout{
+        grid-template-columns:1fr;
+    }
+
+    .container{
+        padding:18px;
+    }
+}
 </style>
-
 </head>
 
 <body>
 
-<h1>Environmental Bioinformatics Hub</h1>
-
-<a href="index.html">⬅ Back to Home</a>
-
-<div class="card">
-<h2>Heavy Metal Resistance</h2>
-<p>Explore genes and proteins involved in metal resistance.</p>
-
-<ul>
-<li>merA – Mercury resistance</li>
-<li>arsC – Arsenic resistance</li>
-<li>czcA – Cobalt-Zinc-Cadmium resistance</li>
-<li>copA – Copper resistance</li>
-<li>nccA – Nickel-Cobalt-Cadmium resistance</li>
-</ul>
+<div class="header">
+    <h1>Environmental Bioinformatics Hub</h1>
+    <p>Genes, microbes, enzymes and pathways for environmental biotechnology</p>
 </div>
 
-<div class="card">
-<h2>Bioremediation</h2>
+<div class="container">
 
-<ul>
-<li>Dye degradation enzymes</li>
-<li>Laccases</li>
-<li>Peroxidases</li>
-<li>Azoreductases</li>
-</ul>
+    <div class="topbar">
+        <a href="index.html" class="back">Back to Home</a>
+    </div>
+
+    <div class="intro">
+        <h2>How This Hub Helps Researchers</h2>
+        <p>
+            This page connects environmental problems with useful biological data.
+            A student or researcher can quickly explore which genes, proteins,
+            microbes and pathways are involved in heavy metal resistance,
+            bioremediation, acid mine drainage, biomining and bioenergy.
+            Instead of searching many databases separately, BioFetch gives a
+            focused starting point with direct links to UniProt, NCBI, KEGG,
+            PubMed and AlphaFold.
+        </p>
+    </div>
+
+    <div class="layout">
+
+        <div class="panel">
+            <h2>Research Areas</h2>
+            <p>Select a topic to view related genes, organisms, applications and database links.</p>
+
+            <div class="topic-group">
+                <h3>Heavy Metal Resistance</h3>
+                <div class="topic-buttons">
+                    <button onclick="showTopic('merA')">merA</button>
+                    <button onclick="showTopic('arsC')">arsC</button>
+                    <button onclick="showTopic('copA')">copA</button>
+                    <button onclick="showTopic('czcA')">czcA</button>
+                    <button onclick="showTopic('nccA')">nccA</button>
+                </div>
+            </div>
+
+            <div class="topic-group">
+                <h3>Bioremediation Enzymes</h3>
+                <div class="topic-buttons">
+                    <button class="green-btn" onclick="showTopic('laccase')">Laccase</button>
+                    <button class="green-btn" onclick="showTopic('peroxidase')">Peroxidase</button>
+                    <button class="green-btn" onclick="showTopic('azoreductase')">Azoreductase</button>
+                </div>
+            </div>
+
+            <div class="topic-group">
+                <h3>Acid Mine Drainage</h3>
+                <div class="topic-buttons">
+                    <button onclick="showTopic('acidithiobacillus')">Acidithiobacillus</button>
+                    <button onclick="showTopic('ironOxidation')">Iron Oxidation</button>
+                    <button onclick="showTopic('sulfurOxidation')">Sulfur Oxidation</button>
+                </div>
+            </div>
+
+            <div class="topic-group">
+                <h3>Bioenergy</h3>
+                <div class="topic-buttons">
+                    <button class="green-btn" onclick="showTopic('mcrA')">mcrA</button>
+                    <button class="green-btn" onclick="showTopic('hydrogenase')">Hydrogenase</button>
+                    <button class="green-btn" onclick="showTopic('cellulase')">Cellulase</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="result" class="result placeholder">
+            <h2>Select a Topic</h2>
+            <p>Related genes, proteins, microbes, pathways, applications and database links will appear here.</p>
+        </div>
+
+    </div>
 
 </div>
 
-<div class="card">
-<h2>Acid Mine Drainage</h2>
+<script>
+const topicData = {
+    merA:{
+        title:"merA - Mercury Resistance Gene",
+        category:"Heavy Metal Resistance",
+        gene:"merA",
+        protein:"Mercuric reductase",
+        microbes:"Pseudomonas, Bacillus, Cupriavidus, Acidithiobacillus",
+        pathway:"Mercury detoxification pathway",
+        application:"Bioremediation of mercury-contaminated water, soil and industrial waste.",
+        description:"merA encodes mercuric reductase, an enzyme that reduces toxic Hg2+ into less reactive elemental mercury. It is widely studied in mercury-resistant bacteria.",
+        keywords:["Mercury resistance","Heavy metal detoxification","Mercuric reductase","Bioremediation"]
+    },
+    arsC:{
+        title:"arsC - Arsenic Resistance Gene",
+        category:"Heavy Metal Resistance",
+        gene:"arsC",
+        protein:"Arsenate reductase",
+        microbes:"Escherichia coli, Bacillus, Pseudomonas, Acidithiobacillus",
+        pathway:"Arsenic reduction and efflux",
+        application:"Useful for studying arsenic tolerance and arsenic bioremediation systems.",
+        description:"arsC encodes arsenate reductase, which converts arsenate into arsenite before export from the cell through arsenic resistance systems.",
+        keywords:["Arsenic resistance","Arsenate reductase","Metal stress","Environmental cleanup"]
+    },
+    copA:{
+        title:"copA - Copper Resistance Gene",
+        category:"Heavy Metal Resistance",
+        gene:"copA",
+        protein:"Copper-exporting ATPase",
+        microbes:"E. coli, Pseudomonas, Enterococcus, Acidithiobacillus",
+        pathway:"Copper homeostasis and efflux",
+        application:"Important in copper tolerance, biomining environments and metal-contaminated habitats.",
+        description:"copA commonly encodes a copper-exporting ATPase involved in removing excess copper from bacterial cells.",
+        keywords:["Copper resistance","ATPase","Metal efflux","Biomining"]
+    },
+    czcA:{
+        title:"czcA - Cobalt Zinc Cadmium Resistance",
+        category:"Heavy Metal Resistance",
+        gene:"czcA",
+        protein:"RND metal efflux transporter",
+        microbes:"Cupriavidus metallidurans, Pseudomonas, Alcaligenes",
+        pathway:"Cobalt-zinc-cadmium efflux system",
+        application:"Used to understand bacterial survival in metal-rich industrial and mining environments.",
+        description:"czcA is part of the CzcCBA efflux system and helps bacteria pump cobalt, zinc and cadmium ions out of the cell.",
+        keywords:["Cadmium resistance","Zinc resistance","Cobalt resistance","Efflux pump"]
+    },
+    nccA:{
+        title:"nccA - Nickel Cobalt Cadmium Resistance",
+        category:"Heavy Metal Resistance",
+        gene:"nccA",
+        protein:"Metal resistance transporter",
+        microbes:"Alcaligenes, Cupriavidus, metal-resistant soil bacteria",
+        pathway:"Nickel-cobalt-cadmium transport",
+        application:"Useful for studying microbial adaptation to metal-contaminated soils and mine waste.",
+        description:"nccA is associated with resistance to nickel, cobalt and cadmium through metal transport and efflux mechanisms.",
+        keywords:["Nickel resistance","Cobalt resistance","Cadmium resistance","Metal transporter"]
+    },
+    laccase:{
+        title:"Laccase Enzymes",
+        category:"Bioremediation",
+        gene:"lcc / multicopper oxidase genes",
+        protein:"Laccase",
+        microbes:"Fungi, Bacillus, Streptomyces, Pseudomonas",
+        pathway:"Oxidative degradation of phenolic pollutants",
+        application:"Dye degradation, wastewater treatment, lignin modification and pollutant removal.",
+        description:"Laccases are multicopper oxidases that oxidize phenolic compounds and are widely used in environmental biotechnology.",
+        keywords:["Dye degradation","Laccase","Wastewater treatment","Phenolic pollutants"]
+    },
+    peroxidase:{
+        title:"Peroxidase Enzymes",
+        category:"Bioremediation",
+        gene:"peroxidase genes",
+        protein:"Peroxidase",
+        microbes:"White-rot fungi, bacteria and plants",
+        pathway:"Oxidative pollutant degradation",
+        application:"Breakdown of dyes, phenols, lignin-like compounds and industrial pollutants.",
+        description:"Peroxidases use peroxide to oxidize complex pollutants and are important in biodegradation research.",
+        keywords:["Peroxidase","Dye removal","Oxidative enzymes","Bioremediation"]
+    },
+    azoreductase:{
+        title:"Azoreductase Enzymes",
+        category:"Bioremediation",
+        gene:"azoR",
+        protein:"Azoreductase",
+        microbes:"Enterococcus, Bacillus, Pseudomonas, E. coli",
+        pathway:"Azo dye reduction",
+        application:"Treatment of textile dye wastewater and azo dye pollution.",
+        description:"Azoreductases reduce azo bonds in synthetic dyes, helping microbes degrade dye pollutants.",
+        keywords:["Azoreductase","Azo dye","Textile wastewater","Dye degradation"]
+    },
+    acidithiobacillus:{
+        title:"Acidithiobacillus Species",
+        category:"Acid Mine Drainage and Biomining",
+        gene:"rus, cyc, sox, sqr genes",
+        protein:"Rusticyanin, cytochromes, sulfur oxidation proteins",
+        microbes:"Acidithiobacillus ferrooxidans, Acidithiobacillus thiooxidans",
+        pathway:"Iron oxidation and sulfur oxidation",
+        application:"Biomining, bioleaching, acid mine drainage research and metal recovery.",
+        description:"Acidithiobacillus species are acidophilic bacteria that oxidize iron and sulfur. They are central to AMD formation and biomining.",
+        keywords:["AMD","Biomining","Bioleaching","Iron oxidation","Sulfur oxidation"]
+    },
+    ironOxidation:{
+        title:"Iron Oxidation Pathways",
+        category:"Acid Mine Drainage",
+        gene:"rus, cyc1, cyc2",
+        protein:"Rusticyanin and cytochromes",
+        microbes:"Acidithiobacillus ferrooxidans, Leptospirillum ferrooxidans",
+        pathway:"Fe2+ to Fe3+ oxidation",
+        application:"Important for understanding acid mine drainage generation and biomining processes.",
+        description:"Iron oxidation pathways allow acidophilic microbes to gain energy by oxidizing ferrous iron to ferric iron.",
+        keywords:["Iron oxidation","Rusticyanin","Cytochrome","AMD","Bioleaching"]
+    },
+    sulfurOxidation:{
+        title:"Sulfur Oxidation Pathways",
+        category:"Acid Mine Drainage",
+        gene:"sox, sqr, doxDA",
+        protein:"Sulfur oxidation enzymes",
+        microbes:"Acidithiobacillus thiooxidans, Acidithiobacillus ferrooxidans",
+        pathway:"Reduced sulfur compound oxidation",
+        application:"Used in biomining, sulfur cycling and acid mine drainage studies.",
+        description:"Sulfur oxidation genes help microbes convert reduced sulfur compounds into sulfate, often contributing to acidic environments.",
+        keywords:["Sulfur oxidation","Sox genes","Sulfide oxidation","AMD"]
+    },
+    mcrA:{
+        title:"mcrA - Methanogenesis Marker Gene",
+        category:"Bioenergy",
+        gene:"mcrA",
+        protein:"Methyl-coenzyme M reductase alpha subunit",
+        microbes:"Methanobacterium, Methanosarcina, Methanobrevibacter",
+        pathway:"Methane production pathway",
+        application:"Marker gene for methane-producing archaea in biogas, wetlands, sediments and anaerobic digesters.",
+        description:"mcrA is a key marker gene for methanogenic archaea and is widely used to study biological methane production.",
+        keywords:["Methanogenesis","Biogas","Methane","Anaerobic digestion"]
+    },
+    hydrogenase:{
+        title:"Hydrogenase Enzymes",
+        category:"Bioenergy",
+        gene:"hyd genes",
+        protein:"Hydrogenase",
+        microbes:"Clostridium, Desulfovibrio, cyanobacteria, algae",
+        pathway:"Hydrogen metabolism",
+        application:"Biohydrogen production, renewable energy research and microbial energy metabolism.",
+        description:"Hydrogenases catalyze hydrogen conversion and are important in microbial hydrogen production and energy studies.",
+        keywords:["Hydrogenase","Biohydrogen","Renewable energy","Microbial metabolism"]
+    },
+    cellulase:{
+        title:"Cellulase Systems",
+        category:"Bioenergy",
+        gene:"cel genes",
+        protein:"Cellulase enzymes",
+        microbes:"Trichoderma, Clostridium, Bacillus, Cellulomonas",
+        pathway:"Cellulose degradation",
+        application:"Bioethanol production, biomass conversion, composting and lignocellulosic biotechnology.",
+        description:"Cellulases break down cellulose into sugars and are essential for biomass conversion and biofuel production.",
+        keywords:["Cellulase","Bioethanol","Biomass","Lignocellulose"]
+    }
+};
 
-<ul>
-<li>Acidithiobacillus species</li>
-<li>Iron oxidation pathways</li>
-<li>Sulfur oxidation pathways</li>
-</ul>
+function showTopic(key){
+    const item = topicData[key];
+    const result = document.getElementById("result");
 
-</div>
+    if(!item){
+        result.className = "result";
+        result.innerHTML = "<h2>No data found</h2>";
+        return;
+    }
 
-<div class="card">
-<h2>Bioenergy</h2>
+    const keywordBadges = item.keywords
+        .map(k => '<span class="badge">' + escapeHTML(k) + '</span>')
+        .join("");
 
-<ul>
-<li>mcrA – Methanogenesis marker gene</li>
-<li>Hydrogenase enzymes</li>
-<li>Cellulase systems</li>
-</ul>
+    const geneSearch = encodeURIComponent(item.gene);
+    const proteinSearch = encodeURIComponent(item.protein);
+    const microbeSearch = encodeURIComponent(item.microbes);
+    const pathwaySearch = encodeURIComponent(item.pathway + " " + item.gene);
 
-</div>
+    result.className = "result";
+
+    result.innerHTML = `
+        <h2>${escapeHTML(item.title)}</h2>
+
+        <div>
+            ${keywordBadges}
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <b>Research Area</b><br>
+                ${escapeHTML(item.category)}
+            </div>
+
+            <div class="info-card">
+                <b>Main Gene</b><br>
+                ${escapeHTML(item.gene)}
+            </div>
+
+            <div class="info-card">
+                <b>Protein / Enzyme</b><br>
+                ${escapeHTML(item.protein)}
+            </div>
+
+            <div class="info-card">
+                <b>Related Microbes</b><br>
+                ${escapeHTML(item.microbes)}
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Biological Role</h3>
+            <p>${escapeHTML(item.description)}</p>
+        </div>
+
+        <div class="section">
+            <h3>Pathway</h3>
+            <p>${escapeHTML(item.pathway)}</p>
+        </div>
+
+        <div class="section">
+            <h3>Environmental Application</h3>
+            <p>${escapeHTML(item.application)}</p>
+        </div>
+
+        <div class="links">
+            <a target="_blank" href="https://www.uniprot.org/uniprotkb?query=${geneSearch}">UniProt Gene Search</a>
+            <a target="_blank" href="https://www.ncbi.nlm.nih.gov/gene/?term=${geneSearch}">NCBI Gene</a>
+            <a target="_blank" href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?name=${microbeSearch}">NCBI Taxonomy</a>
+            <a target="_blank" href="https://www.kegg.jp/kegg-bin/search_pathway_text?keyword=${pathwaySearch}">KEGG Pathway</a>
+            <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/?term=${geneSearch}+environmental+biotechnology">PubMed Papers</a>
+            <a target="_blank" href="https://alphafold.ebi.ac.uk/search/text/${proteinSearch}">AlphaFold Search</a>
+        </div>
+    `;
+}
+
+function escapeHTML(text){
+    return String(text)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+</script>
 
 </body>
-
 </html>
