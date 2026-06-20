@@ -1,547 +1,457 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>BioFetch Protein Explorer</title>
+<title>BioFetch Structure Explorer</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f8fb;
+    color:#16324f;
+}
+
+.header{
+    background:linear-gradient(90deg,#06283d,#0b5c75);
+    color:white;
+    padding:28px;
+    text-align:center;
+}
+
+.header h1{
+    margin-bottom:8px;
+}
+
+.container{
+    max-width:1250px;
+    margin:auto;
+    padding:30px;
+}
+
+.topbar{
+    margin-bottom:20px;
+}
+
+.back{
+    display:inline-block;
+    text-decoration:none;
+    color:#0b3d5c;
+    font-weight:bold;
+}
+
+.layout{
+    display:grid;
+    grid-template-columns:360px 1fr;
+    gap:24px;
+    align-items:start;
+}
+
+.panel,
+.result{
+    background:white;
+    padding:24px;
+    border-radius:14px;
+    box-shadow:0 4px 16px rgba(0,0,0,0.12);
+}
+
+.panel h2,
+.result h2{
+    color:#063970;
+    margin-bottom:12px;
+}
+
+.panel p{
+    color:#555;
+    line-height:1.6;
+    margin-bottom:18px;
+}
+
+.search-row{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:24px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    font-size:16px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+button{
+    padding:10px 14px;
+    background:#0077b6;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+button:hover{
+    background:#005f8f;
+}
+
+.structure-group{
+    margin-bottom:24px;
+}
+
+.structure-group h3{
+    color:#0b5c75;
+    margin-bottom:10px;
+    font-size:18px;
+}
+
+.quick-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+    margin:20px 0;
+}
+
+.info-card{
+    background:#eef6ff;
+    padding:16px;
+    border-radius:10px;
+    border-left:5px solid #0077b6;
+}
+
+.info-card b{
+    color:#063970;
+}
+
+.section{
+    margin-top:22px;
+}
+
+.section h3{
+    color:#063970;
+    margin-bottom:10px;
+}
+
+.section p,
+.section li{
+    line-height:1.7;
+}
+
+ul{
+    padding-left:22px;
+}
+
+.links{
+    margin-top:22px;
+}
+
+.links a{
+    display:inline-block;
+    margin:6px 8px 6px 0;
+    padding:10px 14px;
+    background:#0b3d5c;
+    color:white;
+    text-decoration:none;
+    border-radius:7px;
+    font-weight:bold;
+}
+
+.links a:hover{
+    background:#06283d;
+}
+
+.placeholder{
+    min-height:420px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:#555;
+}
+
+.placeholder h2{
+    margin-bottom:10px;
+}
+
+.error{
+    color:#b00020;
+    font-weight:bold;
+}
+
+.loading{
+    font-weight:bold;
+    color:#0077b6;
+}
+
+.badge{
+    display:inline-block;
+    padding:6px 10px;
+    background:#e6f3ff;
+    color:#063970;
+    border-radius:20px;
+    font-weight:bold;
+    margin:4px;
+    font-size:14px;
+}
+
+@media(max-width:900px){
+    .layout{
+        grid-template-columns:1fr;
     }
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(135deg, #eef7ff, #d7f1ff);
-      color: #16324f;
-      min-height: 100vh;
+    .container{
+        padding:18px;
     }
-
-    .navbar {
-      background: linear-gradient(90deg, #06283d, #0b5c75);
-      padding: 18px;
-      text-align: center;
-    }
-
-    .navbar a {
-      color: white;
-      text-decoration: none;
-      margin: 0 14px;
-      font-weight: bold;
-      font-size: 16px;
-      display: inline-block;
-    }
-
-    .navbar a:hover {
-      color: #d7f1ff;
-    }
-
-    .hero {
-      background: white;
-      margin: 35px auto;
-      width: 92%;
-      max-width: 1200px;
-      border-radius: 22px;
-      padding: 45px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 40px;
-      box-shadow: 0 5px 22px rgba(0, 0, 0, 0.15);
-    }
-
-    .hero-text {
-      width: 58%;
-    }
-
-    .hero-text h1 {
-      font-size: 48px;
-      color: #063970;
-      margin-bottom: 15px;
-    }
-
-    .hero-text p {
-      font-size: 21px;
-      line-height: 1.7;
-      color: #31536b;
-      margin-bottom: 25px;
-    }
-
-    .hero-image {
-      width: 38%;
-      text-align: center;
-    }
-
-    .hero-image img {
-      width: 100%;
-      max-height: 340px;
-      object-fit: contain;
-      border-radius: 18px;
-      background: #ffffff;
-      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
-      padding: 12px;
-    }
-
-    .button {
-      display: inline-block;
-      padding: 12px 24px;
-      background: #0077b6;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .button:hover {
-      background: #005f8f;
-      transform: translateY(-2px);
-    }
-
-    .main-grid {
-      width: 92%;
-      max-width: 1200px;
-      margin: 0 auto 40px;
-      display: grid;
-      grid-template-columns: 1fr 1.3fr;
-      gap: 28px;
-    }
-
-    .panel {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.14);
-    }
-
-    .panel h2 {
-      color: #063970;
-      margin-bottom: 12px;
-      font-size: 28px;
-    }
-
-    .panel p {
-      color: #445;
-      line-height: 1.7;
-      margin-bottom: 18px;
-    }
-
-    .search-box {
-      display: flex;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .search-box input {
-      flex: 1;
-      padding: 14px;
-      border: 2px solid #b7dff5;
-      border-radius: 10px;
-      font-size: 16px;
-      outline: none;
-    }
-
-    .search-box input:focus {
-      border-color: #0077b6;
-    }
-
-    .category {
-      margin-top: 28px;
-    }
-
-    .category h3 {
-      color: #0b5c75;
-      margin-bottom: 14px;
-      font-size: 21px;
-    }
-
-    .protein-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .protein-tag {
-      padding: 10px 16px;
-      border-radius: 999px;
-      background: #e6f6ff;
-      color: #063970;
-      border: 1px solid #b7dff5;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .protein-tag:hover {
-      background: #0077b6;
-      color: white;
-      transform: translateY(-2px);
-    }
-
-    .result-card {
-      min-height: 520px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .result-placeholder {
-      flex: 1;
-      background: linear-gradient(135deg, #eef7ff, #ffffff);
-      border: 2px dashed #b7dff5;
-      border-radius: 18px;
-      padding: 35px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .result-placeholder h2 {
-      font-size: 34px;
-      color: #063970;
-      margin-bottom: 15px;
-    }
-
-    .result-placeholder p {
-      font-size: 18px;
-      color: #526d7d;
-      max-width: 620px;
-      margin: 0 auto;
-    }
-
-    .result-output {
-      display: none;
-    }
-
-    .result-output.active {
-      display: block;
-    }
-
-    .info-row {
-      background: #f4fbff;
-      border-left: 5px solid #0077b6;
-      border-radius: 10px;
-      padding: 15px;
-      margin-bottom: 14px;
-    }
-
-    .info-row strong {
-      color: #063970;
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .links a {
-      background: #0077b6;
-      color: white;
-      text-decoration: none;
-      padding: 11px 16px;
-      border-radius: 8px;
-      font-weight: bold;
-    }
-
-    .links a:hover {
-      background: #005f8f;
-    }
-
-    .loader {
-      display: none;
-      text-align: center;
-      color: #063970;
-      font-weight: bold;
-      padding: 25px;
-    }
-
-    .loader.active {
-      display: block;
-    }
-
-    .footer {
-      background: #06283d;
-      color: white;
-      text-align: center;
-      padding: 25px;
-      margin-top: 40px;
-    }
-
-    @media (max-width: 900px) {
-      .navbar a {
-        margin: 8px 10px;
-      }
-
-      .hero {
-        flex-direction: column;
-        padding: 30px;
-      }
-
-      .hero-text,
-      .hero-image {
-        width: 100%;
-        text-align: center;
-      }
-
-      .hero-text h1 {
-        font-size: 38px;
-      }
-
-      .main-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .search-box {
-        flex-direction: column;
-      }
-    }
-  </style>
+}
+</style>
 </head>
 
 <body>
 
-  <div class="navbar">
-    <a href="index.html">Home</a>
-    <a href="protein.html">Protein Explorer</a>
-    <a href="gene.html">Gene Explorer</a>
-    <a href="structure.html">Structure Explorer</a>
-    <a href="environment.html">Environment Hub</a>
-    <a href="ai.html">🧬 AI Assistant</a>
-  </div>
+<div class="header">
+    <h1>BioFetch Structure Explorer</h1>
+    <p>AlphaFold, UniProt and PDB structural resources</p>
+</div>
 
-  <section class="hero">
-    <div class="hero-text">
-      <h1>🧬 BioFetch Protein Explorer</h1>
+<div class="container">
 
-      <p>
-        Search protein sequences, biological functions, UniProt annotations,
-        organism details, Gene Ontology terms and structural database links.
-      </p>
-
-      <a class="button" href="index.html">Back to Home</a>
+    <div class="topbar">
+        <a href="index.html" class="back">Back to Home</a>
     </div>
 
-    <div class="hero-image">
-      <img src="assets/fightshape.gif" alt="Protein Explorer Animation" />
+    <div class="layout">
+
+        <div class="panel">
+            <h2>Structure Search</h2>
+            <p>Search by UniProt accession or gene name to find predicted and experimental protein structure resources.</p>
+
+            <div class="search-row">
+                <input id="query" placeholder="Example: P04637, TP53, EGFR, MYC">
+                <button onclick="searchStructure()">Search Structure</button>
+            </div>
+
+            <div class="structure-group">
+                <h3>Human Disease Proteins</h3>
+                <div class="quick-buttons">
+                    <button onclick="quickSearch('TP53')">TP53</button>
+                    <button onclick="quickSearch('BRCA1')">BRCA1</button>
+                    <button onclick="quickSearch('EGFR')">EGFR</button>
+                    <button onclick="quickSearch('MYC')">MYC</button>
+                </div>
+            </div>
+
+            <div class="structure-group">
+                <h3>Environmental Proteins</h3>
+                <div class="quick-buttons">
+                    <button onclick="quickSearch('merA')">merA</button>
+                    <button onclick="quickSearch('arsC')">arsC</button>
+                    <button onclick="quickSearch('copA')">copA</button>
+                    <button onclick="quickSearch('czcA')">czcA</button>
+                </div>
+            </div>
+
+            <div class="structure-group">
+                <h3>Metabolism Proteins</h3>
+                <div class="quick-buttons">
+                    <button onclick="quickSearch('nifH')">nifH</button>
+                    <button onclick="quickSearch('mcrA')">mcrA</button>
+                    <button onclick="quickSearch('amoA')">amoA</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="result" class="result placeholder">
+            <h2>Select or Search a Protein</h2>
+            <p>Structure information, AlphaFold links, PDB records and download options will appear here.</p>
+        </div>
+
     </div>
-  </section>
 
-  <main class="main-grid">
+</div>
 
-    <section class="panel">
-      <h2>Protein Search</h2>
+<script>
+function quickSearch(value){
+    document.getElementById("query").value = value;
+    searchStructure();
+}
 
-      <p>
-        Search by UniProt accession, gene name or protein name.
-      </p>
+async function searchStructure(){
+    const q = document.getElementById("query").value.trim();
+    const result = document.getElementById("result");
 
-      <div class="search-box">
-        <input
-          type="text"
-          id="proteinInput"
-          placeholder="Example: P04637, TP53, EGFR"
-        />
-        <button class="button" onclick="searchProtein()">Search Protein</button>
-      </div>
-
-      <div class="category">
-        <h3>Human Disease Proteins</h3>
-        <div class="protein-tags">
-          <button class="protein-tag" onclick="quickSearch('TP53')">TP53</button>
-          <button class="protein-tag" onclick="quickSearch('BRCA1')">BRCA1</button>
-          <button class="protein-tag" onclick="quickSearch('EGFR')">EGFR</button>
-          <button class="protein-tag" onclick="quickSearch('MYC')">MYC</button>
-        </div>
-      </div>
-
-      <div class="category">
-        <h3>Environmental Proteins</h3>
-        <div class="protein-tags">
-          <button class="protein-tag" onclick="quickSearch('merA')">merA</button>
-          <button class="protein-tag" onclick="quickSearch('arsC')">arsC</button>
-          <button class="protein-tag" onclick="quickSearch('copA')">copA</button>
-          <button class="protein-tag" onclick="quickSearch('czcA')">czcA</button>
-        </div>
-      </div>
-
-      <div class="category">
-        <h3>Nitrogen Cycle Proteins</h3>
-        <div class="protein-tags">
-          <button class="protein-tag" onclick="quickSearch('nifH')">nifH</button>
-          <button class="protein-tag" onclick="quickSearch('nirK')">nirK</button>
-          <button class="protein-tag" onclick="quickSearch('amoA')">amoA</button>
-        </div>
-      </div>
-
-      <div class="category">
-        <h3>Methanogenesis Protein</h3>
-        <div class="protein-tags">
-          <button class="protein-tag" onclick="quickSearch('mcrA')">mcrA</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel result-card">
-      <div id="loader" class="loader">
-        Searching UniProt database...
-      </div>
-
-      <div id="placeholder" class="result-placeholder">
-        <h2>Select or Search a Protein</h2>
-        <p>
-          Protein name, accession, organism, function, GO terms, sequence and
-          database links will appear here.
-        </p>
-      </div>
-
-      <div id="resultOutput" class="result-output">
-        <h2 id="proteinTitle">Protein Result</h2>
-
-        <div class="info-row">
-          <strong>Accession</strong>
-          <span id="accession">-</span>
-        </div>
-
-        <div class="info-row">
-          <strong>Protein Name</strong>
-          <span id="proteinName">-</span>
-        </div>
-
-        <div class="info-row">
-          <strong>Gene</strong>
-          <span id="geneName">-</span>
-        </div>
-
-        <div class="info-row">
-          <strong>Organism</strong>
-          <span id="organism">-</span>
-        </div>
-
-        <div class="info-row">
-          <strong>Function</strong>
-          <span id="functionText">Function annotation will appear here when available.</span>
-        </div>
-
-        <div class="info-row">
-          <strong>Sequence</strong>
-          <span id="sequence">Protein sequence will appear here.</span>
-        </div>
-
-        <div class="links">
-          <a id="uniprotLink" href="#" target="_blank">Open UniProt</a>
-          <a id="alphafoldLink" href="#" target="_blank">Open AlphaFold</a>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <div class="footer">
-    BioFetch © 2026
-    <br><br>
-    Developed by Surendra Dutt Arya
-  </div>
-
-  <script>
-    async function quickSearch(query) {
-      document.getElementById("proteinInput").value = query;
-      searchProtein();
+    if(q === ""){
+        result.className = "result";
+        result.innerHTML = '<p class="error">Please enter a UniProt accession or gene name.</p>';
+        return;
     }
 
-    async function searchProtein() {
-      const query = document.getElementById("proteinInput").value.trim();
+    result.className = "result";
+    result.innerHTML = '<p class="loading">Searching structure resources...</p>';
 
-      if (!query) {
-        alert("Please enter a UniProt accession, gene name or protein name.");
-        return;
-      }
+    try{
+        let accession = q;
+        const accessionPattern = /^[A-Z0-9]{6,10}$/i;
 
-      const loader = document.getElementById("loader");
-      const placeholder = document.getElementById("placeholder");
-      const resultOutput = document.getElementById("resultOutput");
+        if(!accessionPattern.test(q)){
+            const searchQuery = encodeURIComponent("gene:" + q);
+            const searchURL = "https://rest.uniprot.org/uniprotkb/search?query=" + searchQuery + "&format=json&size=1";
 
-      loader.classList.add("active");
-      placeholder.style.display = "none";
-      resultOutput.classList.remove("active");
+            const searchResponse = await fetch(searchURL);
 
-      try {
-        const url =
-          "https://rest.uniprot.org/uniprotkb/search?query=" +
-          encodeURIComponent(query) +
-          "&format=json&size=1";
+            if(!searchResponse.ok){
+                throw new Error("UniProt search failed");
+            }
 
-        const response = await fetch(url);
-        const data = await response.json();
+            const searchData = await searchResponse.json();
 
-        if (!data.results || data.results.length === 0) {
-          loader.classList.remove("active");
-          placeholder.style.display = "flex";
-          placeholder.querySelector("h2").textContent = "No Protein Found";
-          placeholder.querySelector("p").textContent =
-            "Try another accession, gene name or protein keyword.";
-          return;
+            if(!searchData.results || searchData.results.length === 0){
+                result.innerHTML = '<h2>No structure data found</h2><p>Try a UniProt accession like P04637 or another gene name.</p>';
+                return;
+            }
+
+            accession = searchData.results[0].primaryAccession;
         }
 
-        const protein = data.results[0];
+        const proteinURL = "https://rest.uniprot.org/uniprotkb/" + accession + ".json";
+        const response = await fetch(proteinURL);
 
-        const accession = protein.primaryAccession || "Not available";
+        if(!response.ok){
+            throw new Error("Protein record not found");
+        }
+
+        const data = await response.json();
+
+        const accessionID = data.primaryAccession || accession;
+
         const proteinName =
-          protein.proteinDescription?.recommendedName?.fullName?.value ||
-          protein.proteinDescription?.submissionNames?.[0]?.fullName?.value ||
-          "Not available";
+            data.proteinDescription?.recommendedName?.fullName?.value ||
+            data.proteinDescription?.submissionNames?.[0]?.fullName?.value ||
+            "Protein name not available";
 
         const geneName =
-          protein.genes?.[0]?.geneName?.value ||
-          protein.genes?.[0]?.synonyms?.[0]?.value ||
-          "Not available";
+            data.genes?.[0]?.geneName?.value ||
+            "Not available";
 
         const organism =
-          protein.organism?.scientificName || "Not available";
+            data.organism?.scientificName ||
+            "Unknown";
 
-        const functionComment =
-          protein.comments?.find(comment => comment.commentType === "FUNCTION");
+        const length =
+            data.sequence?.length ||
+            "Unknown";
+
+        const mass =
+            data.sequence?.molWeight ||
+            "Unknown";
 
         const functionText =
-          functionComment?.texts?.[0]?.value ||
-          "Function annotation is not available for this entry.";
+            data.comments?.find(c => c.commentType === "FUNCTION")?.texts?.[0]?.value ||
+            "Function not available.";
 
-        const sequence =
-          protein.sequence?.value || "Sequence not available.";
+        const pdbRefs = (data.uniProtKBCrossReferences || [])
+            .filter(ref => ref.database === "PDB")
+            .map(ref => ref.id);
 
-        document.getElementById("proteinTitle").textContent = proteinName;
-        document.getElementById("accession").textContent = accession;
-        document.getElementById("proteinName").textContent = proteinName;
-        document.getElementById("geneName").textContent = geneName;
-        document.getElementById("organism").textContent = organism;
-        document.getElementById("functionText").textContent = functionText;
-        document.getElementById("sequence").textContent = sequence;
+        const pdbBadges = pdbRefs.length > 0
+            ? pdbRefs.slice(0,12).map(id => '<span class="badge">' + escapeHTML(id) + '</span>').join("")
+            : '<span class="badge">No experimental PDB found</span>';
 
-        document.getElementById("uniprotLink").href =
-          "https://www.uniprot.org/uniprotkb/" + accession;
+        const alphafoldURL = "https://alphafold.ebi.ac.uk/entry/" + accessionID;
+        const uniprotURL = "https://www.uniprot.org/uniprotkb/" + accessionID;
+        const pdbSearchURL = "https://www.rcsb.org/search?query=" + encodeURIComponent(accessionID);
+        const pdbDownloadURL = "https://alphafold.ebi.ac.uk/files/AF-" + accessionID + "-F1-model_v4.pdb";
+        const cifDownloadURL = "https://alphafold.ebi.ac.uk/files/AF-" + accessionID + "-F1-model_v4.cif";
+        const paeURL = "https://alphafold.ebi.ac.uk/files/AF-" + accessionID + "-F1-predicted_aligned_error_v4.json";
 
-        document.getElementById("alphafoldLink").href =
-          "https://alphafold.ebi.ac.uk/entry/" + accession;
+        result.innerHTML = `
+            <h2>${escapeHTML(proteinName)}</h2>
 
-        loader.classList.remove("active");
-        resultOutput.classList.add("active");
-      } catch (error) {
-        loader.classList.remove("active");
-        placeholder.style.display = "flex";
-        placeholder.querySelector("h2").textContent = "Search Error";
-        placeholder.querySelector("p").textContent =
-          "Unable to fetch protein data. Please check your internet connection or try again.";
-      }
+            <div class="info-grid">
+                <div class="info-card">
+                    <b>UniProt Accession</b><br>
+                    ${escapeHTML(accessionID)}
+                </div>
+
+                <div class="info-card">
+                    <b>Gene</b><br>
+                    ${escapeHTML(geneName)}
+                </div>
+
+                <div class="info-card">
+                    <b>Organism</b><br>
+                    ${escapeHTML(organism)}
+                </div>
+
+                <div class="info-card">
+                    <b>Protein Length</b><br>
+                    ${escapeHTML(String(length))} aa
+                </div>
+
+                <div class="info-card">
+                    <b>Molecular Weight</b><br>
+                    ${escapeHTML(String(mass))} Da
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>Function</h3>
+                <p>${escapeHTML(functionText)}</p>
+            </div>
+
+            <div class="section">
+                <h3>Experimental PDB Structures</h3>
+                <div>${pdbBadges}</div>
+            </div>
+
+            <div class="section">
+                <h3>How This Helps</h3>
+                <p>
+                    This page helps researchers quickly connect a protein with its predicted
+                    AlphaFold structure, experimental PDB records, UniProt annotation and
+                    downloadable structure files. It is useful for structural biology,
+                    mutation studies, docking preparation and environmental protein analysis.
+                </p>
+            </div>
+
+            <div class="links">
+                <a target="_blank" href="${alphafoldURL}">Open AlphaFold</a>
+                <a target="_blank" href="${uniprotURL}">Open UniProt</a>
+                <a target="_blank" href="${pdbSearchURL}">Search PDB</a>
+                <a target="_blank" href="${pdbDownloadURL}">Download AlphaFold PDB</a>
+                <a target="_blank" href="${cifDownloadURL}">Download AlphaFold CIF</a>
+                <a target="_blank" href="${paeURL}">Download PAE JSON</a>
+            </div>
+        `;
     }
-  </script>
+    catch(error){
+        result.innerHTML = '<h2 class="error">Search failed</h2><p>Please check the accession or gene name and try again.</p>';
+    }
+}
+
+function escapeHTML(text){
+    return String(text)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+</script>
 
 </body>
 </html>
