@@ -1,6 +1,23 @@
 BioFetch
-Developed by Surendra Dutt Arya
 
 Integrated Bioinformatics Research Platform
-for Protein Search, Gene Exploration,
-Structure Analysis and Environmental Biotechnology.
+
+Features
+
+🧬 Gene Explorer
+🧫 Protein Explorer
+🏗 Structure Explorer
+🌱 Environmental Biotechnology
+🤖 AI Assistant
+🔬 Molecular Biology Hub
+
+Developed by
+Surendra Dutt Arya
+
+Technologies
+
+HTML
+CSS
+JavaScript
+Vercel
+GitHub
