@@ -108,6 +108,8 @@
             overflow: hidden;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
             transition: 0.3s;
+            text-align: center;
+            padding-bottom: 20px;
         }
 
         .card:hover {
@@ -120,6 +122,17 @@
             object-fit: contain;
             background: #ffffff;
             padding: 10px;
+        }
+
+        .card h3 {
+            color: #063970;
+            margin: 25px 20px 15px;
+            font-size: 24px;
+        }
+
+        .card p {
+            line-height: 1.6;
+            margin: 0 20px 20px;
         }
 
         .card-content {
@@ -137,7 +150,8 @@
             margin-bottom: 20px;
         }
 
-        .button {
+        .button,
+        .btn {
             display: inline-block;
             padding: 12px 25px;
             background: #0077b6;
@@ -148,7 +162,8 @@
             transition: 0.3s;
         }
 
-        .button:hover {
+        .button:hover,
+        .btn:hover {
             background: #005f8f;
             transform: translateY(-2px);
         }
@@ -359,7 +374,7 @@
 </h2>
 
 <p class="section-subtitle">
-    Protein • Gene • Structure • Environmental Biotechnology
+    Protein • Gene • Structure • Environmental Biotechnology • Molecular Biology
 </p>
 
 <div class="cards">
@@ -388,6 +403,20 @@
             <p>AlphaFold and PDB 3D structural resources.</p>
             <a class="button" href="structure.html">Open</a>
         </div>
+    </div>
+
+    <div class="card">
+        <h3>🔬 Molecular Biology Hub</h3>
+
+        <p>
+            Explore sequence analysis, primer design,
+            restriction mapping, cloning workflows,
+            alignment tools and molecular biology resources.
+        </p>
+
+        <a href="molecular/index.html" class="btn">
+            Open
+        </a>
     </div>
 </div>
 
