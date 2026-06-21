@@ -3,115 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Molecular Biology Hub | BioFetch</title>
+    <title>BioFetch Molecular Biology Hub</title>
 
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
             background: linear-gradient(135deg, #eef7ff, #d7f1ff);
             color: #16324f;
         }
 
-        .navbar {
-            background: linear-gradient(90deg, #06283d, #0b5c75);
-            padding: 18px;
-            text-align: center;
-        }
-
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            margin: 0 14px;
-            font-weight: bold;
-            font-size: 16px;
-            display: inline-block;
-        }
-
-        .navbar a:hover {
-            color: #d7f1ff;
-        }
-
-        .hero {
+        header {
             background: white;
-            padding: 60px 30px;
             text-align: center;
+            padding: 60px 20px;
         }
 
-        .hero h1 {
-            font-size: 52px;
+        header h1 {
+            font-size: 3rem;
             color: #063970;
             margin-bottom: 15px;
         }
 
-        .hero p {
-            max-width: 900px;
+        header p {
+            max-width: 850px;
             margin: auto;
-            font-size: 21px;
-            line-height: 1.7;
             color: #16324f;
+            line-height: 1.7;
+            font-size: 20px;
         }
 
-        .hub-section {
-            padding: 45px 35px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 36px;
-            color: #063970;
-            margin-bottom: 12px;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: #555;
-            margin-bottom: 35px;
-            font-size: 17px;
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 40px 30px;
         }
 
         .tools-grid {
-            display: flex;
-            justify-content: center;
-            gap: 28px;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
         }
 
         .tool-card {
-            width: 320px;
             background: linear-gradient(135deg, #ffffff, #f4fbff);
-            border-radius: 20px;
-            padding: 28px;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-            transition: 0.3s;
             border: 1px solid #d9efff;
+            border-radius: 18px;
+            padding: 25px;
+            transition: 0.3s;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
         }
 
         .tool-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-6px);
         }
 
-        .tool-card h2 {
+        .tool-card h3 {
             color: #063970;
-            font-size: 24px;
             margin-bottom: 15px;
+            font-size: 23px;
         }
 
         .tool-card p {
-            line-height: 1.6;
-            margin-bottom: 22px;
             color: #16324f;
+            margin-bottom: 20px;
+            line-height: 1.6;
         }
 
-        .button {
+        .btn {
             display: inline-block;
-            padding: 12px 25px;
+            padding: 11px 22px;
             background: #0077b6;
             color: white;
             text-decoration: none;
@@ -120,59 +86,39 @@
             transition: 0.3s;
         }
 
-        .button:hover {
+        .btn:hover {
             background: #005f8f;
             transform: translateY(-2px);
         }
 
-        .info-section {
-            margin: 45px;
-            background: white;
-            border-radius: 20px;
-            padding: 35px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        .back-home {
+            text-align: center;
+            margin: 45px 0 10px;
         }
 
-        .info-section h2 {
-            color: #063970;
-            margin-bottom: 15px;
-            font-size: 30px;
-        }
-
-        .info-section p {
-            line-height: 1.8;
-            margin-bottom: 14px;
-            font-size: 17px;
-        }
-
-        .footer {
+        footer {
             background: #06283d;
             color: white;
             text-align: center;
-            padding: 25px;
-            margin-top: 40px;
+            padding: 28px;
+            margin-top: 35px;
         }
 
         @media(max-width: 900px) {
-            .navbar a {
-                margin: 8px 10px;
-                font-size: 15px;
+            header {
+                padding: 45px 20px;
             }
 
-            .hero h1 {
-                font-size: 40px;
+            header h1 {
+                font-size: 2.3rem;
             }
 
-            .hero p {
+            header p {
                 font-size: 18px;
             }
 
-            .hub-section {
-                padding: 35px 20px;
-            }
-
-            .info-section {
-                margin: 30px 20px;
+            .container {
+                padding: 30px 20px;
             }
         }
     </style>
@@ -180,98 +126,80 @@
 
 <body>
 
-<div class="navbar">
-    <a href="../index.html">Home</a>
-    <a href="../protein.html">Protein Explorer</a>
-    <a href="../gene.html">Gene Explorer</a>
-    <a href="../structure.html">Structure Explorer</a>
-    <a href="../environment.html">Environment Hub</a>
-    <a href="index.html">Molecular Biology</a>
-    <a href="../ai.html">🧬 AI Assistant</a>
-</div>
+<header>
+    <h1>🧬 Molecular Biology Hub</h1>
 
-<section class="hero">
-    <h1>🔬 Molecular Biology Hub</h1>
     <p>
-        Explore molecular biology tools for sequence analysis, primer design,
-        restriction mapping, cloning workflows, alignment validation and
-        essential molecular research tasks.
+        Explore free molecular biology resources for sequence analysis,
+        primer design, cloning workflows, restriction mapping,
+        alignment validation and protein structure analysis.
     </p>
-</section>
+</header>
 
-<section class="hub-section">
-    <h2 class="section-title">Molecular Biology Tools</h2>
-    <p class="section-subtitle">
-        Light, clean and integrated with the BioFetch research interface.
-    </p>
+<div class="container">
 
     <div class="tools-grid">
 
         <div class="tool-card">
-            <h2>🧬 Sequence Analysis</h2>
-            <p>
-                Analyze DNA, RNA and protein sequences for length,
-                nucleotide composition and biological interpretation.
-            </p>
-            <a class="button" href="sequence-analysis.html">Open</a>
+            <h3>🧬 Sequence Discovery</h3>
+            <p>Find genes, genomes, plasmids and biological sequences.</p>
+            <a href="sequence-discovery.html" class="btn">Open</a>
         </div>
 
         <div class="tool-card">
-            <h2>🧪 Primer Design</h2>
-            <p>
-                Design primers for PCR, cloning, amplification and
-                molecular biology workflows.
-            </p>
-            <a class="button" href="primer-design.html">Open</a>
+            <h3>🔍 Sequence Analysis</h3>
+            <p>Analyze DNA and RNA sequences, ORFs and GC content.</p>
+            <a href="sequence-analysis.html" class="btn">Open</a>
         </div>
 
         <div class="tool-card">
-            <h2>✂️ Restriction Mapping</h2>
-            <p>
-                Explore restriction enzyme sites and map DNA fragments
-                for cloning and digestion planning.
-            </p>
-            <a class="button" href="restriction-mapping.html">Open</a>
+            <h3>🧪 Primer Design</h3>
+            <p>Design PCR, qPCR and cloning primers.</p>
+            <a href="primer-design.html" class="btn">Open</a>
         </div>
 
         <div class="tool-card">
-            <h2>🧫 Cloning Strategy</h2>
-            <p>
-                Plan cloning workflows, vector preparation, insert design
-                and molecular construction steps.
-            </p>
-            <a class="button" href="../cloning-strategy.html">Open</a>
+            <h3>✂️ Restriction Mapping</h3>
+            <p>Identify restriction sites and plan cloning strategies.</p>
+            <a href="restriction-mapping.html" class="btn">Open</a>
         </div>
 
         <div class="tool-card">
-            <h2>✅ Alignment Validation</h2>
-            <p>
-                Validate sequence alignment quality, compare regions
-                and review molecular sequence similarity.
-            </p>
-            <a class="button" href="../alignment-validation.html">Open</a>
+            <h3>⚡ Cloning Strategy Planning</h3>
+            <p>Gibson Assembly, Golden Gate and Gateway cloning resources.</p>
+            <a href="cloning-strategy.html" class="btn">Open</a>
+        </div>
+
+        <div class="tool-card">
+            <h3>📊 Alignment & Validation</h3>
+            <p>Compare sequences and validate molecular constructs.</p>
+            <a href="alignment-validation.html" class="btn">Open</a>
+        </div>
+
+        <div class="tool-card">
+            <h3>🧫 Protein & Structure Analysis</h3>
+            <p>Explore UniProt, AlphaFold, PDB and structural resources.</p>
+            <a href="protein-structure.html" class="btn">Open</a>
+        </div>
+
+        <div class="tool-card">
+            <h3>📁 Data Export & Collaboration</h3>
+            <p>Organize, export and share biological data.</p>
+            <a href="collaboration.html" class="btn">Open</a>
         </div>
 
     </div>
-</section>
 
-<section class="info-section">
-    <h2>About Molecular Biology Hub</h2>
-    <p>
-        The Molecular Biology Hub is part of BioFetch and supports common
-        laboratory and computational biology workflows.
-    </p>
-    <p>
-        It is designed for sequence exploration, PCR planning, restriction
-        analysis, cloning strategy development and alignment-based validation.
-    </p>
-</section>
+    <div class="back-home">
+        <a href="../index.html" class="btn">← Back to BioFetch Home</a>
+    </div>
 
-<div class="footer">
-    BioFetch © 2026
-    <br><br>
-    Developed by Surendra Dutt Arya
 </div>
+
+<footer>
+    <p>BioFetch © 2026 | Developed by Surendra Dutt Arya</p>
+</footer>
 
 </body>
 </html>
+```
