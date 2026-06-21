@@ -103,13 +103,11 @@
 
         .card {
             width: 320px;
-            background: white;
+            background: linear-gradient(135deg, #ffffff, #f4fbff);
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
             transition: 0.3s;
-            text-align: center;
-            padding-bottom: 20px;
         }
 
         .card:hover {
@@ -122,17 +120,6 @@
             object-fit: contain;
             background: #ffffff;
             padding: 10px;
-        }
-
-        .card h3 {
-            color: #063970;
-            margin: 25px 20px 15px;
-            font-size: 24px;
-        }
-
-        .card p {
-            line-height: 1.6;
-            margin: 0 20px 20px;
         }
 
         .card-content {
@@ -150,8 +137,7 @@
             margin-bottom: 20px;
         }
 
-        .button,
-        .btn {
+        .button {
             display: inline-block;
             padding: 12px 25px;
             background: #0077b6;
@@ -162,16 +148,15 @@
             transition: 0.3s;
         }
 
-        .button:hover,
-        .btn:hover {
+        .button:hover {
             background: #005f8f;
             transform: translateY(-2px);
         }
 
-        .environment,
         .ai-assistant-section {
             margin: 50px;
-            background: white;
+            background: linear-gradient(135deg, #ffffff, #eef7ff);
+            border: 1px solid #cdefff;
             border-radius: 20px;
             padding: 35px;
             display: flex;
@@ -180,37 +165,8 @@
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
         }
 
-        .environment img,
         .ai-assistant-visual {
             width: 45%;
-            max-height: 320px;
-            object-fit: contain;
-        }
-
-        .environment-content,
-        .ai-assistant-content {
-            width: 55%;
-        }
-
-        .environment-content h2,
-        .ai-assistant-content h2 {
-            color: #063970;
-            margin-bottom: 15px;
-            font-size: 30px;
-        }
-
-        .environment-content p,
-        .ai-assistant-content p {
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-
-        .ai-assistant-section {
-            background: linear-gradient(135deg, #ffffff, #eef7ff);
-            border: 1px solid #cdefff;
-        }
-
-        .ai-assistant-visual {
             min-height: 260px;
             border-radius: 20px;
             background: linear-gradient(135deg, #d7f1ff, #ffffff);
@@ -219,6 +175,21 @@
             justify-content: center;
             font-size: 95px;
             box-shadow: inset 0 0 25px rgba(0, 119, 182, 0.12);
+        }
+
+        .ai-assistant-content {
+            width: 55%;
+        }
+
+        .ai-assistant-content h2 {
+            color: #063970;
+            margin-bottom: 15px;
+            font-size: 30px;
+        }
+
+        .ai-assistant-content p {
+            line-height: 1.8;
+            margin-bottom: 20px;
         }
 
         .ai-tags {
@@ -309,14 +280,11 @@
                 font-size: 18px;
             }
 
-            .environment,
             .ai-assistant-section {
                 flex-direction: column;
                 margin: 30px 20px;
             }
 
-            .environment img,
-            .environment-content,
             .ai-assistant-visual,
             .ai-assistant-content {
                 width: 100%;
@@ -350,6 +318,7 @@
     <a href="gene.html">Gene Explorer</a>
     <a href="structure.html">Structure Explorer</a>
     <a href="environment.html">Environment Hub</a>
+    <a href="molecular/index.html">Molecular Biology</a>
     <a href="ai.html">🧬 AI Assistant</a>
 </div>
 
@@ -374,14 +343,15 @@
 </h2>
 
 <p class="section-subtitle">
-    Protein • Gene • Structure • Environmental Biotechnology • Molecular Biology
+    Protein • Gene • Structure • Environment • Molecular Biology
 </p>
 
 <div class="cards">
+
     <div class="card">
         <img src="assets/fightshape.gif" alt="Protein Explorer">
         <div class="card-content">
-            <h2>🧬 Protein Explorer</h2>
+            <h2>🧫 Protein Explorer</h2>
             <p>UniProt proteins, sequences, functions and annotations.</p>
             <a class="button" href="protein.html">Open</a>
         </div>
@@ -406,33 +376,30 @@
     </div>
 
     <div class="card">
-        <h3>🔬 Molecular Biology Hub</h3>
-
-        <p>
-            Explore sequence analysis, primer design,
-            restriction mapping, cloning workflows,
-            alignment tools and molecular biology resources.
-        </p>
-
-        <a href="molecular/index.html" class="btn">
-            Open
-        </a>
+        <img src="environment.gif" alt="Environment Hub">
+        <div class="card-content">
+            <h2>🌱 Environment Hub</h2>
+            <p>
+                Microbial remediation, heavy metal resistance,
+                biomining, bioenergy and sustainable biotechnology.
+            </p>
+            <a class="button" href="environment.html">Open</a>
+        </div>
     </div>
+
+    <div class="card">
+        <img src="molecular biology astronomy GIF.gif" alt="Molecular Biology Hub">
+        <div class="card-content">
+            <h2>🔬 Molecular Biology Hub</h2>
+            <p>
+                Sequence analysis, primer design, restriction mapping,
+                cloning workflows and alignment tools.
+            </p>
+            <a class="button" href="molecular/index.html">Open</a>
+        </div>
+    </div>
+
 </div>
-
-<section class="environment">
-    <img src="assets/environment.gif" alt="Environment Hub">
-
-    <div class="environment-content">
-        <h2>🌱 Environmental Bioinformatics Hub</h2>
-        <p>
-            Explore microbial remediation, heavy metal resistance,
-            acid mine drainage, bioenergy, resource recovery,
-            biomining and sustainable biotechnology.
-        </p>
-        <a class="button" href="environment.html">Explore Environment</a>
-    </div>
-</section>
 
 <section class="ai-assistant-section">
     <div class="ai-assistant-visual">
@@ -455,6 +422,7 @@
             <span>UniProt</span>
             <span>AlphaFold</span>
             <span>PDB</span>
+            <span>Molecular Biology</span>
             <span>Microbial Remediation</span>
         </div>
 
