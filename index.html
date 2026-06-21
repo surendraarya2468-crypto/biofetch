@@ -195,8 +195,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 95px;
             box-shadow: inset 0 0 25px rgba(0, 119, 182, 0.12);
+            overflow: hidden;
+        }
+
+        .ai-assistant-visual img {
+            width: 100%;
+            height: 260px;
+            object-fit: contain;
+            background: white;
+            padding: 12px;
         }
 
         .ai-assistant-content {
@@ -314,7 +322,10 @@
 
             .ai-assistant-visual {
                 min-height: 190px;
-                font-size: 70px;
+            }
+
+            .ai-assistant-visual img {
+                height: 220px;
             }
 
             iframe {
@@ -428,7 +439,7 @@
 
 <section class="ai-assistant-section">
     <div class="ai-assistant-visual">
-        🧬
+        <img src="husky dog GIF.gif" alt="BioFetch AI Assistant">
     </div>
 
     <div class="ai-assistant-content">
