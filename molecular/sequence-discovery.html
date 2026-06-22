@@ -1,1 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequence Discovery | BioFetch</title>
 
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #eef7ff, #d7f1ff);
+            color: #16324f;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, #06283d, #0b5c75);
+            padding: 18px;
+            text-align: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 14px;
+            font-weight: bold;
+            font-size: 16px;
+            display: inline-block;
+        }
+
+        .navbar a:hover { color: #d7f1ff; }
+
+        .hero {
+            background: white;
+            text-align: center;
+            padding: 60px 25px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: #063970;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            max-width: 850px;
+            margin: auto;
+            font-size: 21px;
+            line-height: 1.7;
+            color: #16324f;
+        }
+
+        .resources {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            padding: 45px 40px;
+        }
+
+        .resource-card {
+            width: 330px;
+            background: linear-gradient(135deg, #ffffff, #f4fbff);
+            border-radius: 20px;
+            padding: 28px;
+            text-align: center;
+            border: 1px solid #d9efff;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            transition: 0.3s;
+        }
+
+        .resource-card:hover { transform: translateY(-8px); }
+
+        .resource-card h2 {
+            color: #063970;
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+        .resource-card p {
+            line-height: 1.6;
+            margin-bottom: 22px;
+            color: #16324f;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #0077b6;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #005f8f;
+            transform: translateY(-2px);
+        }
+
+        .back-section {
+            text-align: center;
+            margin: 10px 0 50px;
+        }
+
+        .footer {
+            background: #06283d;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        @media(max-width: 900px) {
+            .navbar a { margin: 8px 10px; font-size: 15px; }
+            .hero h1 { font-size: 38px; }
+            .hero p { font-size: 18px; }
+            .resources { padding: 35px 20px; }
+            .resource-card { width: 100%; max-width: 350px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="../index.html">Home</a>
+    <a href="../protein.html">Protein Explorer</a>
+    <a href="../gene.html">Gene Explorer</a>
+    <a href="../structure.html">Structure Explorer</a>
+    <a href="../environment.html">Environment Hub</a>
+    <a href="index.html">Molecular Biology</a>
+    <a href="../ai.html">🧬 AI Assistant</a>
+</div>
+
+<section class="hero">
+    <h1>🧬 Sequence Discovery</h1>
+    <p>
+        Find genes, genomes, plasmids and biological sequences using the world's
+        leading nucleotide and protein sequence databases.
+    </p>
+</section>
+
+<section class="resources">
+
+    <div class="resource-card">
+        <h2>🔍 NCBI Nucleotide</h2>
+        <p>
+            Search millions of nucleotide sequences from GenBank, RefSeq and other INSDC databases.
+        </p>
+        <a href="https://www.ncbi.nlm.nih.gov/nuccore/" target="_blank" class="btn">
+            Visit NCBI Nucleotide →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🌐 Ensembl Genome Browser</h2>
+        <p>
+            Browse annotated genomes for vertebrates and model organisms with rich comparative genomics tools.
+        </p>
+        <a href="https://www.ensembl.org/" target="_blank" class="btn">
+            Visit Ensembl →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🧫 NCBI Gene</h2>
+        <p>
+            Gene-centric resource integrating sequences, maps, pathways, expression and homology data.
+        </p>
+        <a href="https://www.ncbi.nlm.nih.gov/gene/" target="_blank" class="btn">
+            Visit NCBI Gene →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🌿 JGI Genome Portal</h2>
+        <p>
+            Access microbial, fungal, plant and metagenome sequences from the DOE Joint Genome Institute.
+        </p>
+        <a href="https://genome.jgi.doe.gov/" target="_blank" class="btn">
+            Visit JGI Portal →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>📦 EMBL-EBI ENA</h2>
+        <p>
+            European Nucleotide Archive — a comprehensive record of the world's nucleotide sequencing data.
+        </p>
+        <a href="https://www.ebi.ac.uk/ena/browser/" target="_blank" class="btn">
+            Visit ENA →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🦠 PATRIC / BV-BRC</h2>
+        <p>
+            Bacterial and Viral Bioinformatics Resource Center with genomes, tools and pathogen data.
+        </p>
+        <a href="https://www.bv-brc.org/" target="_blank" class="btn">
+            Visit BV-BRC →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🔬 UniProt Sequences</h2>
+        <p>
+            Search protein sequences with functional annotations across Swiss-Prot and TrEMBL entries.
+        </p>
+        <a href="https://www.uniprot.org/" target="_blank" class="btn">
+            Visit UniProt →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🧬 NCBI RefSeq</h2>
+        <p>
+            Curated, non-redundant reference sequences for genomes, transcripts and proteins.
+        </p>
+        <a href="https://www.ncbi.nlm.nih.gov/refseq/" target="_blank" class="btn">
+            Visit RefSeq →
+        </a>
+    </div>
+
+</section>
+
+<div class="back-section">
+    <a href="index.html" class="btn">← Back to Molecular Biology Hub</a>
+</div>
+
+<div class="footer">
+    BioFetch © 2026
+    <br><br>
+    Developed by Surendra Dutt Arya
+</div>
+
+</body>
+</html>
