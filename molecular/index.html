@@ -1,47 +1,256 @@
-<div class="tool-card">
-    <h3>🧬 Sequence Discovery</h3>
-    <p>Find genes, genomes, plasmids and biological sequences.</p>
-    <a href="sequence-discovery.html" class="btn">Open</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Molecular Biology Hub | BioFetch</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #eef7ff, #d7f1ff);
+            color: #16324f;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, #06283d, #0b5c75);
+            padding: 18px;
+            text-align: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 14px;
+            font-weight: bold;
+            font-size: 16px;
+            display: inline-block;
+        }
+
+        .navbar a:hover {
+            color: #d7f1ff;
+        }
+
+        .hero {
+            background: white;
+            text-align: center;
+            padding: 60px 25px;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            color: #063970;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            max-width: 850px;
+            margin: auto;
+            font-size: 21px;
+            line-height: 1.7;
+            color: #16324f;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 38px;
+            color: #063970;
+            margin-top: 45px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #555;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tools-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            padding: 40px;
+        }
+
+        .tool-card {
+            width: 320px;
+            background: linear-gradient(135deg, #ffffff, #f4fbff);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid #d9efff;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            transition: 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .tool-card h3 {
+            color: #063970;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .tool-card p {
+            color: #16324f;
+            line-height: 1.6;
+            margin-bottom: 22px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #0077b6;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #005f8f;
+            transform: translateY(-2px);
+        }
+
+        .back-home {
+            text-align: center;
+            margin: 20px 0 50px;
+        }
+
+        .footer {
+            background: #06283d;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        @media(max-width: 900px) {
+            .navbar a {
+                margin: 8px 10px;
+                font-size: 15px;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .tools-grid {
+                padding: 30px 20px;
+            }
+
+            .tool-card {
+                width: 100%;
+                max-width: 340px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="../index.html">Home</a>
+    <a href="../protein.html">Protein Explorer</a>
+    <a href="../gene.html">Gene Explorer</a>
+    <a href="../structure.html">Structure Explorer</a>
+    <a href="../environment.html">Environment Hub</a>
+    <a href="index.html">Molecular Biology</a>
+    <a href="../ai.html">🧬 AI Assistant</a>
 </div>
 
-<div class="tool-card">
-    <h3>🧪 Primer Design</h3>
-    <p>Design PCR, qPCR and cloning primers.</p>
-    <a href="primer-design.html" class="btn">Open</a>
+<section class="hero">
+    <h1>🔬 Molecular Biology Hub</h1>
+    <p>
+        Explore free molecular biology resources for sequence discovery,
+        primer design, alignment validation, cloning workflows,
+        restriction mapping, protein structure analysis and biological data management.
+    </p>
+</section>
+
+<h2 class="section-title">
+    Molecular Biology Tools
+</h2>
+
+<p class="section-subtitle">
+    Sequence Discovery • Primer Design • Alignment • Cloning • Restriction Mapping
+</p>
+
+<div class="tools-grid">
+
+    <div class="tool-card">
+        <h3>🧬 Sequence Discovery</h3>
+        <p>Find genes, genomes, plasmids and biological sequences.</p>
+        <a href="sequence-discovery.html" class="btn">Open</a>
+    </div>
+
+    <div class="tool-card">
+        <h3>🧪 Primer Design</h3>
+        <p>Design PCR, qPCR and cloning primers.</p>
+        <a href="primer-design.html" class="btn">Open</a>
+    </div>
+
+    <div class="tool-card">
+        <h3>📊 Alignment & Validation</h3>
+        <p>Compare sequences and validate molecular constructs.</p>
+        <a href="alignment-validation.html" class="btn">Open</a>
+    </div>
+
+    <div class="tool-card">
+        <h3>⚡ Cloning Strategy Planning</h3>
+        <p>Gibson Assembly, Golden Gate and Gateway cloning resources.</p>
+        <a href="cloning-strategy.html" class="btn">Open</a>
+    </div>
+
+    <div class="tool-card">
+        <h3>🔍 Sequence Analysis</h3>
+        <p>Analyze DNA and RNA sequences, ORFs and GC content.</p>
+        <a href="sequence-analysis.html" class="btn">Open</a>
+    </div>
+
+    <div class="tool-card">
+        <h3>✂️ Restriction Mapping</h3>
+        <p>Identify restriction sites and plan cloning strategies.</p>
+        <a href="restriction-mapping.html" class="btn">Open</a>
+    </div>
+
+    <div class="tool-card">
+        <h3>🧫 Protein & Structure Analysis</h3>
+        <p>Explore UniProt, AlphaFold, PDB and structural biology resources.</p>
+        <a href="protein-structure.html" class="btn">Open</a>
+    </div>
+
+    <div class="tool-card">
+        <h3>📁 Data Export & Collaboration</h3>
+        <p>Organize, export, share and manage biological data.</p>
+        <a href="collaboration.html" class="btn">Open</a>
+    </div>
+
 </div>
 
-<div class="tool-card">
-    <h3>📊 Alignment & Validation</h3>
-    <p>Compare sequences and validate molecular constructs.</p>
-    <a href="alignment-validation.html" class="btn">Open</a>
+<div class="back-home">
+    <a href="../index.html" class="btn">← Back to BioFetch Home</a>
 </div>
 
-<div class="tool-card">
-    <h3>⚡ Cloning Strategy Planning</h3>
-    <p>Gibson Assembly, Golden Gate and Gateway cloning resources.</p>
-    <a href="cloning-strategy.html" class="btn">Open</a>
+<div class="footer">
+    BioFetch © 2026
+    <br><br>
+    Developed by Surendra Dutt Arya
 </div>
 
-<div class="tool-card">
-    <h3>🔍 Sequence Analysis</h3>
-    <p>Analyze DNA and RNA sequences, ORFs and GC content.</p>
-    <a href="sequence-analysis.html" class="btn">Open</a>
-</div>
-
-<div class="tool-card">
-    <h3>✂️ Restriction Mapping</h3>
-    <p>Identify restriction sites and plan cloning strategies.</p>
-    <a href="restriction-mapping.html" class="btn">Open</a>
-</div>
-
-<div class="tool-card">
-    <h3>🧫 Protein & Structure Analysis</h3>
-    <p>Explore UniProt, AlphaFold, PDB and structural biology resources.</p>
-    <a href="protein-structure.html" class="btn">Open</a>
-</div>
-
-<div class="tool-card">
-    <h3>📁 Data Export & Collaboration</h3>
-    <p>Organize, export, share and manage biological data.</p>
-    <a href="collaboration.html" class="btn">Open</a>
-</div>
+</body>
+</html>
