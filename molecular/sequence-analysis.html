@@ -1,1 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequence Analysis | BioFetch</title>
 
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #eef7ff, #d7f1ff);
+            color: #16324f;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, #06283d, #0b5c75);
+            padding: 18px;
+            text-align: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 14px;
+            font-weight: bold;
+            font-size: 16px;
+            display: inline-block;
+        }
+
+        .navbar a:hover { color: #d7f1ff; }
+
+        .hero {
+            background: white;
+            text-align: center;
+            padding: 60px 25px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: #063970;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            max-width: 850px;
+            margin: auto;
+            font-size: 21px;
+            line-height: 1.7;
+            color: #16324f;
+        }
+
+        .resources {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            padding: 45px 40px;
+        }
+
+        .resource-card {
+            width: 330px;
+            background: linear-gradient(135deg, #ffffff, #f4fbff);
+            border-radius: 20px;
+            padding: 28px;
+            text-align: center;
+            border: 1px solid #d9efff;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            transition: 0.3s;
+        }
+
+        .resource-card:hover { transform: translateY(-8px); }
+
+        .resource-card h2 {
+            color: #063970;
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+        .resource-card p {
+            line-height: 1.6;
+            margin-bottom: 22px;
+            color: #16324f;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #0077b6;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #005f8f;
+            transform: translateY(-2px);
+        }
+
+        .back-section {
+            text-align: center;
+            margin: 10px 0 50px;
+        }
+
+        .footer {
+            background: #06283d;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        @media(max-width: 900px) {
+            .navbar a { margin: 8px 10px; font-size: 15px; }
+            .hero h1 { font-size: 38px; }
+            .hero p { font-size: 18px; }
+            .resources { padding: 35px 20px; }
+            .resource-card { width: 100%; max-width: 350px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="../index.html">Home</a>
+    <a href="../protein.html">Protein Explorer</a>
+    <a href="../gene.html">Gene Explorer</a>
+    <a href="../structure.html">Structure Explorer</a>
+    <a href="../environment.html">Environment Hub</a>
+    <a href="index.html">Molecular Biology</a>
+    <a href="../ai.html">🧬 AI Assistant</a>
+</div>
+
+<section class="hero">
+    <h1>🔍 Sequence Analysis</h1>
+    <p>
+        Analyse DNA and RNA sequences — find open reading frames, calculate GC content,
+        translate sequences and predict functional elements.
+    </p>
+</section>
+
+<section class="resources">
+
+    <div class="resource-card">
+        <h2>🧬 NCBI ORF Finder</h2>
+        <p>
+            Identify all open reading frames in a DNA sequence across all six reading frames.
+        </p>
+        <a href="https://www.ncbi.nlm.nih.gov/orffinder/" target="_blank" class="btn">
+            Visit ORF Finder →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🔬 EMBOSS Transeq</h2>
+        <p>
+            Translate nucleotide sequences into protein sequences across any reading frame via EBI.
+        </p>
+        <a href="https://www.ebi.ac.uk/Tools/st/emboss_transeq/" target="_blank" class="btn">
+            Visit Transeq →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>📊 Sequence Manipulation Suite</h2>
+        <p>
+            Web-based tools for calculating GC content, reverse complement, motif search and more.
+        </p>
+        <a href="https://www.bioinformatics.org/sms2/" target="_blank" class="btn">
+            Visit SMS2 →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🧪 EMBOSS CpGPlot</h2>
+        <p>
+            Identify CpG islands and calculate GC content along a DNA sequence for epigenetics analysis.
+        </p>
+        <a href="https://www.ebi.ac.uk/Tools/seqstats/emboss_cpgplot/" target="_blank" class="btn">
+            Visit CpGPlot →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🔍 Regulatory Sequence Analysis Tools</h2>
+        <p>
+            Predict promoters, transcription factor binding sites and regulatory elements in DNA sequences.
+        </p>
+        <a href="http://rsat.france-bioinformatique.fr/" target="_blank" class="btn">
+            Visit RSAT →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🧬 mFold RNA Structure</h2>
+        <p>
+            Predict secondary structure of RNA and DNA sequences including folding energy calculations.
+        </p>
+        <a href="http://www.unafold.org/mfold/applications/rna-folding-form.php" target="_blank" class="btn">
+            Visit mFold →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>📦 Codon Usage Database</h2>
+        <p>
+            Explore codon usage tables for hundreds of organisms to optimise gene synthesis and expression.
+        </p>
+        <a href="https://www.kazusa.or.jp/codon/" target="_blank" class="btn">
+            Visit Codon DB →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🧪 ExPASy Translate Tool</h2>
+        <p>
+            Translate a nucleotide sequence into protein using any genetic code via the ExPASy portal.
+        </p>
+        <a href="https://web.expasy.org/translate/" target="_blank" class="btn">
+            Visit ExPASy Translate →
+        </a>
+    </div>
+
+</section>
+
+<div class="back-section">
+    <a href="index.html" class="btn">← Back to Molecular Biology Hub</a>
+</div>
+
+<div class="footer">
+    BioFetch © 2026
+    <br><br>
+    Developed by Surendra Dutt Arya
+</div>
+
+</body>
+</html>
