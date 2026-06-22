@@ -1,1 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primer Design | BioFetch</title>
 
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #eef7ff, #d7f1ff);
+            color: #16324f;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, #06283d, #0b5c75);
+            padding: 18px;
+            text-align: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 14px;
+            font-weight: bold;
+            font-size: 16px;
+            display: inline-block;
+        }
+
+        .navbar a:hover { color: #d7f1ff; }
+
+        .hero {
+            background: white;
+            text-align: center;
+            padding: 60px 25px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: #063970;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            max-width: 850px;
+            margin: auto;
+            font-size: 21px;
+            line-height: 1.7;
+            color: #16324f;
+        }
+
+        .resources {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            padding: 45px 40px;
+        }
+
+        .resource-card {
+            width: 330px;
+            background: linear-gradient(135deg, #ffffff, #f4fbff);
+            border-radius: 20px;
+            padding: 28px;
+            text-align: center;
+            border: 1px solid #d9efff;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            transition: 0.3s;
+        }
+
+        .resource-card:hover { transform: translateY(-8px); }
+
+        .resource-card h2 {
+            color: #063970;
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+        .resource-card p {
+            line-height: 1.6;
+            margin-bottom: 22px;
+            color: #16324f;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #0077b6;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #005f8f;
+            transform: translateY(-2px);
+        }
+
+        .back-section {
+            text-align: center;
+            margin: 10px 0 50px;
+        }
+
+        .footer {
+            background: #06283d;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        @media(max-width: 900px) {
+            .navbar a { margin: 8px 10px; font-size: 15px; }
+            .hero h1 { font-size: 38px; }
+            .hero p { font-size: 18px; }
+            .resources { padding: 35px 20px; }
+            .resource-card { width: 100%; max-width: 350px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="../index.html">Home</a>
+    <a href="../protein.html">Protein Explorer</a>
+    <a href="../gene.html">Gene Explorer</a>
+    <a href="../structure.html">Structure Explorer</a>
+    <a href="../environment.html">Environment Hub</a>
+    <a href="index.html">Molecular Biology</a>
+    <a href="../ai.html">🧬 AI Assistant</a>
+</div>
+
+<section class="hero">
+    <h1>🧪 Primer Design</h1>
+    <p>
+        Design optimised PCR, qPCR, sequencing and cloning primers
+        using industry-standard tools and oligonucleotide analysis platforms.
+    </p>
+</section>
+
+<section class="resources">
+
+    <div class="resource-card">
+        <h2>🔬 NCBI Primer-BLAST</h2>
+        <p>
+            Design specific PCR primers and verify specificity against a genome or database using BLAST.
+        </p>
+        <a href="https://www.ncbi.nlm.nih.gov/tools/primer-blast/" target="_blank" class="btn">
+            Visit Primer-BLAST →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🧬 Primer3Plus</h2>
+        <p>
+            Web interface for Primer3 — the gold standard tool for designing PCR and sequencing primers.
+        </p>
+        <a href="https://www.primer3plus.com/" target="_blank" class="btn">
+            Visit Primer3Plus →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🧪 IDT OligoAnalyzer</h2>
+        <p>
+            Analyse primer Tm, secondary structures, hairpins and self-dimers from Integrated DNA Technologies.
+        </p>
+        <a href="https://www.idtdna.com/calc/analyzer" target="_blank" class="btn">
+            Visit OligoAnalyzer →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>📊 Eurofins Genomics Primer Tool</h2>
+        <p>
+            Online primer design, ordering and Tm calculation tool from Eurofins Genomics.
+        </p>
+        <a href="https://www.eurofinsgenomics.eu/en/dna-rna-oligonucleotides/oligo-tools/primer-design-tool/" target="_blank" class="btn">
+            Visit Eurofins Tool →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🔍 SnapGene Primer Design</h2>
+        <p>
+            Simulate and design primers directly on your plasmid or sequence map within SnapGene.
+        </p>
+        <a href="https://www.snapgene.com/features" target="_blank" class="btn">
+            Visit SnapGene →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🧬 Geneious Prime</h2>
+        <p>
+            All-in-one bioinformatics platform with advanced primer design and sequence analysis tools.
+        </p>
+        <a href="https://www.geneious.com/" target="_blank" class="btn">
+            Visit Geneious →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>📦 Beacon Designer</h2>
+        <p>
+            Design real-time PCR (qPCR) and molecular beacon primers with specificity checking.
+        </p>
+        <a href="https://www.premierbiosoft.com/qPCR/" target="_blank" class="btn">
+            Visit Beacon Designer →
+        </a>
+    </div>
+
+</section>
+
+<div class="back-section">
+    <a href="index.html" class="btn">← Back to Molecular Biology Hub</a>
+</div>
+
+<div class="footer">
+    BioFetch © 2026
+    <br><br>
+    Developed by Surendra Dutt Arya
+</div>
+
+</body>
+</html>
