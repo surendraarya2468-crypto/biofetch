@@ -1,1 +1,263 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restriction Mapping | BioFetch</title>
 
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #eef7ff, #d7f1ff);
+            color: #16324f;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, #06283d, #0b5c75);
+            padding: 18px;
+            text-align: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 14px;
+            font-weight: bold;
+            font-size: 16px;
+            display: inline-block;
+        }
+
+        .navbar a:hover {
+            color: #d7f1ff;
+        }
+
+        .hero {
+            background: white;
+            text-align: center;
+            padding: 60px 25px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: #063970;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            max-width: 850px;
+            margin: auto;
+            font-size: 21px;
+            line-height: 1.7;
+            color: #16324f;
+        }
+
+        .resources {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            padding: 45px 40px;
+        }
+
+        .resource-card {
+            width: 330px;
+            background: linear-gradient(135deg, #ffffff, #f4fbff);
+            border-radius: 20px;
+            padding: 28px;
+            text-align: center;
+            border: 1px solid #d9efff;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            transition: 0.3s;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .resource-card h2 {
+            color: #063970;
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+        .resource-card p {
+            line-height: 1.6;
+            margin-bottom: 22px;
+            color: #16324f;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #0077b6;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #005f8f;
+            transform: translateY(-2px);
+        }
+
+        .back-section {
+            text-align: center;
+            margin: 10px 0 50px;
+        }
+
+        .footer {
+            background: #06283d;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        @media(max-width: 900px) {
+            .navbar a {
+                margin: 8px 10px;
+                font-size: 15px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .resources {
+                padding: 35px 20px;
+            }
+
+            .resource-card {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="../index.html">Home</a>
+    <a href="../protein.html">Protein Explorer</a>
+    <a href="../gene.html">Gene Explorer</a>
+    <a href="../structure.html">Structure Explorer</a>
+    <a href="../environment.html">Environment Hub</a>
+    <a href="index.html">Molecular Biology</a>
+    <a href="../ai.html">🧬 AI Assistant</a>
+</div>
+
+<section class="hero">
+    <h1>✂️ Restriction Mapping</h1>
+    <p>
+        Identify restriction enzyme recognition sites, simulate DNA digestion,
+        plan cloning experiments and explore enzyme databases for molecular biology workflows.
+    </p>
+</section>
+
+<section class="resources">
+
+    <div class="resource-card">
+        <h2>✂️ NEBcutter</h2>
+        <p>
+            Analyse DNA sequences for restriction enzyme sites and simulate restriction digests.
+        </p>
+        <a href="https://nc2.neb.com/NEBcutter2/" target="_blank" class="btn">
+            Visit NEBcutter →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🧬 REBASE</h2>
+        <p>
+            Comprehensive database of restriction enzymes, DNA methyltransferases and related proteins.
+        </p>
+        <a href="https://rebase.neb.com/" target="_blank" class="btn">
+            Visit REBASE →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🔬 RestrictionMapper</h2>
+        <p>
+            Create restriction maps, locate enzyme sites and analyse cloning strategies.
+        </p>
+        <a href="http://www.restrictionmapper.org/" target="_blank" class="btn">
+            Visit RestrictionMapper →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🧪 SnapGene Viewer</h2>
+        <p>
+            Visualise plasmids, restriction sites and cloning workflows with interactive maps.
+        </p>
+        <a href="https://www.snapgene.com/snapgene-viewer" target="_blank" class="btn">
+            Visit SnapGene →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>⚡ Benchling</h2>
+        <p>
+            Design plasmids, analyse restriction sites and manage molecular biology projects online.
+        </p>
+        <a href="https://www.benchling.com/" target="_blank" class="btn">
+            Visit Benchling →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🧫 Addgene</h2>
+        <p>
+            Explore plasmid repositories and cloning resources used by researchers worldwide.
+        </p>
+        <a href="https://www.addgene.org/" target="_blank" class="btn">
+            Visit Addgene →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🧬 Enzyme Finder</h2>
+        <p>
+            Search restriction enzymes by recognition sequence and identify compatible cloning sites.
+        </p>
+        <a href="https://www.neb.com/en/tools-and-resources/selection-charts/alphabetized-list-of-recognition-specificities" target="_blank" class="btn">
+            Find Enzymes →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>📊 NEB Double Digest Finder</h2>
+        <p>
+            Find optimal enzyme pairs and reaction conditions for double digestion experiments.
+        </p>
+        <a href="https://nebcloner.neb.com/" target="_blank" class="btn">
+            Visit NEB Cloner →
+        </a>
+    </div>
+
+</section>
+
+<div class="back-section">
+    <a href="index.html" class="btn">← Back to Molecular Biology Hub</a>
+</div>
+
+<div class="footer">
+    BioFetch © 2026
+    <br><br>
+    Developed by Surendra Dutt Arya
+</div>
+
+</body>
+</html>
+```
