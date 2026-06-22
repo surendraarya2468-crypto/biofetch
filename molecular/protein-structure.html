@@ -1,61 +1,237 @@
-<h1>🧫 Protein & Structure Analysis</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protein & Structure Analysis | BioFetch</title>
 
-<p>
-Explore protein sequences, structures, domains and AI-predicted models using leading bioinformatics resources.
-</p>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<hr>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #eef7ff, #d7f1ff);
+            color: #16324f;
+        }
 
-<h2>🧬 UniProt</h2>
-<p>
-Comprehensive protein sequence and functional annotation database.
-</p>
-<a href="https://www.uniprot.org/" target="_blank">
-Visit UniProt →
-</a>
+        .navbar {
+            background: linear-gradient(90deg, #06283d, #0b5c75);
+            padding: 18px;
+            text-align: center;
+        }
 
-<hr>
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 14px;
+            font-weight: bold;
+            font-size: 16px;
+            display: inline-block;
+        }
 
-<h2>🔬 AlphaFold</h2>
-<p>
-AI-powered protein structure prediction database.
-</p>
-<a href="https://alphafold.ebi.ac.uk/" target="_blank">
-Visit AlphaFold →
-</a>
+        .navbar a:hover {
+            color: #d7f1ff;
+        }
 
-<hr>
+        .hero {
+            background: white;
+            text-align: center;
+            padding: 60px 25px;
+        }
 
-<h2>🏗 RCSB Protein Data Bank (PDB)</h2>
-<p>
-Experimental 3D structures of proteins, nucleic acids and complexes.
-</p>
-<a href="https://www.rcsb.org/" target="_blank">
-Visit PDB →
-</a>
+        .hero h1 {
+            font-size: 48px;
+            color: #063970;
+            margin-bottom: 15px;
+        }
 
-<hr>
+        .hero p {
+            max-width: 850px;
+            margin: auto;
+            font-size: 21px;
+            line-height: 1.7;
+            color: #16324f;
+        }
 
-<h2>🧪 SWISS-MODEL</h2>
-<p>
-Homology modelling and protein structure prediction platform.
-</p>
-<a href="https://swissmodel.expasy.org/" target="_blank">
-Visit SWISS-MODEL →
-</a>
+        .resources {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            padding: 45px 40px;
+        }
 
-<hr>
+        .resource-card {
+            width: 330px;
+            background: linear-gradient(135deg, #ffffff, #f4fbff);
+            border-radius: 20px;
+            padding: 28px;
+            text-align: center;
+            border: 1px solid #d9efff;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            transition: 0.3s;
+        }
 
-<h2>🧬 InterPro</h2>
-<p>
-Protein families, domains and functional site annotations.
-</p>
-<a href="https://www.ebi.ac.uk/interpro/" target="_blank">
-Visit InterPro →
-</a>
+        .resource-card:hover {
+            transform: translateY(-8px);
+        }
 
-<br><br>
+        .resource-card h2 {
+            color: #063970;
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
 
-<a href="index.html">
-← Back to Molecular Biology Hub
-</a>
+        .resource-card p {
+            line-height: 1.6;
+            margin-bottom: 22px;
+            color: #16324f;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #0077b6;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #005f8f;
+            transform: translateY(-2px);
+        }
+
+        .back-section {
+            text-align: center;
+            margin: 10px 0 50px;
+        }
+
+        .footer {
+            background: #06283d;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        @media(max-width: 900px) {
+            .navbar a {
+                margin: 8px 10px;
+                font-size: 15px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .resources {
+                padding: 35px 20px;
+            }
+
+            .resource-card {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="../index.html">Home</a>
+    <a href="../protein.html">Protein Explorer</a>
+    <a href="../gene.html">Gene Explorer</a>
+    <a href="../structure.html">Structure Explorer</a>
+    <a href="../environment.html">Environment Hub</a>
+    <a href="index.html">Molecular Biology</a>
+    <a href="../ai.html">🧬 AI Assistant</a>
+</div>
+
+<section class="hero">
+    <h1>🧫 Protein & Structure Analysis</h1>
+    <p>
+        Explore protein sequences, structures, domains and AI-predicted models
+        using leading bioinformatics resources.
+    </p>
+</section>
+
+<section class="resources">
+
+    <div class="resource-card">
+        <h2>🧬 UniProt</h2>
+        <p>
+            Comprehensive protein sequence and functional annotation database.
+        </p>
+        <a href="https://www.uniprot.org/" target="_blank" class="btn">
+            Visit UniProt →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🔬 AlphaFold</h2>
+        <p>
+            AI-powered protein structure prediction database.
+        </p>
+        <a href="https://alphafold.ebi.ac.uk/" target="_blank" class="btn">
+            Visit AlphaFold →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🏗 RCSB Protein Data Bank</h2>
+        <p>
+            Experimental 3D structures of proteins, nucleic acids and complexes.
+        </p>
+        <a href="https://www.rcsb.org/" target="_blank" class="btn">
+            Visit PDB →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🧪 SWISS-MODEL</h2>
+        <p>
+            Homology modelling and protein structure prediction platform.
+        </p>
+        <a href="https://swissmodel.expasy.org/" target="_blank" class="btn">
+            Visit SWISS-MODEL →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🧬 InterPro</h2>
+        <p>
+            Protein families, domains and functional site annotations.
+        </p>
+        <a href="https://www.ebi.ac.uk/interpro/" target="_blank" class="btn">
+            Visit InterPro →
+        </a>
+    </div>
+
+</section>
+
+<div class="back-section">
+    <a href="index.html" class="btn">
+        ← Back to Molecular Biology Hub
+    </a>
+</div>
+
+<div class="footer">
+    BioFetch © 2026
+    <br><br>
+    Developed by Surendra Dutt Arya
+</div>
+
+</body>
+</html>
