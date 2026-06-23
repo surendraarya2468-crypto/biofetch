@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Export & Collaboration | BioFetch</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family:Arial, Helvetica, sans-serif;
+            background:linear-gradient(135deg,#eef7ff,#d7f1ff);
+            color:#16324f;
+        }
+
+        .navbar{
+            background:linear-gradient(90deg,#06283d,#0b5c75);
+            padding:18px;
+            text-align:center;
+        }
+
+        .navbar a{
+            color:white;
+            text-decoration:none;
+            margin:0 14px;
+            font-weight:bold;
+            font-size:16px;
+            display:inline-block;
+        }
+
+        .navbar a:hover{
+            color:#d7f1ff;
+        }
+
+        .hero{
+            background:white;
+            text-align:center;
+            padding:60px 25px;
+        }
+
+        .hero h1{
+            font-size:48px;
+            color:#063970;
+            margin-bottom:15px;
+        }
+
+        .hero p{
+            max-width:850px;
+            margin:auto;
+            font-size:21px;
+            line-height:1.7;
+            color:#16324f;
+        }
+
+        .resources{
+            display:flex;
+            justify-content:center;
+            gap:30px;
+            flex-wrap:wrap;
+            padding:45px 40px;
+        }
+
+        .resource-card{
+            width:330px;
+            background:linear-gradient(135deg,#ffffff,#f4fbff);
+            border-radius:20px;
+            padding:28px;
+            text-align:center;
+            border:1px solid #d9efff;
+            box-shadow:0 5px 20px rgba(0,0,0,0.15);
+            transition:0.3s;
+        }
+
+        .resource-card:hover{
+            transform:translateY(-8px);
+        }
+
+        .resource-card h2{
+            color:#063970;
+            font-size:24px;
+            margin-bottom:15px;
+        }
+
+        .resource-card p{
+            line-height:1.6;
+            margin-bottom:22px;
+            color:#16324f;
+        }
+
+        .btn{
+            display:inline-block;
+            padding:12px 25px;
+            background:#0077b6;
+            color:white;
+            text-decoration:none;
+            border-radius:8px;
+            font-weight:bold;
+            transition:0.3s;
+        }
+
+        .btn:hover{
+            background:#005f8f;
+            transform:translateY(-2px);
+        }
+
+        .back-section{
+            text-align:center;
+            margin:10px 0 50px;
+        }
+
+        .footer{
+            background:#06283d;
+            color:white;
+            text-align:center;
+            padding:25px;
+            margin-top:40px;
+        }
+
+        @media(max-width:900px){
+
+            .navbar a{
+                margin:8px 10px;
+                font-size:15px;
+            }
+
+            .hero h1{
+                font-size:38px;
+            }
+
+            .hero p{
+                font-size:18px;
+            }
+
+            .resources{
+                padding:35px 20px;
+            }
+
+            .resource-card{
+                width:100%;
+                max-width:350px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="../index.html">Home</a>
+    <a href="../protein.html">Protein Explorer</a>
+    <a href="../gene.html">Gene Explorer</a>
+    <a href="../structure.html">Structure Explorer</a>
+    <a href="../environment.html">Environment Hub</a>
+    <a href="index.html">Molecular Biology</a>
+    <a href="../ai.html">🧬 AI Assistant</a>
+</div>
+
+<section class="hero">
+    <h1>📁 Data Export & Collaboration</h1>
+
+    <p>
+        Organize, export, publish, share and manage biological datasets,
+        sequencing projects, research outputs, protocols, software,
+        and collaborative scientific workflows.
+    </p>
+</section>
+
+<section class="resources">
+
+    <div class="resource-card">
+        <h2>🧬 NCBI BioProject</h2>
+        <p>
+            Organize and submit biological research projects linking
+            genomic, transcriptomic and sequencing datasets.
+        </p>
+        <a href="https://www.ncbi.nlm.nih.gov/bioproject/" target="_blank" class="btn">
+            Visit BioProject →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>📦 NCBI BioSample</h2>
+        <p>
+            Store and manage biological sample metadata associated
+            with sequencing studies and research projects.
+        </p>
+        <a href="https://www.ncbi.nlm.nih.gov/biosample/" target="_blank" class="btn">
+            Visit BioSample →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🧪 NCBI SRA</h2>
+        <p>
+            Submit, access and share raw next-generation sequencing
+            datasets from genomic and transcriptomic projects.
+        </p>
+        <a href="https://www.ncbi.nlm.nih.gov/sra" target="_blank" class="btn">
+            Visit SRA →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🌍 EMBL-EBI BioStudies</h2>
+        <p>
+            Archive biological datasets, supplementary files,
+            experimental data and associated publications.
+        </p>
+        <a href="https://www.ebi.ac.uk/biostudies/" target="_blank" class="btn">
+            Visit BioStudies →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>☁️ Zenodo</h2>
+        <p>
+            Publish datasets, software, figures and research outputs
+            with DOI assignment for citation and sharing.
+        </p>
+        <a href="https://zenodo.org/" target="_blank" class="btn">
+            Visit Zenodo →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🐙 GitHub</h2>
+        <p>
+            Collaborate on bioinformatics projects, manage code,
+            workflows, version control and open-source research.
+        </p>
+        <a href="https://github.com/" target="_blank" class="btn">
+            Visit GitHub →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>📊 Figshare</h2>
+        <p>
+            Share datasets, protocols, posters, presentations,
+            supplementary materials and scientific outputs.
+        </p>
+        <a href="https://figshare.com/" target="_blank" class="btn">
+            Visit Figshare →
+        </a>
+    </div>
+
+    <div class="resource-card">
+        <h2>🤝 Open Science Framework</h2>
+        <p>
+            Manage collaborative research projects, datasets,
+            documentation and multi-institution scientific studies.
+        </p>
+        <a href="https://osf.io/" target="_blank" class="btn">
+            Visit OSF →
+        </a>
+    </div>
+
+</section>
+
+<div class="back-section">
+    <a href="index.html" class="btn">
+        ← Back to Molecular Biology Hub
+    </a>
+</div>
+
+<div class="footer">
+    BioFetch © 2026
+    <br><br>
+    Developed by Surendra Dutt Arya
+</div>
+
+</body>
+</html>
